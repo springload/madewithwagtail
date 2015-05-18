@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load macros wagtailcore_tags core_tags %}
+{% loadmacros "core/includes/macros.html" %}
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+{% block content %}
+
+    <div class="site-content">
+        <div class="banner content-width">
+            {% if request.GET.tag|length %}
+                <h2>
+                    Wagtail sites tagged with <span class="text-light">{{ request.GET.tag|safe }}</span>
+                </h2>
+                <a href=" {% pageurl self %} ">Show all sites</a>
+            {% else %}
+                {% if request.GET.page|length and request.GET.page != '1' %}
+
+                {% else %}
+                    <h1 class="">
+                        {{ self.title }}
+                    </h1>
+                    <div class="intro">
+                        {{ self.body|richtext }}
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            {% if not request.GET.tag|length %}
+            {% for tag in tags %}
+                <a href="/?tag={{ tag }}" title="" class="btn -tag">{{ tag }}</a>
+            {% endfor %}
+            {% endif %}
+
+        </div>
+        <div class="content-width">
+            {% include "core/includes/sites.html" with pages=pages only %}
+        </div>
+    </div>
+{% endblock %}

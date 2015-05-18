@@ -1,0 +1,23 @@
+/* Editor textarea */
+textarea.markdown {
+    width: 100%;
+    min-height: 200px;
+    color: #fff;
+    background-color: #808080;
+    border: none;
+    border-radius: 8px;
+}
+
+textarea.markdown.hidden {
+    display: none;
+}
+
+/* Admin left side menu items */
+
+.nav-main a i.fa {
+    margin-right: 0.5em;
+}
+/* Make delete button for embeds always visible */
+.richtext .rich-text-deletable a.delete-control {
+    display: block;
+}

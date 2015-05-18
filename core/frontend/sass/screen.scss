@@ -1,0 +1,390 @@
+
+// ----------------------------------------------------------------------------
+// Variables
+// ----------------------------------------------------------------------------
+
+// font styles
+$font-stack-body: 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-stack-header: $font-stack-body;
+$font-size-base: 16px; // Henseforth known as 1em
+
+$font-weight-normal: 400;
+$font-weight-medium: 600;
+$font-weight-bold: 800;
+
+
+// colours
+$color-html-bg: #fff;
+$color-content-bg: #E7EDED;
+
+$color-footer-bg: #364D4C;
+$color-block-dark-bg: darken($color-footer-bg, 10%);
+
+$color-hr: #D1D6D8;
+
+$color-base-font: #364D4C;
+$color-base-font-muted: #AEB7B7;
+$color-base-font-invert: #fff;
+$color-highlight: #43B1B0;
+
+// $color-light-text: #959A9E;
+$color-light-text: #797A7B;
+$color-placeholder: #A3B0B0;
+$color-tags: #91A3A2;
+
+
+
+$color-base-link: $color-highlight; //$color-base-font;
+$color-base-link-hover: darken($color-base-link, 10%);
+$color-base-link-invert-hover: lighten($color-base-link, 10%);
+
+$color-nav-link: $color-highlight;
+$color-nav-link-hover: darken($color-base-link, 10%);
+$color-nav-link-invert-hover: lighten($color-nav-link, 10%);
+$color-nav-link-active: $color-base-font;
+
+$color-select: #e5e5e5;
+
+$color-image-border: #F1F1F1;
+
+$color-keyline: #D1D6D8;
+
+$opacity-muted: .85;
+
+$color-button-border: $color-highlight;
+
+// radii
+$radius-border: .25em;
+$radius-button: $radius-border;
+
+
+// Sizing variables
+$baseSpacingUnit: 1.5rem;
+//$gutter: $baseSpacingUnit;
+//$gridGutter: 1rem; // can be a %, but nested grids will have smaller margins because of it
+$spacing-xxs: $baseSpacingUnit / 6;
+$spacing-xs: $baseSpacingUnit / 4;
+$spacing-s: $baseSpacingUnit / 2;
+$spacing: $baseSpacingUnit;
+$spacing-l: $baseSpacingUnit * 2;
+$spacing-xl: $baseSpacingUnit * 3;
+$spacing-xxl: $baseSpacingUnit * 4;
+
+
+@import 'mixins';
+@import 'breakpoints';
+
+
+// ----------------------------------------------------------------------------
+// Elements
+// ----------------------------------------------------------------------------
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: $color-block-dark-bg;
+    // height: 100%;
+}
+
+body {
+    background-color: #fff;
+    font-size: $font-size-base;
+    color: $color-base-font;
+    text-rendering: optimizeLegibility;
+    margin: 0;
+    min-height: 100%;
+}
+
+@import 'typography';
+
+object,
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-width: 0;
+}
+
+.img--responsive {
+    width: 100%;
+    height: auto;
+}
+
+
+a {
+    color: $color-base-link;
+    text-decoration: none;
+    outline: none;
+}
+
+
+// ----------------------------------------------------------------------------
+// Theming
+// ----------------------------------------------------------------------------
+
+%theme--invert {
+    color:$color-base-font-invert;
+}
+
+%theme--dark {
+    color: $color-base-font-muted;
+    background-color: $color-block-dark-bg;
+}
+
+
+
+// ----------------------------------------------------------------------------
+// Site layout
+// ----------------------------------------------------------------------------
+
+%sensible-maximum-width {
+    max-width: pxrem( 1400 );
+    margin-left: auto;
+    margin-right: auto;
+}
+.sensible-maximum-width {
+    @extend %sensible-maximum-width;
+}
+
+$gutter: 5%;
+$outer-margin: 8%;
+%content-margins {
+    padding-left: $outer-margin;
+    padding-right: $outer-margin;
+}
+
+
+.content-width {
+    // @extend %sensible-maximum-width;
+    @extend %content-margins;
+
+    > :last-child {
+        margin-bottom: 0;
+    }
+}
+.content-width--full {
+    @extend %content-margins;
+}
+
+%nice-line-length {
+    max-width: rem(660);
+    .one-half & {
+        max-width: rem(500);
+    }
+}
+.nice-line-length {
+    @extend %nice-line-length;
+}
+
+.logo {
+
+}
+
+.logo--inline {
+    @extend %inline-block;
+    vertical-align: sub;
+}
+
+
+.site-content {
+    min-height: 10em;
+}
+
+// ----------------------------------------------------------------------------
+// Sass includes
+// ----------------------------------------------------------------------------
+
+@import 'modules/icons';
+@import 'modules/buttons';
+@import 'modules/nav';
+@import 'modules/media';
+@import 'modules/header';
+@import 'modules/company';
+@import 'modules/content';
+@import 'modules/footer';
+@import 'modules/block';
+@import 'modules/spacing';
+@import 'modules/cards';
+@import 'modules/home';
+
+@import 'modules/forms';
+@import 'modules/search';
+
+@import 'modules/grid';
+
+
+// ----------------------------------------------------------------------------
+// Misc
+// ----------------------------------------------------------------------------
+
+
+// Sensible default spacing for the hr
+hr {
+    border: none;
+    height: 1px;
+    color: $color-hr;
+    background-color: $color-hr;
+    margin: $spacing-l auto 2rem;
+    &.hr--short {
+        width: rem(80);
+    }
+    h1 + & {
+        margin: $spacing-l auto;
+    }
+}
+
+
+
+.no-js .no-js__hide {
+    display: none !important;
+}
+.no-js .no-js__show {
+    display: block !important;
+}
+
+
+
+%keyline-bottom {
+    border-bottom: solid 1px $color-keyline;
+}
+%keyline-top {
+    border-top: solid 1px $color-keyline;
+}
+
+.keyline-bottom {
+    @extend %keyline-bottom;
+}
+.keyline-top {
+    @extend %keyline-top;
+}
+
+
+%clearfix {
+    *zoom: 1;
+}
+    %clearfix:before {
+        content: " ";
+        display: table;
+    }
+    %clearfix:after {
+        clear: both;
+        content: " ";
+        display: table;
+    }
+
+
+/*============================================================================
+  Utilities
+==============================================================================*/
+
+.u-left {
+    text-align: left;
+}
+.u-center {
+    text-align: center;
+}
+.u-right {
+    text-align: right;
+}
+.u-right--large {
+    @include large {
+        text-align: right;
+    }
+}
+
+.u-top {
+    vertical-align: top;
+}
+.u-middle {
+    vertical-align: middle;
+}
+.u-bottom {
+    vertical-align: bottom;
+}
+
+%inline-block {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+}
+
+.u-inline-block {
+    @extend %inline-block;
+}
+.u-inline {
+    display: inline;
+}
+
+.u-uppercase {
+    text-transform: uppercase;
+}
+
+.u-underline {
+    text-decoration: underline;
+}
+
+.u-bold,
+strong {
+    font-weight: $font-weight-bold;
+}
+.u-medium {
+    font-weight: $font-weight-medium;
+}
+
+.u-small,
+small {
+    font-size: pxrem(16);
+    & p, & li {
+        font-size: pxrem(16);
+    }
+}
+
+.u-tiny {
+    font-size: pxrem(13);
+}
+
+.u-muted {
+    color: $color-base-font-muted;
+//    opacity: $opacity-muted;
+}
+
+.u-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+.u-overflow-hidden {
+    overflow: hidden;
+}
+
+
+.u-show--small {
+    display: none;
+    @include small {
+        display: block;
+    }
+}
+.u-hide {
+    display: none;
+}
+.u-hide--small {
+    @include small {
+        display: none;
+    }
+}
+.u-hide--medium-only {
+    @include medium-only {
+        display: none;
+    }
+}
+
+
+

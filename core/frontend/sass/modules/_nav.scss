@@ -1,0 +1,209 @@
+/*============================================================================
+  Navigation
+==============================================================================*/
+
+%nav {
+    @extend %clearfix;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+%nav > li {
+    margin-top: 0;
+}
+
+
+// main navigation
+
+.nav {
+    @extend %nav;
+    margin-top: $spacing-s;
+    @include small {
+        margin-right: -4%;
+    }
+    @include medium {
+        margin-top: 0;
+        text-align: right;
+    }
+}
+
+.nav__item {
+    @extend %inline-block;
+//    margin-right: 1em;
+//    @include medium {
+//        margin-right: 0;
+//    }
+}
+
+.nav__item + .nav__item {
+    margin-left: .75em;
+    @include medium {
+        margin-left: 1em;
+    }
+    @include large {
+        margin-left: 2em;
+    }
+}
+.nav__link {
+    color: $color-nav-link;
+    font-weight: $font-weight-medium;
+//    transition: color .125s ease-in-out;
+    @include hover(color, $color-nav-link-hover, false);
+    &.is-active {
+        color: $color-nav-link-active;
+    }
+    &.is-active > .i {
+        @extend .i--grey;
+    }
+    & > .i {
+        @extend .i--teal;
+    }
+    @include hover(background-position, 0 $icon-bg-hover, false, ".i");
+}
+
+
+/*============================================================================
+  Pagination
+==============================================================================*/
+
+
+.pagination {
+    @extend %nav;
+}
+
+
+.pagination__item {
+    @extend %inline-block;
+}
+
+.pagination__item + .pagination__item {
+    margin-left: .4em;
+//    @include small {
+//        margin-left: .5em;
+//    }
+}
+
+%pagination-circle {
+    @extend %inline-block;
+    border-radius: 50%;
+    font-size: rem(13);
+    font-weight: $font-weight-normal;
+    text-align: center;
+    width: rem(36);
+    height: rem(36);
+    color: $color-base-font;
+    padding-top: .5rem;
+    @include small {
+        width: rem(30);
+        height: rem(30);
+        padding-top: .3rem;
+    }
+    & .bigger {
+        font-size: rem(15);
+        line-height: 0;
+        font-weight: $font-weight-medium;
+    }
+}
+
+.pagination__link {
+    @extend %pagination-circle;
+    background-color: $color-nav-link;
+    transition: background-color .125s ease-in-out;
+    @include hover(background-color, $color-nav-link-invert-hover, false);
+}
+.pagination__inactive {
+    @extend %pagination-circle;
+    background-color: $color-nav-link;
+    opacity: .35;
+}
+.pagination__current {
+    @extend %pagination-circle;
+    background-color: #fff;
+}
+
+
+.pagination__arrow {
+    width: .625rem;
+    height: .625rem;
+    vertical-align: middle;
+}
+
+
+
+.breadcrumb {
+    list-style: none;
+    padding-left: 0;
+    // border-bottom: solid 1px #DBDFE0;
+    padding-bottom: .5rem;
+    margin-bottom: 1.5rem;
+
+    a {
+        color: $color-light-text;
+        // letter-spacing: 1px;
+        // text-transform: uppercase;
+
+        &:hover {
+            color:#333;
+        }
+    }
+
+    > li {
+        font-size: 12px;
+        display: inline-block;
+    }
+
+    .i {
+        width: .5rem;
+        height: .5rem;
+        margin-left: .25rem;
+        margin-right: .25rem;
+    }
+}
+
+
+
+
+///*============================================================================
+//  Footer navigation
+//==============================================================================*/
+//
+//
+//.footer-nav {
+//    @extend %nav;
+//}
+//
+//
+//.footer-nav__item {
+//    @extend %inline-block;
+//    @extend %tiny-uppercase-text;
+//    font-weight: $font-weight-medium;
+//
+//    @include small {
+//        width: 100%;
+//        margin-bottom: $spacing;
+//    }
+//    @include medium-only {
+//        width: 32%;
+//        margin-bottom: $spacing;
+//    }
+//
+//}
+//
+//.footer-nav__item + .footer-nav__item {
+//    margin-left: 2em;
+//    @include small {
+//        margin-left: 0;
+//    }
+//    @include medium-only {
+//        margin-left: 0;
+//    }
+//
+//}
+//
+//
+//.footer-nav__link {
+//    opacity: $opacity-muted;
+//    transition: opacity .125s ease-in-out;
+//    @include hover(opacity, 1, true);
+//}
+//

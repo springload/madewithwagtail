@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load macros %}
+{% loadmacros "core/includes/macros.html" %}
+{% load wagtailcore_tags %}
+
+{% block title %}Search{% if search_results %} Results{% endif %}{% endblock %}
+
+
+{% block content %}
+<div class='site-content' >
+    <div class='content-width'>
+
+            <div class='search-box'>
+                <h1>
+                    Search{% if search_results %} Results{% endif %}
+                </h1>
+                {% include "core/includes/search_box.html" with query_string=query_string only %}
+            </div>
+
+            {% if search_results %}
+            <div class='search-results text'>
+                {% for result in search_results %}
+                    <div class='search-results__item'>
+
+                        <a href="{% pageurl result.specific %}" class="link-ghost">
+                            <h4 class="search-results__title">
+                                    {{ result.specific }}
+                            </h4>
+                        {% if result.specific.search_description %}
+                            <p class="search-results__description">{{ result.specific.search_description|safe }}</p>
+                        {% endif %}
+                        </a>
+
+                    </div>
+                {% endfor %}
+            </div>
+            {% else %}
+                {% if request.GET.q %}
+                    <p>
+                        No results for "{{ request.GET.q }}"
+                    </p>
+                {% endif %}
+            {% endif %}
+
+    </div>
+</div>
+
+
+
+{% endblock %}

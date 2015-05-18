@@ -1,0 +1,70 @@
+{% load macros wagtailcore_tags core_tags %}
+
+{% macro pagination pages %}
+
+    {% if pages.paginator.num_pages > 1 %}
+
+    {# django templates, you are making my cry! #}
+    {# jinja2 please!!#}
+    {% with pages_before=2 pages_after=2 %}
+    {% with start=pages.number|subtract:pages_before|subtract:1 end=pages.number|add:pages_after %}
+    {% with start_tmp=pages.paginator.num_pages|subtract:pages_before|subtract:pages_after|subtract:1 end_tmp=pages.number|add:pages_after|subtract:start %}
+    {% if start < 0 %}
+        {% set start = 0 %}
+        {% set end = end_tmp %}
+    {% endif %}
+    {% if end >= pages.paginator.num_pages and start_tmp >= 0 %}
+        {% set start = start_tmp %}
+        {% set end = pages.paginator.num_pages %}
+    {% elif end >= pages.paginator.num_pages %}
+        {% set start = 0 %}
+        {% set end = pages.paginator.num_pages %}
+    {% endif %}
+
+    {% with start|addstr:":"|addstr:end as my_page_range %}
+
+    <ul class="pagination">
+
+    {% if pages.number > 1 %}
+        <li class="pagination__item">
+            <a href="?page={{ pages.number|add:"-1" }}" class="pagination__link">
+                <i class="i i--small i-arrow-left pagination__arrow"></i>
+            </a>
+        </li>
+    {% else %}
+        <li class="pagination__item">
+            <span class="pagination__inactive">
+                <i class="i i--small i-arrow-left pagination__arrow"></i>
+            </span>
+        </li>
+    {% endif %}
+
+    {% for page_number in pages.paginator.page_range|slice:my_page_range %}
+        <li class="pagination__item">
+            {% if page_number == pages.number %}
+                <span class="pagination__current">{{ page_number }}</span>
+            {% else %}
+                <a href='?page={{ page_number }}' class='pagination__link'>{{ page_number }}</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+
+    {% if pages.number < pages.paginator.num_pages %}
+        <li class="pagination__item">
+            <a href="?page={{ pages.number|add:"1" }}" class="pagination__link">
+                <i class="i i--small i-arrow-right pagination__arrow"></i>
+            </a>
+        </li>
+    {% endif %}
+
+    </ul>
+
+    {% endwith %}
+    {% endwith %}
+    {% endwith %}
+    {% endwith %}
+    {% endif %}
+
+{% endmacro %}
+
+

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load macros wagtailcore_tags core_tags wagtailimages_tags %}
+{% loadmacros "core/includes/macros.html" %}
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+{% block content %}
+    <div class="site-content content-width">
+
+        <div class="banner ">
+            <h1>{{ self.title }}</h1>
+
+            <div class="intro">
+                {{ self.body|richtext }}
+            </div>
+        </div>
+
+        <div class="grid-float">
+            {% for company in pages %}
+                <div class="media one-half--medium one-third--large company-listing__column ">
+                    <a class="company-listing  link-ghost" href="{% pageurl company %}">
+                        <div class="media__image">
+                            {% if company.logo %}
+                            {% image company.logo fill-80x80-c100 as company_logo %}
+                            <img src="{{ company_logo.url }}" alt="{{ company_logo.title }}" title="{{ company_logo.title }}" />
+                            {% else %}
+                            <div class="company__placeholder"></div>
+                            {% endif %}
+                        </div>
+
+                        <div class="media__body">
+                            <h4 class="company-listing__title">{{ company.title }}</h4>
+                            {% if company.location %}
+                            <p class="company-listing__location truncate">{{ company.location }}</p>
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% usemacro pagination pages %}
+
+    </div>
+{% endblock %}

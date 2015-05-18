@@ -1,0 +1,87 @@
+/*============================================================================
+  SVG icons
+==============================================================================*/
+
+.i {
+
+    $spacing-icon: .25em;
+
+    @extend %inline-block;
+
+    width: rem(20);
+    height: rem(20);
+
+    background-size: cover;
+
+    .icon-text > & {
+        margin-right: $spacing-icon / 1.5;
+    }
+    .icon-text--rev > & {
+        margin-left: $spacing-icon / 2;
+    }
+    .icon-text > &,
+    .icon-text--rev > & {
+        margin-top: -0.1em;
+        vertical-align: middle;
+    }
+    .icon-text > & + span {
+        vertical-align: middle;
+    }
+
+}
+
+
+$icon-color-count: 4;
+
+$icon-bg-black: 0;
+$icon-bg-white: percentage(1 / $icon-color-count * 1);
+$icon-bg-grey: percentage(1 / $icon-color-count * 2);
+$icon-bg-teal: percentage(1 / $icon-color-count * 3);
+$icon-bg-hover: percentage(1 / $icon-color-count * 4);
+
+
+/* colourised icons */
+.i--white {
+    background-position: 0 $icon-bg-white;
+}
+.i--grey {
+    background-position: 0 $icon-bg-grey;
+}
+.i--teal {
+    background-position: 0 $icon-bg-teal;
+}
+.i--hover {
+    @include hover(background-position, 0 $icon-bg-hover, false);
+}
+
+
+
+/* custom icon sizes */
+.i--small {
+    width: rem(16);
+    height: rem(16);
+}
+
+.made-with-wagtail {
+    @extend %inline-block;
+    background-size: cover;
+    width: rem(205);
+    height: rem(32);
+}
+.wagtail {
+    @extend %inline-block;
+    background-size: cover;
+    width: rem(70);
+    height: rem(22);
+}
+
+.springload,
+.springload-dark {
+    @extend %inline-block;
+    background-size: cover;
+    width: rem(95);
+    height: rem(15);
+}
+
+
+

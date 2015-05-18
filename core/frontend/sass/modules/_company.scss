@@ -1,0 +1,117 @@
+.company {
+    @extend %vertical;
+}
+
+.company__title {
+
+}
+
+.company__logo {
+    width: 6em;
+    height: 6em;
+    margin-bottom: .5rem;
+
+    > img {
+        width: 100%;
+    }
+
+    @include medium {
+        width: 7.5em;
+        height: 7.5em;
+    }
+
+}
+
+.company__info {
+    @extend %nav;
+
+    @include small {
+        > li {
+            display: block;
+        }
+    }
+
+
+}
+.company__info__item {
+    @extend %inline-block;
+    margin-right: 1rem;
+    margin-bottom: .5rem;
+
+    & .i {
+        @extend .i--grey;
+    }
+}
+
+
+.company__description {
+    @extend %vertical-top;
+    @extend %vertical-bottom;
+    @extend %nice-line-length;
+}
+
+.company__sites {
+    @extend %vertical-l;
+    border-top: solid 1px $color-hr;
+}
+
+.company__details {
+    max-width: 38em;
+
+    @include medium {
+        width: 70%;
+    }
+}
+
+
+
+.company-listing {
+    display: block;
+    border-bottom: solid 1px $color-keyline;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+
+    > .media__image {
+        width: 80px;
+        height: 80px;
+        background: $color-placeholder;
+    }
+
+    &:hover {
+        h3,h4 {
+            color: $color-base-link;
+        }
+
+        .media__image {
+            position: relative;
+            &:after {
+                content: "";
+                outline: solid 4px $color-base-link;
+                // background-color: $color-base-link;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+        }
+    }
+}
+
+
+
+.company-listing__column {
+    // min-width: 320px;
+    width: 100%;
+}
+
+.company-listing__title {
+    margin-top: 1em;
+    margin-bottom: .25em;
+}
+
+.company-listing__location {
+    color: $color-light-text;
+}
+
+

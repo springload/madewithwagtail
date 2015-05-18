@@ -1,0 +1,73 @@
+{% extends "wagtailadmin/admin_base.html" %}
+{% load compress %}
+{% load i18n %}
+{% block titletag %}{% trans "Sign in" %}{% endblock %}
+{% block bodyclass %}login{% endblock %}
+
+{% block extra_css %}
+    {% compress css %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/layouts/login.scss" type="text/x-scss" />
+    {% endcompress %}
+{% endblock %}
+
+{% block furniture %}
+    <div class="content-wrapper">
+        {% if form.errors %}
+            <div class="messages">
+                <ul>
+                    <li class="error">{% blocktrans %}Your {{ username_field }} and password didn't match. Please try again.{% endblocktrans %}</li>
+                </ul>
+            </div>
+        {% endif %}
+
+        <form action="{% url 'wagtailadmin_login' %}" method="post" autocomplete="off">
+            {% csrf_token %}
+
+            {% url 'wagtailadmin_home' as home_url %}
+            <input type="hidden" name="next" value="{{ next|default:home_url }}" />
+
+            <h1>{% block branding_login %}{% trans "Sign in to " %}{{ site_name }}{% endblock %}</h1>
+
+            <ul class="fields">
+                <li class="full">
+                    <div class="field iconfield">
+                        {{ form.username.label_tag }}
+                        <div class="input icon-user">
+                            {{ form.username }}
+                        </div>
+                    </div>
+                </li>
+                <li class="full">
+                    <div class="field iconfield">
+                        {{ form.password.label_tag }}
+                        <div class="input icon-password">
+                            {{ form.password }}
+                        </div>
+                    </div>
+                    {% if show_password_reset %}
+                        <p class="help"><a href="{% url 'wagtailadmin_password_reset' %}">{% trans "Forgotten it?" %}</a></p>
+                    {% endif %}
+                </li>
+                {% comment %}
+                    Removed until functionality exists
+                    <li class="checkbox">
+                        <div class="field">
+                            <label><input type="checkbox" />{% trans "Remember me" %}</label>
+                        </div>
+                    </li>
+                {% endcomment %}
+                <li class="submit">
+                    <input type="submit" value="{% trans 'Sign in' %}" tabindex="3"/>
+                </li>
+            </ul>
+        </form>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(function(){
+        $('form input[name=username]').focus();
+    })
+</script>
+{% endblock %}

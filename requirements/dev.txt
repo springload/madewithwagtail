@@ -1,0 +1,5 @@
+-r base.txt
+django-debug-toolbar==1.2.2
+ipdb==0.8
+Fabric==1.9.0
+Sphinx==1.2.2

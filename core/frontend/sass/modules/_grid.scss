@@ -1,0 +1,160 @@
+
+.grid {
+    font-size: 0;
+//    text-align: left;
+    // text-align: justify;
+    // text-justify: distribute-all-lines;
+}
+    .grid > * {
+        @extend %inline-block;
+        vertical-align: top;
+        text-align: left;
+        font-size: medium;    // Font-size medium reset the block to the context of body (ie, 16px)
+        text-justify: auto;
+        margin-top: 0;
+        width: 100%;
+    }
+    .grid:after {
+        @extend %inline-block;
+        content: '';
+        height: 0;
+        width:100%;
+    }
+
+
+
+
+
+
+.align-top {
+    vertical-align: top;
+}
+.align-bottom {
+    vertical-align: bottom;
+}
+.align-middle {
+    vertical-align: middle;
+}
+
+
+.one-whole     { width: 100%; }
+.one-half,
+.two-quarter   { width: 50%; }
+.one-third     { width: percentage(1/3); }
+.two-thirds    { width: percentage(2/3); }
+.one-quarter   { width: 25%; }
+.three-quarter { width: 75%; }
+.one-fifth     { width: 20%; }
+.two-fifths    { width: 40%; }
+.three-fifths  { width: 60%; }
+.four-fifths   { width: 80%; }
+
+@include small {
+    .one-whole--small     { width: 100%; }
+    .one-half--small,
+    .two-quarter--small   { width: 50%; }
+    .one-third--small     { width: percentage(1/3); }
+    .two-thirds--small    { width: percentage(2/3); }
+    .one-quarter--small   { width: 25%; }
+    .three-quarter--small { width: 75%; }
+    .one-fifth--small     { width: 20%; }
+    .two-fifths--small    { width: 40%; }
+    .three-fifths--small  { width: 60%; }
+    .four-fifths--small   { width: 80%; }
+}
+
+@include medium-only {
+    .one-whole--medium     { width: 100%; }
+    .one-half--medium,
+    .two-quarter--medium   { width: 50%; }
+    .one-third--medium     { width: percentage(1/3); }
+    .two-thirds--medium    { width: percentage(2/3); }
+    .one-quarter--medium   { width: 25%; }
+    .three-quarter--medium { width: 75%; }
+    .one-fifth--medium     { width: 20%; }
+    .two-fifths--medium    { width: 40%; }
+    .three-fifths--medium  { width: 60%; }
+    .four-fifths--medium   { width: 80%; }
+}
+
+
+@include medium {
+    .one-whole--medium     { width: 100%; }
+    .one-half--medium,
+    .two-quarter--medium   { width: 50%; }
+    .one-third--medium     { width: percentage(1/3); }
+    .two-thirds--medium    { width: percentage(2/3); }
+    .one-quarter--medium   { width: 25%; }
+    .three-quarter--medium { width: 75%; }
+    .one-fifth--medium     { width: 20%; }
+    .two-fifths--medium    { width: 40%; }
+    .three-fifths--medium  { width: 60%; }
+    .four-fifths--medium   { width: 80%; }
+}
+
+@include large {
+    .one-whole--large     { width: 100%; }
+    .one-half--large,
+    .two-quarter--large   { width: 50%; }
+    .one-third--large     { width: percentage(1/3); }
+    .two-thirds--large    { width: percentage(2/3); }
+    .one-quarter--large   { width: 25%; }
+    .three-quarter--large { width: 75%; }
+    .one-fifth--large     { width: 20%; }
+    .two-fifths--large    { width: 40%; }
+    .three-fifths--large  { width: 60%; }
+    .four-fifths--large   { width: 80%; }
+}
+
+@include xlarge {
+    .one-whole--xlarge     { width: 100%; }
+    .one-half--xlarge,
+    .two-quarter--xlarge   { width: 50%; }
+    .one-third--xlarge     { width: percentage(1/3); }
+    .two-thirds--xlarge    { width: percentage(2/3); }
+    .one-quarter--xlarge   { width: 25%; }
+    .three-quarter--xlarge { width: 75%; }
+    .one-fifth--xlarge     { width: 20%; }
+    .two-fifths--xlarge    { width: 40%; }
+    .three-fifths--xlarge  { width: 60%; }
+    .four-fifths--xlarge   { width: 80%; }
+}
+
+
+
+
+.grid-float {
+    @extend %clearfix;
+    margin-left: -2rem;
+
+    > * {
+        float: left;
+        display: block;
+        padding-left: 2rem;
+    }
+}
+
+.grid-float.-thirds {
+    > * {
+        width: 100%;
+
+        @include medium {
+            width: 50%;
+        }
+
+        @include large {
+            width: 33.333333%;
+        }
+    }
+}
+
+.grid-stack > * {
+    margin-bottom: 1.5rem;
+
+    // @include medium {
+    //     margin-bottom:0;
+    // }
+}
+
+
+

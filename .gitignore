@@ -1,0 +1,39 @@
+*.pyc
+.DS_Store
+/.venv/
+/static/
+/media/
+/local/
+/.vagrant/
+/Vagrantfile.local
+/docs/_build/
+*.pyc
+*.pyo
+.installed.cfg
+bin
+develop-eggs
+# dist
+downloads
+eggs
+parts
+src/*.egg-info
+lib
+lib64
+*.log
+*.pot
+wagtailsites/settings/local.py
+static/CACHE/*
+.vagrant/*
+media/*
+.anaconda
+*.DS_Store
+*.sass-cache
+.idea
+.coverage
+
+# node
+node_modules/
+# bower
+bower_components/
+
+

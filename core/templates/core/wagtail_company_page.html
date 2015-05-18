@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags core_tags %}
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+{% block content %}
+
+    <div class="site-content content-width">
+
+        {% breadcrumbs %}
+
+            <div class="company grid-float">
+
+                    {% if self.logo %}
+                        <div>
+                            <div class="company__logo">
+                                {% image self.logo width-500 as company_logo %}
+                                <img src="{{ company_logo.url }}" alt="{{ company_logo.title }}" title="{{ company_logo.title }}" />
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="company__details">
+                        <h1 class="company__title">{{ self.title }}</h1>
+                        <ul class="company__info" data-analytics="Developer|Link click">
+                            {% if self.location %}
+                                <li class="company__info__item">
+                                    <span class="icon-text">
+                                        <i class="i i-location"></i>
+                                        {{ self.location }}
+                                    </span>
+                                </li>
+                            {% endif %}
+                            {% if self.company_url %}
+                                <li class="company__info__item">
+                                    <a class="icon-text" href="{{ self.company_url }}">
+                                        <i class="i i-link"></i>
+                                        {{ self.company_url }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% if self.twitter_url %}
+                                <li class="company__info__item">
+                                    <a class="icon-text" href="{{ self.twitter_url }}">
+                                        <i class="i i-twitter"></i>
+                                        {{ self.twitter_handler }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% if self.github_url %}
+                                <li class="company__info__item">
+                                    <a class="icon-text" href="{{ self.github_url }}">
+                                        <i class="i i-github"></i>
+                                        {{ self.github_user }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    </div>
+
+                {% if self.body %}
+                <div class="company__description">
+                    {{ self.body|richtext }}
+                </div>
+                {% endif %}
+
+                <div class="company__sites">
+                    {% include "core/includes/sites.html" with pages=pages only %}
+                </div>
+            </div>
+
+
+    </div>
+
+{% endblock %}

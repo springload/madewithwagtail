@@ -1,0 +1,41 @@
+$viewport-increment: 1px;
+
+$small: 650px;
+$medium: 850px;
+$large: 1024px;
+$xlarge: 1400px;
+
+$post-small: $small + $viewport-increment;
+$post-medium: $medium + $viewport-increment;
+$pre-large: $large - $viewport-increment;
+
+@mixin small() {
+    @media only screen and (max-width:$small) {
+        @content;
+    }
+}
+@mixin medium() {
+    @media only screen and (min-width:$post-small) {
+        @content;
+    }
+}
+@mixin medium-only() {
+    @media only screen and (min-width:$post-small) and (max-width:$pre-large) {
+        @content;
+    }
+}
+@mixin large() {
+    @media only screen and (min-width:$large) {
+        @content;
+    }
+}
+@mixin upto-large() {
+    @media only screen and (max-width:$pre-large) {
+        @content;
+    }
+}
+@mixin xlarge() {
+    @media only screen and (min-width:$xlarge) {
+        @content;
+    }
+}

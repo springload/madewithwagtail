@@ -1,0 +1,44 @@
+// Convert pixel values to rem
+@function rem($pxval) {
+    @return #{$pxval / 16}rem;
+}
+@function pxrem($pxval) {
+    @return rem($pxval);
+}
+
+
+// Hover
+@mixin hover($property, $value, $active: false, $sub-selector: "") {
+    .noTouchEvents &:hover #{$sub-selector} {
+        #{$property}:$value;
+    }
+    @if $active {
+        &:active {
+            #{$property}:$value;
+        }
+    }
+}
+
+
+
+
+
+
+// Check if an item is contained in a list
+@function contains($list,$var) {
+    $_out: false;
+    @each $item in $list { @if $item == $var { $_out: true; } }
+    @return $_out;
+}
+
+// a save way to return the nth value of a list
+@function save-nth-list-value($list, $position) {
+    $value: null;
+    @for $i from 1 through length($list) {
+        @if $i == $position {
+            $value: nth($list, $i);
+        }
+    }
+    @return $value;
+}
+

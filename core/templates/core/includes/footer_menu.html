@@ -1,0 +1,38 @@
+{% load wagtailcore_tags %}
+
+    {% for link in links %}
+
+        {% if forloop.first %}
+        <div class="one-half--medium ">
+            <h4>{{ link.title }}</h4>
+            <a class="btn -inverse -small" title="{{ link.title }}" href="{{ link.url }}">{{ link.short_name }}</a>
+        {% elif forloop.counter == 2 %}
+            <h4>{{ link.title }}</h4>
+            <a class="btn -inverse -small" title="{{ link.title }}" href="{{ link.url }}">{{ link.short_name }}</a>
+        </div>
+
+        <div class="one-half--medium">
+            <h4>
+                Wagtail developers
+            </h4>
+            <ul class="list-none">
+        {% elif forloop.last %}
+                 <li>
+                    <a class="link" title="{{ link.title }}" href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+            </ul>
+        </div>
+        {% else %}
+            <li>
+                <p>
+                    <a href="{{ link.url }}" title="{{ link.title }}" class="site-footer-link">
+                        {{ link.title }}
+                    </a><br>
+                    <span>
+                        {{ link.short_name }}
+                    </span>
+                </p>
+            </li>
+        {% endif %}
+
+    {% endfor %}

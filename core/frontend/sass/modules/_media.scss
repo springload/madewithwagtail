@@ -1,0 +1,57 @@
+/**
+
+## Media blocks
+
+Float an image to the left, with a clearfixed block of content to the right.
+
+```html
+<div class='media'>
+    <img src='assets/images/green-bird.jpg' class='media__image'>
+    <div class='media__body'>
+        <p class='mt-0'>
+            Uncle Bully was pashing when the pearler packing a sad event occured. Oh no! I'm beached as, this carked it seabed is as stoked as a flat stick kumara. Mean while, in a waka, Rhys Darby and Cardigan Bay were up to no good with a bunch of random milks.
+        </p>
+    </div>
+</div>
+<hr class='mt-m' />
+<div class='media--rev'>
+    <img src='assets/images/green-bird.jpg' class='media__image'>
+    <div class='media__body'>
+       <p class=''>
+        I'd slam that clam, good afterble constanoon. The snarky force of his burning my Vogel's was on par with Hercules Morse, as big as a horse's good as mate.
+        </p>
+    </div>
+</div>
+```
+
+*/
+
+.media {
+    @extend %clearfix;
+}
+
+    .media__image {
+        float: left;
+        margin-right: $spacing;
+    }
+
+    .media__body {
+        @extend %clearfix;
+        // @extend .overflow-hidden;
+    }
+
+/* Swap the image to the right */
+.media--rev {
+    @extend %clearfix;
+}
+
+    .media--rev > .media__image {
+        float: right;
+        margin-right: 0;
+        margin-left: $spacing;
+    }
+
+    .media--rev > .media__body{
+        @extend %clearfix;
+        // @extend .overflow-hidden;
+    }

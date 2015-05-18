@@ -1,0 +1,56 @@
+
+//input colours
+$input-bg:                       #fff;
+$input-color:                    $color-base-font;
+$input-border:                   #ccc;
+$input-border-radius:            $radius-border;
+$input-border-focus:             $color-base-font;
+$input-placeholder:              $color-base-font-muted;
+
+
+.form {
+
+    input[type='text'],
+    input[type='email'],
+    input[type='url'],
+    textarea {
+        padding: .5em .75em;
+        border-radius: $input-border-radius;
+        border: solid 1px $input-border;
+    }
+}
+
+.form-add-page {
+    max-width: 30em;
+
+    input, textarea {
+        width: 100%;
+    }
+
+    p > label {
+        // width: 10rem;
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: .5rem;
+    }
+}
+
+.helptext {
+    display: none;
+}
+
+.errorlist {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: .5rem;
+
+    color: #ff0000;
+
+    + p {
+        input,
+        textarea {
+            border: solid 1px #ff0000 !important;
+        }
+    }
+}
+

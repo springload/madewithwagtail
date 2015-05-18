@@ -1,0 +1,38 @@
+# If local.py is present, any settings in it will override those in base.py and dev.py.
+# Use this for any settings that are specific to this one installation, such as developer API keys.
+# local.py should not be checked in to version control.
+
+# Sweetcaptcha settings http://www.sweetcaptcha.com/accounts/signup
+SWEETCAPTCHA_APP_ID = 'your_id'
+SWEETCAPTCHA_APP_KEY = 'your_api_key'
+
+# Google Analytics settings
+GOOGLE_ANALYTICS_KEY = False
+GOOGLE_TAG_MANAGER = False
+
+# Setup your DB backend
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',  # Set to empty string for localhost.
+        'PORT': '',  # Set to empty string for default.
+        'CONN_MAX_AGE': 600,  # number of seconds database connections should persist for
+    }
+}
+
+# Use Elasticsearch as the search backend for extra performance and better search results:
+# http://wagtail.readthedocs.org/en/latest/howto/performance.html#search
+# http://wagtail.readthedocs.org/en/latest/core_components/search/backends.html#elasticsearch-backend
+
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+        'INDEX': SITE_NAME,
+        'URLS': 'search.host:9200',
+        'HOSTS': 'search.host'
+    },
+}

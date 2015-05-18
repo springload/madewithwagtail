@@ -1,0 +1,19 @@
+{% load wagtailcore_tags %}
+
+<ul class='nav'>
+    {% for link in links %}
+    <li class="nav__item">
+        <a title="{% if link.title %}{{ link.title }}{% endif %}" href='{{ link.url }}' class='nav__link{% if link.is_active %} is-active{% endif %}'>
+          {{ link.title }}
+        </a>
+    </li>
+    {% endfor %}
+
+    <li class='nav__item'>
+        <a href="{% url 'wagtailsearch_search' %}" class="nav__link{% if request.path == '/search/' %} is-active{% endif %}">
+            <span class="u-hide--small">Search</span>
+            <i class="i i-search i--small {% if request.path == '/search/' %} {% else %} i--teal {% endif %} u-middle"></i>
+        </a>
+    </li>
+
+</ul>

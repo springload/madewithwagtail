@@ -1,0 +1,16 @@
+{% comment %}
+<ul class='tags inline-block list--inline'>
+    {% for tag in tags %}
+    <li>
+        <span href='{{ tag.link }}' class='tag'>#{{ tag.name }}</span>
+    </li>
+</ul>
+{% endcomment %}
+
+<div class="btn-group">
+{% for tag in self.tags.all %}
+    <a href="/?tag={{ tag }}" class="btn -tag">
+        {{ tag }}
+    </a>
+{% endfor %}
+</div>

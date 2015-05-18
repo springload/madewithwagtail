@@ -1,0 +1,29 @@
+
+.site-footer {
+    @extend %vertical-top-l;
+    @extend %vertical-bottom-xl;
+    @extend %theme--invert;
+    @extend .u-center;
+    background: $color-footer-bg;
+
+    * + h4 {
+        margin-top: $spacing;
+    }
+
+    .grid > * + * {
+        @include small {
+            margin-top: $spacing-s;
+        }
+    }
+
+}
+
+
+
+.site-footer-link {
+    font-weight: 700;
+    color: #fff;
+    &:hover {
+        color: lighten($color-base-link-hover, 30%);
+    }
+}

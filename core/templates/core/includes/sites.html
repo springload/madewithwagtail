@@ -1,0 +1,40 @@
+{% load macros wagtailcore_tags core_tags wagtailimages_tags%}
+{% loadmacros "core/includes/macros.html" %}
+
+{% if pages|length %}
+<div class="grid grid-stack site-listing">
+    {% for page in pages %}
+        <div class="one-half--medium one-third--large">
+            <div class="card card--link">
+                <a href="{{ page.url }}" class="project-image">
+                {% if page.image_desktop %}
+                {% image page.image_desktop width-680 as image_desktop %}
+                <img src="{{ image_desktop.url }}" alt="{{ image_desktop.title }}" title="{{ image_desktop.title }}" />
+                {% endif %}
+                </a>
+                <div class="project__links">
+                    <a class="project__info" href="{{ page.url }}" title="Project Info">
+                        <i class="i i-info i--grey i--hover"></i>
+                    </a>
+                    <a class="project__visit" href="{{ page.site_url }}" title="Project link" data-analytics="Project|Link click">
+                        <i class="i i-visit i--grey i--hover"></i>
+                    </a>
+                </div>
+            </div>
+            <h4 class="project-title">
+                {{ page.title }}
+            </h4>
+            <p class="project-author">
+                {{ page.parent.title|default:"A Wagtail developer"  }}
+            </p>
+        </div>
+    {% endfor %}
+
+</div>
+{% else %}
+<div class="intro">
+    Whoops, we don't have any sites that match that right now.
+</div>
+{% endif %}
+
+{% usemacro pagination pages %}

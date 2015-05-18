@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags core_tags %}
+
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+{% block content %}
+    <div class="site-content content-width">
+
+        {% breadcrumbs %}
+
+        <div class="grid-float">
+            <div class="two-thirds--medium">
+                    <div class="card">
+                        <div class="project-big-image">
+                            {% if self.image_desktop %}
+                                {% image self.image_desktop width-1200 as image_desktop %}
+                                <img src="{{ image_desktop.url }}" alt="{{ image_desktop.title }}" title="{{ image_desktop.title }}" class="img--responsive" />
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="one-third--medium">
+                    <h2>{{ self.title }}</h2>
+                    <p class="project-author project-author--block">
+                        Made by <a href="{{self.parent.url}}" title="">
+                            {{ self.parent.title }}
+                        </a>
+                    </p>
+                    {{ self.body|richtext }}
+
+                    <a href="{{ self.site_url }}" title="{{ self.title}}" class="btn -small icon-text" data-analytics="Project|Link click">
+                        <i class="i i-visit i--white i--small u-middle"></i>
+                        Visit site
+                    </a>
+
+                    <hr>
+
+                    {% include "core/includes/tags.html" %}
+                </div>
+            </div>
+
+             {# <div class="card"> #}
+                     {#{% image self.image_tablet width-300 %}#}
+                {#</div>#}
+                {#<div class="card">#}
+                    {#{% image self.image_phone width-300 %}#}
+               {# </div> #}
+    </div>
+
+{% endblock %}

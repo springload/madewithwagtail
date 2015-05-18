@@ -1,0 +1,141 @@
+button {
+    overflow: visible;
+}
+
+button[disabled],
+html input[disabled] {
+    cursor: default;
+}
+
+%btn {
+    display: inline-block;
+
+    padding:  .5em 1.5em;
+    line-height: 1.4;
+
+    text-decoration: none;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 0;
+    background-color: $color-base-link;
+    user-select: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+
+    color: #fff;
+
+    p + & {
+        margin-top: $spacing;
+    }
+
+    //    &:active {
+//        background-color: $color-base-font;
+//        border-color: $color-base-font;
+//        color: $color-base-font-invert;
+//    }
+
+}
+
+
+.btn {
+    @extend %btn;
+
+    @include hover(background-color, $color-base-link-hover, false);
+
+}
+
+
+
+
+%theme--invert {
+    .link {
+        &:hover {
+            text-decoration: underline;
+            color: lighten($color-base-link-hover, 30%);
+        }
+    }
+}
+
+.btn--large {
+    padding:  1em 2.5em;
+    line-height: 1.6;
+}
+
+
+
+.btn {
+    &.-inverse {
+        font-weight: 400;
+        border: 0;
+        background: #fff;
+        color: $color-base-font;
+
+        &:hover,
+        &:active {
+            background: #333;
+            color: #fff;
+        }
+    }
+
+
+    &.-tag {
+        background: $color-tags;
+        line-height: 1.4;
+        font-size: .75rem;
+        color: #fff;
+        position: relative;
+        border-radius: .25em;
+        margin-left: .5em;
+        margin-right: .5em;
+        margin-bottom: .75em;
+        text-transform: capitalize;
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 100%;
+            margin-right: -1px;
+            border: solid transparent 1.2em;
+            border-right: solid .6em $color-tags;
+        }
+
+        &:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            width: 5px;
+            height: 5px;
+            background: lighten($color-tags, 10%);
+            border-radius: 20em;
+            margin-top: -3px;
+            margin-right: -10px;
+        }
+
+        &:hover {
+            background: darken($color-tags, 10%);
+            color: #fff;
+
+            &:before {
+                border-right-color: darken($color-tags, 10%);
+            }
+        }
+
+    }
+
+    &.-small {
+        font-size: .875rem;
+    }
+    &.-full {
+        width: 100%;
+    }
+}
+
+
+
+.btn-group > .btn {
+    margin-bottom: 1.5em;
+}

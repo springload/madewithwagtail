@@ -1,0 +1,208 @@
+/*============================================================================
+  #Typography
+==============================================================================*/
+
+%font-smoothing {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+%font-smoothing-off {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+}
+
+
+%body-type-weight {
+    font-weight: $font-weight-normal;
+}
+
+%body-type-size {
+    font-size: rem(14);
+//    @include small {
+//        font-size: rem(14);
+//    }
+//    @include xlarge {
+//        font-size: rem(18);
+//    }
+}
+
+%first-child-no-top {
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+%small-uppercase-text {
+    font-size: rem(13);
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+}
+
+::selection {
+    background: $color-select; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+    background: $color-select; /* Gecko Browsers */
+}
+
+// default text spacing
+.text {
+    * + * {
+        margin-top: $spacing-s;
+    }
+}
+
+body,
+input,
+textarea,
+button,
+select {
+    font-size: 100%;
+    line-height: 1.5;
+    font-family: $font-stack-body;
+    color: $color-base-font;
+    @extend %font-smoothing; // all the type in this project is white reversed out of a colour and this looks better
+    -webkit-text-size-adjust: 100%;
+}
+
+
+/*================ Use em() Sass function to declare font-size ================*/
+
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: 0;
+    a {
+        text-decoration: none;
+        font-weight: inherit;
+    }
+}
+
+
+h1, .h1 {
+    font-family: $font-stack-header;
+    font-weight: 100;
+    // font-weight: $font-weight-bold;
+    font-size: rem(32);
+    line-height: 1.5;
+    color: #505961;
+    margin-bottom: 1rem;
+
+    @include small {
+        font-size: rem(22);
+    }
+    @include medium-only {
+        font-size: rem(28);
+    }
+}
+
+
+h2, .h2 {
+    font-family: $font-stack-header;
+    font-weight: $font-weight-medium;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+
+    @include xlarge {
+        font-size: rem(22);
+    }
+}
+
+h3, .h3 {
+    font-family: $font-stack-header;
+    font-weight: $font-weight-bold;
+    font-size: rem(18);
+    line-height: 1.25;
+}
+
+h4, .h4 {
+    font-family: $font-stack-header;
+    font-weight: 600;
+    // font-weight: $font-weight-bold;
+    font-size: rem(14);
+    margin-bottom: 1rem;
+}
+
+
+.h1 { @extend h1; }
+.h2 { @extend h2; }
+.h3 { @extend h3; }
+.h4 { @extend h4; }
+.h5 { @extend h5; }
+.h6 { @extend h6; }
+
+p, ul, ol, dl, address {
+    margin-top: 0;
+
+    img {
+        margin: 0;
+    }
+
+}
+
+
+em {
+    font-style: italic;
+}
+
+p, li, label, td, th, input, textarea, button, select {
+    @extend %first-child-no-top;
+    @extend %body-type-size;
+    @extend %body-type-weight;
+}
+
+
+
+/* link styles */
+
+%styled-link {
+    color: $color-base-link;
+    transition: color .125s ease-in-out;
+    @include hover(color, $color-base-link-hover, true);
+}
+
+.text a {
+    @extend %styled-link;
+}
+.link-styled {
+    @extend %styled-link;
+}
+
+
+.link-underline {
+    text-decoration: underline;
+}
+
+
+
+.list-none {
+    list-style: none;
+    padding-left: 0;
+    & > li {
+        margin-bottom: 1rem;
+    }
+}
+
+
+.link-ghost {
+    color: inherit;
+}
+
+
+
+.text-light {
+    color: $color-light-text;
+}
+
+.intro p {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+.truncate {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

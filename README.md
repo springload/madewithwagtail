@@ -24,4 +24,4 @@ Install Vagrant and  VirtualBox:
   $ djrun
 ```
 
-The demo site will now be accessible at [http://localhost:8111/](http://localhost:8000/) and the Wagtail admin interface at [http://localhost:8111/admin/](http://localhost:8000/admin/) . Log into the admin with the credentials ``admin / changeme``.
+The demo site will now be accessible at [http://localhost:8111/](http://localhost:8111/) and the Wagtail admin interface at [http://localhost:8111/admin/](http://localhost:8111/admin/) . Log into the admin with the credentials ``cms-superadmin / cms-superadmin``.

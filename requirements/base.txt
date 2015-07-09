@@ -1,4 +1,4 @@
-Django==1.7.7
+Django==1.7.9
 psycopg2>=2.5.4
 django-compressor>=1.4
 django-modelcluster>=0.4

@@ -26,6 +26,7 @@ Vagrant.configure(2) do |config|
     config.ssh.forward_agent = true
 
     # Enable provisioning with a shell script.
+    config.vm.provision :shell, :path => "vagrant/postgres.sh"
     config.vm.provision :shell, :path => "vagrant/provision.sh", :args => [PROJECT_NAME, "requirements/dev.txt"]
 
     # If a 'Vagrantfile.local' file exists, import any configuration settings

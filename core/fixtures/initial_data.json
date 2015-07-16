@@ -366,7 +366,7 @@
         ],
         "has_unpublished_changes": false,
         "owner": [
-            "admin"
+            "cms-superadmin"
         ],
         "path": "0001",
         "url_path": "/",
@@ -396,7 +396,7 @@
         ],
         "has_unpublished_changes": false,
         "owner": [
-            "admin"
+            "cms-superadmin"
         ],
         "path": "00010002",
         "url_path": "/explore-sites-and-apps-made-awesome-wagtail-cms/",
@@ -426,7 +426,7 @@
         ],
         "has_unpublished_changes": false,
         "owner": [
-            "admin"
+            "cms-superadmin"
         ],
         "path": "0001000200030001",
         "url_path": "/explore-sites-and-apps-made-awesome-wagtail-cms/companies/springload/",
@@ -456,7 +456,7 @@
         ],
         "has_unpublished_changes": false,
         "owner": [
-            "admin"
+            "cms-superadmin"
         ],
         "path": "000100020002",
         "url_path": "/explore-sites-and-apps-made-awesome-wagtail-cms/submit/",
@@ -486,7 +486,7 @@
         ],
         "has_unpublished_changes": false,
         "owner": [
-            "admin"
+            "cms-superadmin"
         ],
         "path": "000100020003",
         "url_path": "/explore-sites-and-apps-made-awesome-wagtail-cms/companies/",
@@ -516,7 +516,7 @@
         ],
         "has_unpublished_changes": false,
         "owner": [
-            "admin"
+            "cms-superadmin"
         ],
         "path": "0001000200030002",
         "url_path": "/explore-sites-and-apps-made-awesome-wagtail-cms/companies/torchbox/",
@@ -546,7 +546,7 @@
         ],
         "has_unpublished_changes": false,
         "owner": [
-            "admin"
+            "cms-superadmin"
         ],
         "path": "00010002000300010002",
         "url_path": "/explore-sites-and-apps-made-awesome-wagtail-cms/companies/springload/building-and-construction-industry-training-organisation-new-zealand/",
@@ -576,7 +576,7 @@
         ],
         "has_unpublished_changes": false,
         "owner": [
-            "admin"
+            "cms-superadmin"
         ],
         "path": "00010002000300020002",
         "url_path": "/explore-sites-and-apps-made-awesome-wagtail-cms/companies/torchbox/royal-college-art/",
@@ -600,7 +600,7 @@
         "width": 200,
         "file": "original_images/springtail.png",
         "uploaded_by_user": [
-            "admin"
+            "cms-superadmin"
         ]
     },
     "model": "wagtailimages.image",
@@ -618,7 +618,7 @@
         "width": 200,
         "file": "original_images/torchbox-logo.png",
         "uploaded_by_user": [
-            "admin"
+            "cms-superadmin"
         ]
     },
     "model": "wagtailimages.image",
@@ -636,7 +636,7 @@
         "width": 1440,
         "file": "original_images/bcito.org.nz-1440x1200-1x.png",
         "uploaded_by_user": [
-            "admin"
+            "cms-superadmin"
         ]
     },
     "model": "wagtailimages.image",
@@ -654,7 +654,7 @@
         "width": 1440,
         "file": "original_images/www.rca.ac.uk-1440x1200-1x.png",
         "uploaded_by_user": [
-            "admin"
+            "cms-superadmin"
         ]
     },
     "model": "wagtailimages.image",

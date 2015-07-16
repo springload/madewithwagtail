@@ -1,22 +1,27 @@
 {% extends "wagtailadmin/admin_base.html" %}
-{% load wagtailadmin_tags wagtailcore_tags static compress%}
-{% load i18n %}
+{% load wagtailadmin_tags wagtailcore_tags static i18n compress %}
+
 {% block custom_css %}
+    {% comment %}
+        Font Awesome in case we want to use extra icons in the admin UI 
+    {% endcomment %}
     {% compress css %}
         <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/css/vendor/font-awesome-4.2.0/css/font-awesome.min.css"/>
     {% endcompress %}
 {% endblock %}
 {% block extra_css %}
+    {% comment %}
+        A couple of CSS tweaks, mostly for the Rich Text editor
+    {% endcomment %}
     {% compress css %}
         <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/css/admin.css"/>
-        <link rel="stylesheet" href="{{ STATIC_URL }}wagtailadmin/scss/layouts/home.scss" type="text/x-scss"/>
     {% endcompress %}
 {% endblock %}
 
 {% block furniture %}
     <div class="nav-wrapper">
         <div class="inner">
-            <a href="{% url 'wagtailadmin_home' %}" class="logo" title="SpringTail v.{% wagtail_version %}">
+            <a href="{% url 'wagtailadmin_home' %}" class="logo" title="Wagtail v.{% wagtail_version %}">
                 {% block branding_logo %}
                     <img src="{{ STATIC_URL }}images/springtail.png" alt="Wagtail" width="80" />
                 {% endblock %}
@@ -34,7 +39,9 @@
             {% main_nav %}
         </div>
 
-        <nav id="explorer" class="explorer"></nav>
+        <span class="explorer-close">Close explorer</span>
+        <nav id="explorer" class="explorer">
+        </nav>
     </div>
 
     <div class="content-wrapper">

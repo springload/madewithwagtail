@@ -2,7 +2,7 @@
 {
     "fields": {
         "email": "",
-        "username": "admin",
+        "username": "cms-superadmin",
         "last_name": "",
         "last_login": "2015-01-15T10:15:46.942Z",
         "is_superuser": true,

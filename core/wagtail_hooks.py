@@ -27,7 +27,6 @@ def editor_js():
     Add extra JS files to the admin
     """
     js_files = [
-        'wagtailadmin/js/vendor/jquery.htmlClean.min.js',
         'wagtailadmin/js/vendor/rangy-selectionsaverestore.js',
         'wagtailadmin/js/hallo-plugins/hallo-blockquote.js',
         'wagtailadmin/js/hallo-plugins/hallo-cite.js',
@@ -37,12 +36,7 @@ def editor_js():
 
     return js_includes + """<script type="text/javascript">
             registerHalloPlugin('blockquotebutton');
-            registerHalloPlugin('hallocleanhtml', {
-              format: false,
-              allowedTags: ['h1', 'h2', 'h3', 'h4', 'h5', 'p', 'em', 'strong', 'br', 'div', 'ol', 'ul', \
-                'li', 'a', 'figure', 'embed', 'blockquote', 'cite'],
-              allowedAttributes: ['style']
-            });
+            registerHalloPlugin('citebutton');
             </script>"""
 
 

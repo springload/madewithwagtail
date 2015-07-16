@@ -21,3 +21,8 @@ textarea.markdown.hidden {
 .richtext .rich-text-deletable a.delete-control {
     display: block;
 }
+/* Dashed border for embeds */
+.embed-placeholder {
+    border: 3px dashed rgba(0,0,0,0.15);
+    padding-left: 2em;
+}

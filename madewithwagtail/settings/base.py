@@ -129,7 +129,7 @@ WSGI_APPLICATION = SITE_NAME + '.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'wagtailsites',
+        'NAME': 'madewithwagtail',
         'USER': 'postgres',
         'HOST': '',  # Set to empty string for localhost.
         'PORT': '',  # Set to empty string for default.

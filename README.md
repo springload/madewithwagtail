@@ -1,6 +1,6 @@
-[ ![Codeship Status for springload/wagtailsites](https://codeship.com/projects/26741250-da6d-0132-ea89-328081b30bed/status?branch=master)](https://codeship.com/projects/79308)
+[ ![Codeship Status for springload/madewithwagtail](https://codeship.com/projects/26741250-da6d-0132-ea89-328081b30bed/status?branch=master)](https://codeship.com/projects/79308)
 
-Made with Wagtail (wagtailsites)
+Made with Wagtail (madewithwagtail)
 ================================
 
 This is the source code of [Made with Wagtail](http://www.madewithwagtail.org).
@@ -15,8 +15,8 @@ Install Vagrant and  VirtualBox:
 # Setup
 
 ```
-  $ git clone git@github.com:springload/wagtailsites.git wagtailsites
-  $ cd wagtailsites
+  $ git clone git@github.com:springload/madewithwagtail.git madewithwagtail
+  $ cd madewithwagtail
   $ vagrant up
   [.. wait until everything gets installed]
   $ vagrant ssh

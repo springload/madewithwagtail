@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 # Set your project name
-PROJECT_NAME = "wagtailsites"
+PROJECT_NAME = "madewithwagtail"
 
 Vagrant.configure(2) do |config|
     # Base box to build off, and download URL for when it doesn't exist on the user's system already

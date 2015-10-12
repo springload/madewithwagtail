@@ -21,7 +21,7 @@ lib
 lib64
 *.log
 *.pot
-wagtailsites/settings/local.py
+madewithwagtail/settings/local.py
 static/CACHE/*
 .vagrant/*
 media/*

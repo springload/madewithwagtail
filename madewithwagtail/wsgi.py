@@ -1,5 +1,5 @@
 """
-WSGI config for wagtailsites project.
+WSGI config for madewithwagtail project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,5 +11,5 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wagtailsites.settings.production")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "madewithwagtail.settings.production")
 application = get_wsgi_application()

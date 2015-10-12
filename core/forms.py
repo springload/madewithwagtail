@@ -3,18 +3,18 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, MultiFie
 from wagtail.wagtailcore.fields import RichTextField
 
 from modelcluster.fields import ParentalKey
-from wagtailsweetcaptcha.models import SweetCaptchaEmailForm
+from wagtailcaptcha.models import WagtailCaptchaEmailForm
 
-from core.utilities import has_sweetcaptcha
+from core.utilities import has_recaptcha
 
 
 class SubmitFormField(AbstractFormField):
     page = ParentalKey('SubmitFormPage', related_name='form_fields')
 
 
-class SubmitFormPage(SweetCaptchaEmailForm if has_sweetcaptcha() else AbstractEmailForm):
+class SubmitFormPage(WagtailCaptchaEmailForm if has_recaptcha() else AbstractEmailForm):
     """
-    Form page, inherits from SweetCaptchaEmailForm if available, otherwise fallback to AbstractEmailForm
+    Form page, inherits from WagtailCaptchaEmailForm if available, otherwise fallback to AbstractEmailForm
     """
     search_fields = ()
     body = RichTextField(blank=True, help_text='Edit the content you want to see before the form.')
@@ -29,7 +29,7 @@ SubmitFormPage.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('body', classname="full"),
     FieldPanel('thank_you_text', classname="full"),
-    InlinePanel(SubmitFormPage, 'form_fields', label="Form fields"),
+    InlinePanel('form_fields', label="Form fields"),
     MultiFieldPanel([
         FieldPanel('to_address'),
         FieldPanel('from_address'),

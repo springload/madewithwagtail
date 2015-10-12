@@ -77,8 +77,9 @@ INSTALLED_APPS = (
     'compressor',
     'taggit',
     'modelcluster',
+    'captcha',
+    'wagtailcaptcha',
     'core',
-    'sweetcaptcha',
     'wagtail.contrib.wagtailsitemaps',
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.wagtailcore',
@@ -92,7 +93,6 @@ INSTALLED_APPS = (
     'wagtail.wagtailsearch',
     'wagtail.wagtailredirects',
     'wagtail.wagtailforms',
-    'wagtailsweetcaptcha',
 )
 
 MIDDLEWARE_CLASSES = (

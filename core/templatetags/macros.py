@@ -1,6 +1,11 @@
-from django import template
-from django.template import FilterExpression
+from django import template, VERSION
 from django.template.loader import get_template
+
+
+if VERSION[:3] >= (1, 8, 0):
+    from django.template.base import FilterExpression
+else:
+    from django.template import FilterExpression
 
 register = template.Library()
 
@@ -63,6 +68,8 @@ class LoadMacrosNode(template.Node):
 
 @register.tag(name="loadmacros")
 def do_loadmacros(parser, token):
+    # In Django 1.7 get_template() returned a django.template.Template.
+    # In Django 1.8 it returns a django.template.backends.django.Template.
     try:
         tag_name, filename = token.split_contents()
     except IndexError:
@@ -71,7 +78,8 @@ def do_loadmacros(parser, token):
     if filename[0] in ('"', "'") and filename[-1] == filename[0]:
         filename = filename[1:-1]
     t = get_template(filename)
-    macros = t.nodelist.get_nodes_by_type(DefineMacroNode)
+    nodelist = t.template.nodelist
+    macros = nodelist.get_nodes_by_type(DefineMacroNode)
     _setup_macros_dict(parser)
     for macro in macros:
         parser._macros[macro.name] = macro

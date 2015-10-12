@@ -2,9 +2,10 @@
 # Use this for any settings that are specific to this one installation, such as developer API keys.
 # local.py should not be checked in to version control.
 
-# Sweetcaptcha settings http://www.sweetcaptcha.com/accounts/signup
-SWEETCAPTCHA_APP_ID = 'your_id'
-SWEETCAPTCHA_APP_KEY = 'your_api_key'
+# Captcha settings https://www.google.com/recaptcha
+RECAPTCHA_PUBLIC_KEY = 'set_your_key'
+RECAPTCHA_PRIVATE_KEY = 'set_your_key'
+NOCAPTCHA = True
 
 # Google Analytics settings
 GOOGLE_ANALYTICS_KEY = False

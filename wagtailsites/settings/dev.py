@@ -22,6 +22,7 @@ INTERNAL_IPS = (
 
 INSTALLED_APPS += (
     'debug_toolbar',
+    'wagtail.contrib.wagtailstyleguide',
 )
 
 CACHE_MIDDLEWARE_SECONDS = 0
@@ -29,3 +30,7 @@ CACHE_MIDDLEWARE_SECONDS = 0
 MIDDLEWARE_CLASSES = (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ) + MIDDLEWARE_CLASSES
+
+RECAPTCHA_PUBLIC_KEY = 'set_your_key'
+RECAPTCHA_PRIVATE_KEY = 'set_your_key'
+NOCAPTCHA = True

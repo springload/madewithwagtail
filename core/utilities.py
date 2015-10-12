@@ -25,11 +25,11 @@ def replace_tags(string=None, tags=dict()):
     return string
 
 
-def has_sweetcaptcha():
+def has_recaptcha():
     """
-    Check if the SweetCaptcha settings are properly set
+    Check if the WagtailCaptcha settings are properly set
     """
-    sweetcaptcha_id = getattr(settings, 'SWEETCAPTCHA_APP_ID', None)
-    sweetcaptcha_key = getattr(settings, 'SWEETCAPTCHA_APP_KEY', None)
+    wagtailcaptcha_public_key = getattr(settings, 'RECAPTCHA_PUBLIC_KEY', None)
+    wagtailcaptcha_private_key = getattr(settings, 'RECAPTCHA_PRIVATE_KEY', None)
 
-    return sweetcaptcha_id and sweetcaptcha_key
+    return wagtailcaptcha_public_key and wagtailcaptcha_private_key

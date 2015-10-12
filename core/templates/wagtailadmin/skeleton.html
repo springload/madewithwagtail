@@ -13,10 +13,11 @@
     {% compress css %}
         <link rel="stylesheet" href="{% static 'wagtailadmin/css/normalize.css' %}" />
     {% endcompress %}
+
+    {% block css %}{% endblock %}
     {% comment %}
         Some extra css block for overriding purposes
     {% endcomment %}
-    {% block css %}{% endblock %}
     {% block custom_css %}{% endblock %}
 </head>
 <body class="{% block bodyclass %}{% endblock %} {% if messages %}has-messages{% endif %}">

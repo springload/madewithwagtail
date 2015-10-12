@@ -7,6 +7,7 @@ from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailcore.models import Orderable
 
 from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
 
 from core.utilities import *
 from core.snippets import *
@@ -159,7 +160,7 @@ class NavigationMenuManager(models.Manager):
 
 
 @register_snippet
-class NavigationMenu(models.Model):
+class NavigationMenu(ClusterableModel):
 
     objects = NavigationMenuManager()
     menu_name = models.CharField(max_length=255, null=False, blank=False)
@@ -178,5 +179,5 @@ class NavigationMenu(models.Model):
 
 NavigationMenu.panels = [
     FieldPanel('menu_name', classname='full title'),
-    InlinePanel(NavigationMenu, 'menu_items', label="Menu Items", help_text='Set the menu items for the current menu.')
+    InlinePanel('menu_items', label="Menu Items", help_text='Set the menu items for the current menu.')
 ]

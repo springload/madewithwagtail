@@ -25,8 +25,6 @@ INSTALLED_APPS += (
     'djcelery',
 )
 
-ALLOWED_HOSTS = ['*']
-
 # Celery
 djcelery.setup_loader()
 

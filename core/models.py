@@ -253,7 +253,7 @@ WagtailPage.promote_panels = [
 
 class WagtailCompanyPage(WagtailPage):
     """
-    Company page listing abunch of site pages
+    Company page listing a bunch of site pages
     """
     parent_types = ['core.HomePage']
     subpage_types = ['core.WagtailSitePage']
@@ -307,7 +307,7 @@ class WagtailCompanyPage(WagtailPage):
         return image
 
     def children(self):
-        return WagtailSitePage.objects.live().descendant_of(self)
+        return WagtailSitePage.objects.live().descendant_of(self).order_by('-first_published_at')
 
     def get_context(self, request):
         # Get pages

@@ -9,6 +9,7 @@ module.exports = {
         root: rootPath,
         sass: path.join(appPath, "sass"),
         js: path.join(appPath, "js"),
+        appName: 'wagtailsites.js',
         build: path.join(rootPath, "build"),
         content: path.join(rootPath, "content"),
         templates: path.join(rootPath, "templates"),

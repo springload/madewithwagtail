@@ -16,8 +16,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # As required by debug_toolbar
 INTERNAL_IPS = (
-   '10.0.2.2',
-   '127.0.0.1',
+    '10.0.2.2',
+    '127.0.0.1',
 )
 
 INSTALLED_APPS += (
@@ -31,6 +31,8 @@ MIDDLEWARE_CLASSES = (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ) + MIDDLEWARE_CLASSES
 
-RECAPTCHA_PUBLIC_KEY = 'set_your_key'
-RECAPTCHA_PRIVATE_KEY = 'set_your_key'
-NOCAPTCHA = True
+# Change these if you want to enable recaptcha on submissions form
+# https://github.com/springload/wagtail-django-recaptcha
+RECAPTCHA_PUBLIC_KEY = False
+RECAPTCHA_PRIVATE_KEY = False
+NOCAPTCHA = False

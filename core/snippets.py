@@ -76,7 +76,7 @@ class LinkFields(models.Model):
             DocumentChooserPanel('link_document'),
             FieldPanel('link_email'),
             FieldPanel('link_phone'),
-            ],
+        ],
             "Link"
         ),
     ]

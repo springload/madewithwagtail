@@ -363,6 +363,18 @@ class WagtailSitePage(WagtailPage):
         index.SearchField('body_text')
     )
 
+    @property
+    def og_image(self):
+        # Returns image and image type of feed_image, if exists
+        image = {'image': None, 'type': None}
+        if self.feed_image:
+            image['image'] = self.feed_image
+        elif self.image_desktop:
+            image['image'] = self.image_desktop
+        name, extension = os.path.splitext(image['image'].file.url)
+        image['type'] = extension[1:]
+        return image
+
     def __unicode__(self):
         return self.title
 

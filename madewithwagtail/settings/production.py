@@ -1,5 +1,4 @@
 from .base import *
-import djcelery
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -19,14 +18,6 @@ COMPRESS_CSS_FILTERS = [
 # Static folder ready for production mode
 STATIC_ROOT = join(DJANGO_ROOT, 'static')
 STATICFILES_DIRS = ()
-
-# Add apps
-INSTALLED_APPS += (
-    'djcelery',
-)
-
-# Celery
-djcelery.setup_loader()
 
 # Enables error emails.
 CELERY_SEND_TASK_ERROR_EMAILS = True

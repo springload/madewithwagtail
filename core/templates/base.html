@@ -9,29 +9,22 @@
         <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
         <meta name="description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.intro %}{{ self.intro }}{% elif self.body_excerpt %}{{ self.body_excerpt|truncatewords:40 }}{% else %}{{ self.title }}{% endif %}" />
 
-        <!-- open graph -->
-        <meta property="og:url" content="{{ BASE_URL }}{% if self %}{% pageurl self %}{% endif %}" />
-        <meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}" />
-        <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.intro %}{{ self.intro }}{% elif self.body_excerpt %}{{ self.body_excerpt|truncatewords:40 }}{% else %}{{ self.title }}{% endif %}" />
+        {% block twitter_card %}
+        {% include "core/includes/meta/twitter_card.html" %}
+        {% endblock %}
+
+        {% block og_tags %}
+        {% include "core/includes/meta/open_graph.html" %}
+        {% endblock %}
 
         {% block og_images %}
-            {% if self.og_image and self.og_image.image %}
-                {% image self.og_image.image width-400 as tmp_og_image %}
-                <meta property="og:image" content="{{ BASE_URL }}{{ tmp_og_image.url }}" />
-                <meta property="og:image:width" content="{{ tmp_og_image.width }}">
-                <meta property="og:image:height" content="{{ tmp_og_image.height }}">
-                <meta property="og:image:type" content="image/{{ self.og_image.type }}">
-            {% else %}
-                <meta property="og:image" content="{{ BASE_URL }}{% static 'images/wagtail_logo.png' %}" />
-                <meta property="og:image:width" content="200">
-                <meta property="og:image:height" content="200">
-                <meta property="og:image:type" content="image/png">
-            {% endif %}
+        {% include "core/includes/meta/open_graph_image.html" %}
         {% endblock %}
-        <!-- end:open graph -->
 
         <!-- features -->
         <meta name='viewport' content="width=device-width, initial-scale=1" />
+        <meta name="apple-mobile-web-app-title" content="Made with Wagtail">
+        <meta name="application-name" content="Made with Wagtail">
         <!-- end:features -->
 
         <!-- styles -->

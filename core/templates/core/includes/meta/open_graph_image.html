@@ -1,0 +1,14 @@
+{% load static wagtailcore_tags wagtailimages_tags core_tags %}
+
+{% if self.og_image and self.og_image.image %}
+    {% image self.og_image.image fill-720x600-c100 as tmp_og_image %}
+    <meta property="og:image" content="{{ BASE_URL }}{{ tmp_og_image.url }}" />
+    <meta property="og:image:width" content="{{ tmp_og_image.width }}">
+    <meta property="og:image:height" content="{{ tmp_og_image.height }}">
+    <meta property="og:image:type" content="image/{{ self.og_image.type }}">
+{% else %}
+    <meta property="og:image" content="{{ BASE_URL }}{% static 'images/wagtail_logo.png' %}">
+    <meta property="og:image:width" content="400">
+    <meta property="og:image:height" content="400">
+    <meta property="og:image:type" content="image/png">
+{% endif %}

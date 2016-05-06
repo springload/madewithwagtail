@@ -1,7 +1,7 @@
 [ ![Codeship Status for springload/madewithwagtail](https://codeship.com/projects/26741250-da6d-0132-ea89-328081b30bed/status?branch=master)](https://codeship.com/projects/79308)
 
-Made with Wagtail (madewithwagtail)
-================================
+Made with Wagtail
+=================
 
 This is the source code of [Made with Wagtail](http://www.madewithwagtail.org).
 

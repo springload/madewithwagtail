@@ -1,0 +1,5 @@
+{% load wagtailcore_tags core_tags %}
+
+<meta property="og:url" content="{{ BASE_URL }}{% if self %}{% pageurl self %}{% endif %}" />
+<meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% elif self.title %}{{ self.title }}{% else %}Springload{% endif %}" />
+<meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% elif self.intro %}{{ self.intro|striptags }}{% elif self.body_excerpt %}{{ self.body_excerpt|striptags|truncatewords:40 }}{% else %}{{ self.title }}{% endif %}" />

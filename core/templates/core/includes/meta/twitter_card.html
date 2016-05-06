@@ -1,0 +1,14 @@
+{% load static wagtailcore_tags wagtailimages_tags core_tags %}
+
+<!-- twitter card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@springloadnz">
+<meta name="twitter:title" content="{% if self.seo_title %}{{ self.seo_title }}{% elif self.title %}{{ self.title }}{% else %}Made with Wagtail{% endif %}">
+
+{% if self.og_image and self.og_image.image %}
+    {% image self.og_image.image fill-720x600-c100 as tmp_twitter_image %}
+    <meta name="twitter:image" content="{{ BASE_URL }}{{ tmp_twitter_image.url }}">
+{% else %}
+    <meta name="twitter:image" content="{{ BASE_URL }}{% static 'images/wagtail_logo.png' %}">
+{% endif %}
+<!-- end:twitter card -->

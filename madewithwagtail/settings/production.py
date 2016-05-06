@@ -69,10 +69,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
-# Make sure we include the needed Middleware apps
-# Excluding logged in (admin) requests
-CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

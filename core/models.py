@@ -8,8 +8,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
 
 from modelcluster.fields import ParentalKey
@@ -19,7 +17,8 @@ from taggit.models import TaggedItemBase, Tag
 
 from bs4 import BeautifulSoup
 
-from core.utilities import *
+from core.utilities import validate_only_one_instance
+from core.panels import *
 from core.snippets import *
 from core.forms import *
 
@@ -121,15 +120,8 @@ class HomePage(Page, IndexPage):
         description = "Where the good stuff happens!"
 
 
-HomePage.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('body', classname="full")
-]
-
-HomePage.promote_panels = [
-    MultiFieldPanel(Page.promote_panels, "SEO and metadata fields"),
-    ImageChooserPanel('feed_image'),
-]
+HomePage.content_panels = HOME_PAGE_CONTENT_PANELS
+HomePage.promote_panels = WAGTAIL_PAGE_PROMOTE_PANELS
 
 
 class CompanyIndex(Page, IndexPage):
@@ -203,9 +195,7 @@ class WagtailPage(Page):
     def parent(self):
         try:
             return self.get_ancestors().reverse()[0]
-        except ObjectDoesNotExist:
-            return None
-        except IndexError:
+        except:
             return None
 
     @property
@@ -220,7 +210,7 @@ class WagtailPage(Page):
 
     @property
     def body_text(self):
-        return BeautifulSoup(self.body).get_text()
+        return BeautifulSoup(self.body, "html5lib").get_text()
 
     @property
     def body_excerpt(self):
@@ -239,16 +229,8 @@ class WagtailPage(Page):
         image['type'] = extension[1:]
         return image
 
-WagtailPage.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('body', classname="full"),
-    FieldPanel('tags'),
-]
-
-WagtailPage.promote_panels = [
-    MultiFieldPanel(Page.promote_panels, "SEO and metadata fields"),
-    ImageChooserPanel('feed_image'),
-]
+WagtailPage.content_panels = WAGTAIL_PAGE_CONTENT_PANELS
+WagtailPage.promote_panels = WAGTAIL_PAGE_PROMOTE_PANELS
 
 
 class WagtailCompanyPage(WagtailPage):
@@ -334,16 +316,7 @@ class WagtailCompanyPage(WagtailPage):
         verbose_name = "Company page"
         description = "Page for companies developing Wagtail"
 
-WagtailCompanyPage.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('body', classname="full"),
-    FieldPanel('location'),
-    FieldPanel('company_url'),
-    FieldPanel('github_url'),
-    FieldPanel('twitter_url'),
-    ImageChooserPanel('logo'),
-    FieldPanel('tags'),
-]
+WagtailCompanyPage.content_panels = WAGTAIL_COMPANY_PAGE_CONTENT_PANELS
 
 
 class WagtailSitePage(WagtailPage):
@@ -397,14 +370,5 @@ class WagtailSitePage(WagtailPage):
         verbose_name = "Site page"
         description = "Page to show case an existing site based on Wagtail"
 
-WagtailSitePage.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('site_url'),
-    ImageChooserPanel('image_desktop'),
-    ImageChooserPanel('image_tablet'),
-    ImageChooserPanel('image_phone'),
-    FieldPanel('body', classname="full"),
-    FieldPanel('tags'),
-]
-
-WagtailSitePage.promote_panels = [FieldPanel('is_featured'), ] + WagtailPage.promote_panels
+WagtailSitePage.content_panels = WAGTAIL_SITE_PAGE_CONTENT_PANELS
+WagtailSitePage.promote_panels = WAGTAIL_SITE_PAGE_PROMOTE_PANELS

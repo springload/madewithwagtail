@@ -80,6 +80,9 @@ INSTALLED_APPS = (
     'captcha',
     'wagtailcaptcha',
     'core',
+    'overextends',
+    'wagtailgmaps',
+    'rest_framework',
     'wagtail.contrib.wagtailsitemaps',
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.wagtailcore',
@@ -192,3 +195,8 @@ TEMPLATE_DIRS = (
 
 LOGIN_URL = 'wagtailadmin_login'
 LOGIN_REDIRECT_URL = 'wagtailadmin_home'
+
+# Wagtailgmaps settings
+
+WAGTAIL_ADDRESS_MAP_CENTER = 'Wellington, New Zealand'
+WAGTAIL_ADDRESS_MAP_ZOOM = 8

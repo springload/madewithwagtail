@@ -57,6 +57,7 @@
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 {% compress js %}
     <script type="text/javascript" src="{% static 'js/vendor/markerclusterer.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/elabel.js' %}"></script>
     <script type="text/javascript">
 
     var HttpClient = function() {
@@ -193,6 +194,17 @@
                     icon: createMarkerImage(elem.children_count)
                 });
                 markers.push(marker);
+
+                var label = new ELabel(latLng, elem.title);
+                label.setMap(map);
+                // google.maps.event.addListener(map, 'zoom_changed'+i, function(label) {
+                //     var zoom = map.getZoom();
+                //     if ((zoom > 12) && (zoom < 15)) {
+                //         label.setMap(map);
+                //     } else {
+                //         label.setMap(null);
+                //     }
+                // });
             }
 
             var markerCluster = new MarkerClusterer(map, markers, {

@@ -152,9 +152,14 @@ a {
 
 $gutter: 5%;
 $outer-margin: 8%;
+$outer-margin-small: 5%;
 %content-margins {
-    padding-left: $outer-margin;
-    padding-right: $outer-margin;
+    padding-left: $outer-margin-small;
+    padding-right: $outer-margin-small;
+    @include large {
+        padding-left: $outer-margin;
+        padding-right: $outer-margin;
+    }
 }
 
 
@@ -379,6 +384,11 @@ small {
 }
 .u-hide--small {
     @include small {
+        display: none;
+    }
+}
+.u-hide--xsmall {
+    @include xsmall {
         display: none;
     }
 }

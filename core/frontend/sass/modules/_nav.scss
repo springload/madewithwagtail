@@ -29,21 +29,18 @@
 
 .nav__item {
     @extend %inline-block;
-//    margin-right: 1em;
-//    @include medium {
-//        margin-right: 0;
-//    }
-}
-
-.nav__item + .nav__item {
-    margin-left: .75em;
+    margin-right: .75em;
     @include medium {
-        margin-left: 1em;
+        margin-right: 1em;
     }
     @include large {
-        margin-left: 2em;
+        margin-right: 2em;
+    }
+    &:last-child {
+        margin-right: 0;
     }
 }
+
 .nav__link {
     color: $color-nav-link;
     font-weight: $font-weight-medium;

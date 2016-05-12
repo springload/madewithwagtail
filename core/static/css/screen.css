@@ -618,6 +618,7 @@ Float an image to the left, with a clearfixed block of content to the right.
   background-color: #E7EDED; }
 
 .site-footer {
+  text-align: center;
   background: #364D4C; }
   .site-footer * + h4, .site-footer * + .h4 {
     margin-top: 24px;
@@ -1105,7 +1106,7 @@ hr {
 .u-left {
   text-align: left; }
 
-.u-center, .site-footer {
+.u-center {
   text-align: center; }
 
 .u-right {

@@ -3,7 +3,7 @@
     @extend %vertical-top-l;
     @extend %vertical-bottom-xl;
     @extend %theme--invert;
-    @extend .u-center;
+    text-align: center;
     background: $color-footer-bg;
 
     * + h4 {

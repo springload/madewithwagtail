@@ -9,3 +9,4 @@ class CompanyViewSet(viewsets.ModelViewSet):
     """
     queryset = WagtailCompanyPage.objects.live().filter(show_map=True).order_by('-first_published_at')
     serializer_class = CompanySerializer
+    paginate_by = None

@@ -184,6 +184,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.request',
     'core.context_processors.baseurl',
     'core.context_processors.google_analytics',
+    'core.context_processors.api_companies_endpoint',
     'django.contrib.messages.context_processors.messages',
 )
 
@@ -206,5 +207,5 @@ WAGTAIL_ADDRESS_MAP_ZOOM = 8
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
-    'PAGE_SIZE': 10
+    'PAGINATE_BY': None,
 }

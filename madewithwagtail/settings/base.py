@@ -81,6 +81,7 @@ INSTALLED_APPS = (
     'wagtailcaptcha',
     'core',
     'overextends',
+    'api',
     'wagtailgmaps',
     'rest_framework',
     'wagtail.contrib.wagtailsitemaps',
@@ -200,3 +201,10 @@ LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 
 WAGTAIL_ADDRESS_MAP_CENTER = 'Wellington, New Zealand'
 WAGTAIL_ADDRESS_MAP_ZOOM = 8
+
+# REST framework
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
+    'PAGE_SIZE': 10
+}

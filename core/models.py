@@ -242,7 +242,7 @@ class WagtailCompanyPage(WagtailPage):
     company_url = models.URLField(
         blank=True,
         null=True,
-        help_text='Paste the URL of your site, something like "http://www.springload.co.nz"',
+        help_text='Paste the URL of your site, something like "https://www.springload.co.nz"',
     )
     github_url = models.URLField(null=True, blank=True)
     twitter_url = models.URLField(null=True, blank=True)
@@ -264,6 +264,20 @@ class WagtailCompanyPage(WagtailPage):
     )
 
     @property
+    def lat(self):
+        if self.coords:
+            return self.coords.split(",")[0].strip()
+        else:
+            return None
+
+    @property
+    def lon(self):
+        if self.coords:
+            return self.coords.split(",")[1].strip()
+        else:
+            return None
+
+    @property
     def twitter_handler(self):
         if self.twitter_url:
             return "@%s" % self.twitter_url.split("/")[-1]
@@ -276,6 +290,10 @@ class WagtailCompanyPage(WagtailPage):
             return self.github_url.split("/")[-1]
         else:
             return None
+
+    @property
+    def children_count(self):
+        return self.children().count()
 
     @property
     def og_image(self):

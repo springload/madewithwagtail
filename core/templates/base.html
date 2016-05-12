@@ -62,6 +62,12 @@
 
         {% wagtailuserbar %}
 
+        {% block svg %}
+            <div style='display: none;'>
+                {% include "core/includes/svg.html" %}
+            </div>
+        {% endblock %}
+
         {% block header %}
             <div class="site-header">
 
@@ -99,7 +105,15 @@
 
             <div class="text block--dark">
                 <div class="content-width">
-                    <p>Made in a weekend by <span class="logo--inline"><a title"Springload" href="http://springload.co.nz"><i class="springload-dark"></i><span class="u-sr-only">Springload</span></a></span></p>
+                    <p>Made in a weekend by
+                        <span class="logo--inline">
+                            <a title"Springload" href="http://springload.co.nz">
+                                {# <i class="springload-dark"></i> #}
+                                {% include "core/includes/icon.html" with icon="springload-logo-dark" %}
+                                <span class="u-sr-only">Springload</span>
+                            </a>
+                        </span>
+                    </p>
                 </div>
             </div>
 

@@ -218,16 +218,14 @@ a {
   height: 20px;
   height: 1.25rem;
   background-size: cover; }
-  .icon-text > .i {
-    margin-right: 0.16667em; }
-  .icon-text--rev > .i {
+
+.icon-text > svg {
+  vertical-align: middle;
+  margin-top: -0.125em;
+  margin-right: 0.16667em; }
+  .icon-text > svg:last-child {
+    margin-right: 0;
     margin-left: 0.125em; }
-  .icon-text > .i,
-  .icon-text--rev > .i {
-    margin-top: -0.1em;
-    vertical-align: middle; }
-  .icon-text > .i + span {
-    vertical-align: middle; }
 
 svg > use {
   fill: currentColor; }
@@ -244,25 +242,12 @@ svg > use {
 .i--teal > use {
   fill: #43B1B0; }
 
-.i--hover:hover use,
-a:hover .i--hover use {
+.i--hover:hover > use,
+a:hover .i--hover > use {
   fill: #358c8b; }
 
 .i--no-fill > use {
   fill: none; }
-
-/* colourised icons */
-.i--white {
-  background-position: 0 25%; }
-
-.i--grey, .company__info__item .i {
-  background-position: 0 50%; }
-
-.i--teal {
-  background-position: 0 75%; }
-
-.no-touch .i--hover:hover {
-  background-position: 0 100%; }
 
 /* custom icon sizes */
 .i--small {
@@ -432,8 +417,6 @@ html input[disabled] {
     color: #358c8b; }
   .nav__link.is-active {
     color: #364D4C; }
-  .no-touch .nav__link:hover .i {
-    background-position: 0 100%; }
 
 /*============================================================================
   Pagination

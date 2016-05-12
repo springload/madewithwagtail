@@ -52,7 +52,6 @@
     &.is-active {
         color: $color-nav-link-active;
     }
-    @include hover(background-position, 0 $icon-bg-hover, false, ".i");
 }
 
 

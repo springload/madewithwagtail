@@ -117,6 +117,8 @@ a {
     color: $color-base-link;
     text-decoration: none;
     outline: none;
+
+    @include hover(color, $color-base-link-hover, false);
 }
 
 

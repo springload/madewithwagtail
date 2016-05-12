@@ -34,9 +34,7 @@ module.exports = function(grunt) {
                     ],
                     customselectors: {
                         "wagtail-logo": [".wagtail"],
-                        "made-with-wagtail-logo": [".made-with-wagtail"],
-                        "springload-logo-dark": [".springload-dark"],
-                        "springload-logo": [".springload"]
+                        "springload-logo-dark": [".springload-dark"]
                     }
                 }
             }

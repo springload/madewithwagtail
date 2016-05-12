@@ -77,8 +77,8 @@
 
                         <div class="one-whole--small one-third">
                             <a href="/" class="logo">
-                                <i class="made-with-wagtail"></i>
                                 <span class="u-sr-only">Made with Wagtail</span>
+                                {% include "core/includes/icon.html" with icon="made-with-wagtail-logo" class="made-with-wagtail i--no-fill" %}
                             </a>
                         </div>
 
@@ -107,10 +107,9 @@
                 <div class="content-width">
                     <p>Made in a weekend by
                         <span class="logo--inline">
-                            <a title"Springload" href="http://springload.co.nz">
-                                {# <i class="springload-dark"></i> #}
-                                {% include "core/includes/icon.html" with icon="springload-logo-dark" %}
+                            <a href="http://springload.co.nz">
                                 <span class="u-sr-only">Springload</span>
+                                {% include "core/includes/icon.html" with icon="springload-logo-dark" class="springload" %}
                             </a>
                         </span>
                     </p>

@@ -47,16 +47,10 @@
 .nav__link {
     color: $color-nav-link;
     font-weight: $font-weight-medium;
-//    transition: color .125s ease-in-out;
     @include hover(color, $color-nav-link-hover, false);
+
     &.is-active {
         color: $color-nav-link-active;
-    }
-    &.is-active > .i {
-        @extend .i--grey;
-    }
-    & > .i {
-        @extend .i--teal;
     }
     @include hover(background-position, 0 $icon-bg-hover, false, ".i");
 }
@@ -109,7 +103,7 @@
     @extend %pagination-circle;
     background-color: $color-nav-link;
     transition: background-color .125s ease-in-out;
-    @include hover(background-color, $color-nav-link-invert-hover, false);
+    @include hover(background-color, $color-nav-link-hover, false);
 }
 .pagination__inactive {
     @extend %pagination-circle;

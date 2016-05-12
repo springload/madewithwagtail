@@ -10,7 +10,6 @@
 
 .i-location { background-image: url('png/location.png'); background-repeat: no-repeat; }
 
-.made-with-wagtail,
 .i-made-with-wagtail-logo { background-image: url('png/made-with-wagtail-logo.png'); background-repeat: no-repeat; }
 
 .i-search { background-image: url('png/search.png'); background-repeat: no-repeat; }
@@ -18,7 +17,6 @@
 .springload-dark,
 .i-springload-logo-dark { background-image: url('png/springload-logo-dark.png'); background-repeat: no-repeat; }
 
-.springload,
 .i-springload-logo { background-image: url('png/springload-logo.png'); background-repeat: no-repeat; }
 
 .i-twitter { background-image: url('png/twitter.png'); background-repeat: no-repeat; }

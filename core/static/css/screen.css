@@ -1,6 +1,5 @@
 *, *:before, *:after {
   -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
           box-sizing: border-box; }
 
 html {
@@ -17,7 +16,11 @@ body {
 /*============================================================================
   #Typography
 ==============================================================================*/
-body, input, textarea, button, select {
+body,
+input,
+textarea,
+button,
+select {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
@@ -47,10 +50,14 @@ p:first-child, li:first-child, label:first-child, td:first-child, th:first-child
   margin-top: 12px;
   margin-top: 0.75rem; }
 
-body, input, textarea, button, select {
+body,
+input,
+textarea,
+button,
+select {
   font-size: 100%;
   line-height: 1.5;
-  font-family: 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #364D4C;
   -webkit-text-size-adjust: 100%; }
 
@@ -63,7 +70,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     font-weight: inherit; }
 
 h1, .h1, .h1 {
-  font-family: 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 100;
   font-size: 32px;
   font-size: 2rem;
@@ -79,7 +86,7 @@ h1, .h1, .h1 {
       font-size: 1.75rem; } }
 
 h2, .h2, .h2 {
-  font-family: 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 600;
   font-size: 20px;
   font-size: 1.25rem;
@@ -91,14 +98,14 @@ h2, .h2, .h2 {
       font-size: 1.375rem; } }
 
 h3, .h3, .h3 {
-  font-family: 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 800;
   font-size: 18px;
   font-size: 1.125rem;
   line-height: 1.25; }
 
 h4, .h4, .h4 {
-  font-family: 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 600;
   font-size: 14px;
   font-size: 0.875rem;
@@ -118,7 +125,7 @@ em {
   color: #43B1B0;
   -webkit-transition: color .125s ease-in-out;
           transition: color .125s ease-in-out; }
-  .noTouchEvents .text a:hover, .text .noTouchEvents a:hover, .noTouchEvents .link-styled:hover {
+  .no-touch .text a:hover, .text .no-touch a:hover, .no-touch .link-styled:hover {
     color: #358c8b; }
   .text a:active, .link-styled:active {
     color: #358c8b; }
@@ -150,7 +157,8 @@ em {
   overflow: hidden;
   white-space: nowrap; }
 
-object, img {
+object,
+img {
   max-width: 100%;
   height: auto;
   display: block;
@@ -164,6 +172,8 @@ a {
   color: #43B1B0;
   text-decoration: none;
   outline: none; }
+  .no-touch a:hover {
+    color: #358c8b; }
 
 .site-footer {
   color: #fff; }
@@ -202,6 +212,7 @@ a {
   SVG icons
 ==============================================================================*/
 .i {
+  display: inline-block;
   width: 20px;
   width: 1.25rem;
   height: 20px;
@@ -211,23 +222,46 @@ a {
     margin-right: 0.16667em; }
   .icon-text--rev > .i {
     margin-left: 0.125em; }
-  .icon-text > .i, .icon-text--rev > .i {
+  .icon-text > .i,
+  .icon-text--rev > .i {
     margin-top: -0.1em;
     vertical-align: middle; }
   .icon-text > .i + span {
     vertical-align: middle; }
 
+svg > use {
+  fill: currentColor; }
+
+.i--black > use {
+  fill: #000; }
+
+.i--white > use {
+  fill: #fff; }
+
+.i--grey > use, .company__info__item .i > use {
+  fill: #767676; }
+
+.i--teal > use {
+  fill: #43B1B0; }
+
+.i--hover:hover use,
+a:hover .i--hover use {
+  fill: #358c8b; }
+
+.i--no-fill > use {
+  fill: none; }
+
 /* colourised icons */
 .i--white {
   background-position: 0 25%; }
 
-.i--grey, .nav__link.is-active > .i, .company__info__item .i {
+.i--grey, .company__info__item .i {
   background-position: 0 50%; }
 
-.i--teal, .nav__link > .i {
+.i--teal {
   background-position: 0 75%; }
 
-.noTouchEvents .i--hover:hover {
+.no-touch .i--hover:hover {
   background-position: 0 100%; }
 
 /* custom icon sizes */
@@ -238,11 +272,12 @@ a {
   height: 1rem; }
 
 .made-with-wagtail {
-  background-size: cover;
   width: 205px;
   width: 12.8125rem;
   height: 32px;
   height: 2rem; }
+  .made-with-wagtail > use {
+    fill: #231F20; }
 
 .wagtail {
   background-size: cover;
@@ -251,7 +286,8 @@ a {
   height: 22px;
   height: 1.375rem; }
 
-.springload, .springload-dark {
+.springload,
+.springload-dark {
   background-size: cover;
   width: 95px;
   width: 5.9375rem;
@@ -261,7 +297,8 @@ a {
 button {
   overflow: visible; }
 
-button[disabled], html input[disabled] {
+button[disabled],
+html input[disabled] {
   cursor: default; }
 
 .btn {
@@ -285,8 +322,11 @@ button[disabled], html input[disabled] {
     margin-top: 24px;
     margin-top: 1.5rem; }
 
-.noTouchEvents .btn:hover {
+.no-touch .btn:hover {
   background-color: #358c8b; }
+
+.no-touch .btn:hover {
+  color: #fff; }
 
 .site-footer .link:hover {
   text-decoration: underline;
@@ -304,6 +344,7 @@ button[disabled], html input[disabled] {
   .btn.-inverse:hover, .btn.-inverse:active {
     background: #333;
     color: #fff; }
+
 .btn.-tag {
   background: #91A3A2;
   line-height: 1.4;
@@ -324,7 +365,7 @@ button[disabled], html input[disabled] {
     right: 100%;
     margin-right: -1px;
     border: solid transparent 1.2em;
-    border-right: solid .6em #91A3A2; }
+    border-right: solid 0.6em #91A3A2; }
   .btn.-tag:after {
     content: "";
     position: absolute;
@@ -342,9 +383,11 @@ button[disabled], html input[disabled] {
     color: #fff; }
     .btn.-tag:hover:before {
       border-right-color: #758c8b; }
+
 .btn.-small {
   font-size: 14px;
   font-size: .875rem; }
+
 .btn.-full {
   width: 100%; }
 
@@ -385,11 +428,11 @@ button[disabled], html input[disabled] {
 .nav__link {
   color: #43B1B0;
   font-weight: 600; }
-  .noTouchEvents .nav__link:hover {
+  .no-touch .nav__link:hover {
     color: #358c8b; }
   .nav__link.is-active {
     color: #364D4C; }
-  .noTouchEvents .nav__link:hover .i {
+  .no-touch .nav__link:hover .i {
     background-position: 0 100%; }
 
 /*============================================================================
@@ -427,8 +470,8 @@ button[disabled], html input[disabled] {
   background-color: #43B1B0;
   -webkit-transition: background-color .125s ease-in-out;
           transition: background-color .125s ease-in-out; }
-  .noTouchEvents .pagination__link:hover {
-    background-color: #63c4c3; }
+  .no-touch .pagination__link:hover {
+    background-color: #358c8b; }
 
 .pagination__inactive {
   background-color: #43B1B0;
@@ -682,21 +725,22 @@ Float an image to the left, with a clearfixed block of content to the right.
   -webkit-transform: translateY(-4%);
       -ms-transform: translateY(-4%);
           transform: translateY(-4%); }
+
 .card--link:hover .project__links {
   opacity: 1;
   filter: alpha(opacity=100); }
 
 .project__links {
   width: 100%;
-  background: rgba(255, 255, 255, 0.97);
+  background: white;
   padding: 1em .5em 0;
   position: absolute;
   bottom: 0;
   opacity: 0;
   filter: alpha(opacity=0);
   text-align: left;
-  -webkit-transition: opacity .1s ease-out;
-          transition: opacity .1s ease-out; }
+  -webkit-transition: opacity 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+          transition: opacity 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); }
   .project__links > a {
     display: inline-block;
     margin-right: 1em; }
@@ -721,8 +765,8 @@ Float an image to the left, with a clearfixed block of content to the right.
     left: 0;
     width: 100%;
     outline: solid 1px #fff;
-    -webkit-transition: -webkit-transform .75s cubic-bezier(0.075, 0.82, 0.165, 1);
-            transition: transform .75s cubic-bezier(0.075, 0.82, 0.165, 1);
+    -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+            transition: transform 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
     -webkit-transform: translateY(0);
         -ms-transform: translateY(0);
             transform: translateY(0); }
@@ -750,7 +794,10 @@ Float an image to the left, with a clearfixed block of content to the right.
     padding-left: 32px;
     padding-left: 2rem; }
 
-.form input[type='text'], .form input[type='email'], .form input[type='url'], .form textarea {
+.form input[type='text'],
+.form input[type='email'],
+.form input[type='url'],
+.form textarea {
   padding: .5em .75em;
   -webkit-border-radius: 0.25em;
           border-radius: 0.25em;
@@ -775,7 +822,8 @@ Float an image to the left, with a clearfixed block of content to the right.
   margin-bottom: 8px;
   margin-bottom: .5rem;
   color: #ff0000; }
-  .errorlist + p input, .errorlist + p textarea {
+  .errorlist + p input,
+  .errorlist + p textarea {
     border: solid 1px #ff0000 !important; }
 
 .search-results__item + .search-results__item {
@@ -811,6 +859,7 @@ Float an image to the left, with a clearfixed block of content to the right.
   -webkit-border-top-right-radius: 0;
           border-top-right-radius: 0;
   border-right: none; }
+
 .search-form .btn {
   height: 40px;
   height: 2.5rem;
@@ -847,7 +896,8 @@ Float an image to the left, with a clearfixed block of content to the right.
 .one-whole {
   width: 100%; }
 
-.one-half, .two-quarter {
+.one-half,
+.two-quarter {
   width: 50%; }
 
 .one-third {
@@ -877,7 +927,8 @@ Float an image to the left, with a clearfixed block of content to the right.
 @media only screen and (max-width: 650px) {
   .one-whole--small {
     width: 100%; }
-  .one-half--small, .two-quarter--small {
+  .one-half--small,
+  .two-quarter--small {
     width: 50%; }
   .one-third--small {
     width: 33.33333%; }
@@ -899,7 +950,8 @@ Float an image to the left, with a clearfixed block of content to the right.
 @media only screen and (min-width: 651px) and (max-width: 1023px) {
   .one-whole--medium {
     width: 100%; }
-  .one-half--medium, .two-quarter--medium {
+  .one-half--medium,
+  .two-quarter--medium {
     width: 50%; }
   .one-third--medium {
     width: 33.33333%; }
@@ -921,7 +973,8 @@ Float an image to the left, with a clearfixed block of content to the right.
 @media only screen and (min-width: 651px) {
   .one-whole--medium {
     width: 100%; }
-  .one-half--medium, .two-quarter--medium {
+  .one-half--medium,
+  .two-quarter--medium {
     width: 50%; }
   .one-third--medium {
     width: 33.33333%; }
@@ -943,7 +996,8 @@ Float an image to the left, with a clearfixed block of content to the right.
 @media only screen and (min-width: 1024px) {
   .one-whole--large {
     width: 100%; }
-  .one-half--large, .two-quarter--large {
+  .one-half--large,
+  .two-quarter--large {
     width: 50%; }
   .one-third--large {
     width: 33.33333%; }
@@ -965,7 +1019,8 @@ Float an image to the left, with a clearfixed block of content to the right.
 @media only screen and (min-width: 1400px) {
   .one-whole--xlarge {
     width: 100%; }
-  .one-half--xlarge, .two-quarter--xlarge {
+  .one-half--xlarge,
+  .two-quarter--xlarge {
     width: 50%; }
   .one-third--xlarge {
     width: 33.33333%; }
@@ -1000,7 +1055,7 @@ Float an image to the left, with a clearfixed block of content to the right.
       width: 50%; } }
   @media only screen and (min-width: 1024px) {
     .grid-float.-thirds > * {
-      width: 33.33333%; } }
+      width: 33.333333%; } }
 
 .grid-stack > * {
   margin-bottom: 24px;
@@ -1069,7 +1124,8 @@ hr {
 .u-bottom {
   vertical-align: bottom; }
 
-.logo--inline, .i, .made-with-wagtail, .wagtail, .springload, .springload-dark, .nav__item, .pagination__item, .pagination__link, .pagination__inactive, .pagination__current, .company__info__item, .grid > *, .grid:after, .u-inline-block {
+.logo--inline, .made-with-wagtail, .wagtail, .springload,
+.springload-dark, .nav__item, .pagination__item, .pagination__link, .pagination__inactive, .pagination__current, .company__info__item, .grid > *, .grid:after, .u-inline-block {
   display: inline-block;
   *display: inline;
   *zoom: 1; }
@@ -1083,16 +1139,20 @@ hr {
 .u-underline {
   text-decoration: underline; }
 
-.u-bold, strong {
+.u-bold,
+strong {
   font-weight: 800; }
 
 .u-medium {
   font-weight: 600; }
 
-.u-small, small {
+.u-small,
+small {
   font-size: 16px;
   font-size: 1rem; }
-  .u-small p, .u-small li, small p, small li {
+  .u-small p, .u-small li,
+  small p,
+  small li {
     font-size: 16px;
     font-size: 1rem; }
 

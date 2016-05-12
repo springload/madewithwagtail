@@ -6,11 +6,9 @@
 
     $spacing-icon: .25em;
 
-    @extend %inline-block;
-
+    display: inline-block;
     width: rem(20);
     height: rem(20);
-
     background-size: cover;
 
     .icon-text > & {
@@ -30,9 +28,47 @@
 
 }
 
+    svg > use {
+        fill: currentColor;
+    }
+
+    .i--black > use {
+        fill: #000;
+    }
+
+    .i--white > use {
+        fill: #fff;
+    }
+
+    .i--grey > use {
+        fill: #767676;
+    }
+
+    .i--teal > use {
+        fill: #43B1B0;
+    }
+
+    .i--hover:hover use,
+    a:hover .i--hover use {
+        fill: #358c8b;
+    }
+
+    .i--no-fill > use {
+        fill: none;
+    }
+
+    // .i--white {
+    //     background-position: 0 $icon-bg-white;
+    // }
+    // .i--grey {
+    //     background-position: 0 $icon-bg-grey;
+    // }
+    // .i--teal {
+    //     background-position: 0 $icon-bg-teal;
+    // }
+
 
 $icon-color-count: 4;
-
 $icon-bg-black: 0;
 $icon-bg-white: percentage(1 / $icon-color-count * 1);
 $icon-bg-grey: percentage(1 / $icon-color-count * 2);
@@ -64,9 +100,12 @@ $icon-bg-hover: percentage(1 / $icon-color-count * 4);
 
 .made-with-wagtail {
     @extend %inline-block;
-    background-size: cover;
     width: rem(205);
     height: rem(32);
+
+    > use {
+        fill: #231F20;
+    }
 }
 .wagtail {
     @extend %inline-block;

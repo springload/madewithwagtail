@@ -1,42 +1,33 @@
 .card {
     background: $color-placeholder;
     border: solid .75rem #fff;
-    // padding: 1rem;
     display: block;
     margin-bottom: 1rem;
-    // border: solid 1px #fafafa;
     border-radius: .125rem;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     position: relative;
-    // overflow: hidden;
 }
 
 .card--link {
     &:hover {
         img {
             transform: translateY(-4%);
-        //     // position: absolute;
-        //     // opacity: .8
         }
         .project__links {
             opacity: 1;
-            // bottom: 0%;
-            // transform: translateY(0%);
         }
     }
 }
 
-
-
 .project__links {
     width: 100%;
-    background: rgba(255,255,255,0.97);
+    background: rgba(255,255,255,1);
     padding: 1em .5em 0;
     position: absolute;
     bottom: 0;
     opacity: 0;
     text-align: left;
-    transition: opacity .1s ease-out;
+    transition: opacity .5s  cubic-bezier(0.075, 0.820, 0.165, 1.000);
 
     > a {
         display: inline-block;
@@ -73,7 +64,7 @@
         left: 0;
         width: 100%;
         outline: solid 1px #fff;
-        transition: transform .75s cubic-bezier(0.075, 0.820, 0.165, 1.000);
+        transition: transform .5s cubic-bezier(0.075, 0.820, 0.165, 1.000);
         transform: translateY(0);
     }
 }

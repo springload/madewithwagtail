@@ -22,16 +22,16 @@
 .project__links {
     width: 100%;
     background: rgba(255,255,255,1);
-    padding: 1em .5em 0;
+    padding: 1rem .5rem 0;
     position: absolute;
-    bottom: 0;
+    bottom: -1px;
     opacity: 0;
     text-align: left;
     transition: opacity .5s  cubic-bezier(0.075, 0.820, 0.165, 1.000);
 
     > a {
         display: inline-block;
-        margin-right: 1em;
+        margin-right: 1rem;
     }
 }
 
@@ -68,10 +68,6 @@
         transform: translateY(0);
     }
 }
-
-
-
-
 
 
 .project-title {

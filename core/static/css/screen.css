@@ -734,9 +734,10 @@ Float an image to the left, with a clearfixed block of content to the right.
 .project__links {
   width: 100%;
   background: white;
-  padding: 1em .5em 0;
+  padding: 16px 8px 0;
+  padding: 1rem .5rem 0;
   position: absolute;
-  bottom: 0;
+  bottom: -1px;
   opacity: 0;
   filter: alpha(opacity=0);
   text-align: left;
@@ -744,7 +745,8 @@ Float an image to the left, with a clearfixed block of content to the right.
           transition: opacity 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); }
   .project__links > a {
     display: inline-block;
-    margin-right: 1em; }
+    margin-right: 16px;
+    margin-right: 1rem; }
 
 .project-big-image {
   display: block;

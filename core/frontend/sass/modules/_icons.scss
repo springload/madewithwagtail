@@ -2,31 +2,28 @@
   SVG icons
 ==============================================================================*/
 
+
+$spacing-icon: .25em;
+
 .i {
-
-    $spacing-icon: .25em;
-
     display: inline-block;
     width: rem(20);
     height: rem(20);
     background-size: cover;
-
-    .icon-text > & {
-        margin-right: $spacing-icon / 1.5;
-    }
-    .icon-text--rev > & {
-        margin-left: $spacing-icon / 2;
-    }
-    .icon-text > &,
-    .icon-text--rev > & {
-        margin-top: -0.1em;
-        vertical-align: middle;
-    }
-    .icon-text > & + span {
-        vertical-align: middle;
-    }
-
 }
+
+    .icon-text {
+        > svg {
+            vertical-align: middle;
+            margin-top: -0.125em;
+            margin-right: $spacing-icon / 1.5;
+
+            &:last-child {
+                margin-right: 0;
+                margin-left: $spacing-icon / 2;
+            }
+        }
+    }
 
     svg > use {
         fill: currentColor;
@@ -48,47 +45,14 @@
         fill: #43B1B0;
     }
 
-    .i--hover:hover use,
-    a:hover .i--hover use {
+    .i--hover:hover > use,
+    a:hover .i--hover > use {
         fill: #358c8b;
     }
 
     .i--no-fill > use {
         fill: none;
     }
-
-    // .i--white {
-    //     background-position: 0 $icon-bg-white;
-    // }
-    // .i--grey {
-    //     background-position: 0 $icon-bg-grey;
-    // }
-    // .i--teal {
-    //     background-position: 0 $icon-bg-teal;
-    // }
-
-
-$icon-color-count: 4;
-$icon-bg-black: 0;
-$icon-bg-white: percentage(1 / $icon-color-count * 1);
-$icon-bg-grey: percentage(1 / $icon-color-count * 2);
-$icon-bg-teal: percentage(1 / $icon-color-count * 3);
-$icon-bg-hover: percentage(1 / $icon-color-count * 4);
-
-
-/* colourised icons */
-.i--white {
-    background-position: 0 $icon-bg-white;
-}
-.i--grey {
-    background-position: 0 $icon-bg-grey;
-}
-.i--teal {
-    background-position: 0 $icon-bg-teal;
-}
-.i--hover {
-    @include hover(background-position, 0 $icon-bg-hover, false);
-}
 
 
 

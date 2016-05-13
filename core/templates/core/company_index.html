@@ -246,6 +246,17 @@
                         showHideLabel(elabel, map.getZoom());
                     }
                 }(label, map));
+
+                marker.addListener('click', function(elabel) {
+                    return function() {
+                        if (elabel.isHidden()) {
+                            elabel.show();
+                        }
+                        else {
+                            elabel.hide();
+                        }
+                    }
+                }(label));
             }
 
             var markerCluster = new MarkerClusterer(map, markers, {

@@ -60,6 +60,9 @@
     <script type="text/javascript" src="{% static 'js/vendor/elabel.js' %}"></script>
     <script type="text/javascript">
 
+    /***
+    * HTTP client to perform GET requests to a given aURL
+    ***/
     var HttpClient = function() {
         this.get = function(aUrl, aCallback) {
             var anHttpRequest = new XMLHttpRequest();
@@ -73,8 +76,15 @@
         }
     }
 
+    /***
+    * Executed upon DOM initialization
+    ***/
     function initialize() {
 
+        /***
+        * Returns a google.maps.MarkerImage with a specific size and icon depending
+        * on given num_children (number of sites company/dev holds)
+        ***/
         var createMarkerImage = function(num_children) {
             if (num_children == 1) {
                 image_url = '{% static "images/markers/tiny.png" %}';
@@ -100,6 +110,10 @@
             return new google.maps.MarkerImage(image_url, new google.maps.Size(size, size));
         }
 
+        /***
+        * Returns a ELabel with a specific size depending
+        * on given num_children (number of sites company/dev holds)
+        ***/
         var createLabel = function(latLng, num_children, content) {
             var offsetX = 0;
             var offsetY = 0;
@@ -135,6 +149,9 @@
             return new ELabel(latLng, content, className, pixelOffset);
         }
 
+        /***
+        * Show or hide given ELabel depending on current zoom level
+        ***/
         var showHideLabel = function(elabel, zoom) {
             if (zoom > 8) {
                 if (elabel.isHidden()) {
@@ -147,8 +164,10 @@
             }
         }
 
+        // Map center to the coolest little Capital of the Galaxy
         var center = new google.maps.LatLng(-41.29244389999999, 174.77836619999994);
 
+        // Three types of cluster markers
         var cluster_styles = [
             {
                 url: '{% static "images/markers/medium.png" %}',
@@ -173,6 +192,7 @@
             }
         ];
 
+        // Style the map
         var styles = [
             {
                 featureType: "landscape", 
@@ -212,6 +232,7 @@
                 ]
             }
         ];
+        // Init map
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 3,
             maxZoom: 14,
@@ -226,6 +247,7 @@
             styles: styles,
         });
 
+        // HTTP GET to the api and process the data
         aClient = new HttpClient();
         aClient.get("{{ API_COMPANIES_ENDPOINT }}", function(response) {
             var json_data = JSON.parse(response);

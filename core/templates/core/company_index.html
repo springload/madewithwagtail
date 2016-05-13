@@ -78,26 +78,67 @@
         var createMarkerImage = function(num_children) {
             if (num_children == 1) {
                 image_url = '{% static "images/markers/tiny.png" %}';
-                size = 10
+                size = 10;
             }
             else if (num_children < 3) {
                 image_url = '{% static "images/markers/small.png" %}';
-                size = 20
+                size = 20;
             }
             else if (num_children < 5) {
                 image_url = '{% static "images/markers/medium.png" %}';
-                size = 30
+                size = 30;
             }
             else if (num_children < 10) {
                 image_url = '{% static "images/markers/large.png" %}';
-                size = 40
+                size = 40;
             }
             else{
                 image_url = '{% static "images/markers/xlarge.png" %}';
-                size = 60
+                size = 60;
             }
 
             return new google.maps.MarkerImage(image_url, new google.maps.Size(size, size));
+        }
+
+        var createLabel = function(latLng, num_children, content) {
+            var offset = 0;
+            var className = "";
+
+            if (num_children == 1) {
+                offset = 7;
+                className = "label-xs";
+            }
+            else if (num_children < 3) {
+                offset = 12;
+                className = "label-s";
+            }
+            else if (num_children < 5) {
+                offset = 17;
+                className = "label-m";
+            }
+            else if (num_children < 10) {
+                offset = 22;
+                className = "label-l";
+            }
+            else{
+                offset = 32;
+                className = "label-xl";
+            }
+
+            var pixelOffset = new google.maps.Size(offset, -(offset/2));
+            return new ELabel(latLng, content, className, pixelOffset);
+        }
+
+        var showHideLabel = function(elabel, zoom) {
+            if (zoom > 8) {
+                if (elabel.isHidden()) {
+                    elabel.show();
+                }
+            } else {
+                if (!elabel.isHidden()) {
+                    elabel.hide();
+                }
+            }
         }
 
         var center = new google.maps.LatLng(-41.29244389999999, 174.77836619999994);
@@ -171,6 +212,7 @@
         ];
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 3,
+            maxZoom: 14,
             center: center,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             scrollwheel: false,
@@ -195,16 +237,15 @@
                 });
                 markers.push(marker);
 
-                var label = new ELabel(latLng, elem.title);
+                var label = createLabel(latLng, elem.children_count, elem.title);
                 label.setMap(map);
-                // google.maps.event.addListener(map, 'zoom_changed'+i, function(label) {
-                //     var zoom = map.getZoom();
-                //     if ((zoom > 12) && (zoom < 15)) {
-                //         label.setMap(map);
-                //     } else {
-                //         label.setMap(null);
-                //     }
-                // });
+                label.hide();
+
+                google.maps.event.addListener(map, 'zoom_changed', function(elabel, map) {
+                    return function() {
+                        showHideLabel(elabel, map.getZoom());
+                    }
+                }(label, map));
             }
 
             var markerCluster = new MarkerClusterer(map, markers, {

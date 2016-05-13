@@ -81,7 +81,7 @@ ELabel.prototype.draw = function(force) {
 ELabel.prototype.show = function() {
   if (this.div_) {
     this.div_.style.display="";
-    this.redraw();
+    this.draw();
   }
   this.hidden = false;
 };
@@ -104,7 +104,7 @@ ELabel.prototype.supportsHide = function() {
 ELabel.prototype.setContents = function(html) {
   this.html = html;
   this.div_.innerHTML = '<div class="' + this.classname + '">' + this.html + '</div>' ;
-  this.redraw(true);
+  this.draw(true);
 };
 
 ELabel.prototype.setPoint = function(point) {
@@ -113,7 +113,7 @@ ELabel.prototype.setPoint = function(point) {
     var z = google.maps.OverlayView.getZIndex(this.point.lat());
     this.div_.style.zIndex = z;
   }
-  this.redraw(true);
+  this.draw(true);
 };
 
 ELabel.prototype.setOpacity = function(percentOpacity) {

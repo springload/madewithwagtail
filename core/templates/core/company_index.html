@@ -17,7 +17,7 @@
         {% if self.show_map %}
             </div> <!-- Close main div -->
             
-            <div id="map" style="height:500px;width:100%;"></div>
+            <div id="map" style="height:380px;width:100%;margin-top:15px;margin-bottom:15px;"></div>
 
             <div class="site-content content-width"><!-- Reopen main div -->
         {% endif %}
@@ -261,7 +261,6 @@
                 minimumClusterSize: 2,
             });
         });
-
     }
   
     google.maps.event.addDomListener(window, 'load', initialize);

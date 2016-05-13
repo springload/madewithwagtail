@@ -92,6 +92,20 @@
     .four-fifths--medium   { width: 80%; }
 }
 
+@include upto-medium {
+    .one-whole--upto-medium     { width: 100%; }
+    .one-half--upto-medium,
+    .two-quarter--upto-medium   { width: 50%; }
+    .one-third--upto-medium     { width: percentage(1/3); }
+    .two-thirds--upto-medium    { width: percentage(2/3); }
+    .one-quarter--upto-medium   { width: 25%; }
+    .three-quarter--upto-medium { width: 75%; }
+    .one-fifth--upto-medium     { width: 20%; }
+    .two-fifths--upto-medium    { width: 40%; }
+    .three-fifths--upto-medium  { width: 60%; }
+    .four-fifths--upto-medium   { width: 80%; }
+}
+
 @include large {
     .one-whole--large     { width: 100%; }
     .one-half--large,
@@ -119,6 +133,8 @@
     .three-fifths--xlarge  { width: 60%; }
     .four-fifths--xlarge   { width: 80%; }
 }
+
+
 
 
 

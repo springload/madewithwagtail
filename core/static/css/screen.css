@@ -395,18 +395,22 @@ html input[disabled] {
   margin-top: 0; }
 
 .nav {
-  margin-top: 12px;
-  margin-top: 0.75rem; }
+  text-align: right;
+  margin-top: 0; }
   @media only screen and (max-width: 650px) {
     .nav {
       margin-right: -4%; } }
-  @media only screen and (min-width: 651px) {
+  @media only screen and (max-width: 851px) {
     .nav {
-      margin-top: 0;
-      text-align: right; } }
+      margin-top: 0.75rem;
+      text-align: left; } }
 
 .nav__item {
   margin-right: .75em; }
+  @media only screen and (max-width: 420px) {
+    .nav__item {
+      margin-right: 1.75em;
+      margin-bottom: .5em; } }
   @media only screen and (min-width: 651px) {
     .nav__item {
       margin-right: 1em; } }
@@ -983,6 +987,29 @@ Float an image to the left, with a clearfixed block of content to the right.
   .three-fifths--medium {
     width: 60%; }
   .four-fifths--medium {
+    width: 80%; } }
+
+@media only screen and (max-width: 851px) {
+  .one-whole--upto-medium {
+    width: 100%; }
+  .one-half--upto-medium,
+  .two-quarter--upto-medium {
+    width: 50%; }
+  .one-third--upto-medium {
+    width: 33.33333%; }
+  .two-thirds--upto-medium {
+    width: 66.66667%; }
+  .one-quarter--upto-medium {
+    width: 25%; }
+  .three-quarter--upto-medium {
+    width: 75%; }
+  .one-fifth--upto-medium {
+    width: 20%; }
+  .two-fifths--upto-medium {
+    width: 40%; }
+  .three-fifths--upto-medium {
+    width: 60%; }
+  .four-fifths--upto-medium {
     width: 80%; } }
 
 @media only screen and (min-width: 1024px) {

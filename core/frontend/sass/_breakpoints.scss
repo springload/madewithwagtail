@@ -8,6 +8,7 @@ $xlarge: 1400px;
 
 $post-small: $small + $viewport-increment;
 $post-medium: $medium + $viewport-increment;
+$pre-medium: $medium - $viewport-increment;
 $pre-large: $large - $viewport-increment;
 
 @mixin xsmall() {
@@ -22,6 +23,11 @@ $pre-large: $large - $viewport-increment;
 }
 @mixin medium() {
     @media only screen and (min-width:$post-small) {
+        @content;
+    }
+}
+@mixin upto-medium() {
+    @media only screen and (max-width:$post-medium) {
         @content;
     }
 }

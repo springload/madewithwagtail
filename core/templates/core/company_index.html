@@ -101,31 +101,37 @@
         }
 
         var createLabel = function(latLng, num_children, content) {
-            var offset = 0;
+            var offsetX = 0;
+            var offsetY = 0;
             var className = "";
 
             if (num_children == 1) {
-                offset = 7;
+                offsetX = 7;
+                offsetY = 3;
                 className = "label-xs";
             }
             else if (num_children < 3) {
-                offset = 12;
+                offsetX = 12;
+                offsetY = -3;
                 className = "label-s";
             }
             else if (num_children < 5) {
-                offset = 17;
+                offsetX = 17;
+                offsetY = -7;
                 className = "label-m";
             }
             else if (num_children < 10) {
-                offset = 22;
+                offsetX = 22;
+                offsetY = -12;
                 className = "label-l";
             }
             else{
-                offset = 32;
+                offsetX = 34;
+                offsetY = -20;
                 className = "label-xl";
             }
 
-            var pixelOffset = new google.maps.Size(offset, -(offset/2));
+            var pixelOffset = new google.maps.Size(offsetX, offsetY);
             return new ELabel(latLng, content, className, pixelOffset);
         }
 
@@ -233,7 +239,7 @@
                 });
                 markers.push(marker);
 
-                var label = createLabel(latLng, elem.children_count, elem.title);
+                var label = createLabel(latLng, elem.children_count, "<a href='" + elem.url + "'>" + elem.title + "</a>");
                 label.setMap(map);
                 label.hide();
 

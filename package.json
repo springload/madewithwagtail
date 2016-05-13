@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/gulp build",
     "js": "./node_modules/.bin/gulp js",
     "css": "./node_modules/.bin/gulp css",
     "svg": "./node_modules/.bin/gulp svg",
     "icon": "./node_modules/.bin/grunt icon",
     "clean": "./node_modules/.bin/gulp clean",
-    "watch": "./node_modules/.bin/gulp watch"
+    "watch": "./node_modules/.bin/gulp watch",
+    "build": "NODE_ENV=development gulp build",
+    "dist": "NODE_ENV=production gulp build"
   },
   "keywords": [
     ""

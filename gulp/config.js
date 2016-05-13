@@ -2,7 +2,10 @@ var path = require("path");
 var rootPath = path.join("./core");
 var appPath = path.join(rootPath, "frontend");
 
+var prod = process.env.NODE_ENV === 'production';
+
 module.exports = {
+    prod: prod,
 
     paths: {
         root: rootPath,
@@ -18,7 +21,7 @@ module.exports = {
     },
 
     PleeeaseOptions: {
-        minifier: false,
+        minifier: prod,
         sourcemaps: false,
         mqpacker: false,
         filters: true,

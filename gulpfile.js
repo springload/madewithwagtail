@@ -11,7 +11,7 @@ require("./gulp/watch");
 
 
 
-gulp.task('build', ['js', 'css', 'icon', 'svg'], function(done) {
+gulp.task('build', ['js', 'css', 'svg'], function(done) {
     done();
 });
 

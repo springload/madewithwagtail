@@ -265,12 +265,14 @@
                 label.setMap(map);
                 label.hide();
 
+                // Event listener for zoom changes
                 google.maps.event.addListener(map, 'zoom_changed', function(elabel, map) {
                     return function() {
                         showHideLabel(elabel, map.getZoom());
                     }
                 }(label, map));
 
+                // Event listener for clicks on marker
                 marker.addListener('click', function(elabel) {
                     return function() {
                         if (elabel.isHidden()) {
@@ -283,6 +285,7 @@
                 }(label));
             }
 
+            // Init cluster
             var markerCluster = new MarkerClusterer(map, markers, {
                 maxZoom: 9,
                 styles: cluster_styles,

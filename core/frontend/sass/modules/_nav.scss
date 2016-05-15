@@ -17,48 +17,43 @@
 
 .nav {
     @extend %nav;
-    margin-top: $spacing-s;
+    text-align: right;
+    margin-top: 0;
     @include small {
         margin-right: -4%;
     }
-    @include medium {
-        margin-top: 0;
-        text-align: right;
+    @include upto-medium {
+        margin-top: $spacing-s;
+        text-align: left;
     }
 }
 
 .nav__item {
     @extend %inline-block;
-//    margin-right: 1em;
-//    @include medium {
-//        margin-right: 0;
-//    }
-}
-
-.nav__item + .nav__item {
-    margin-left: .75em;
+    margin-right: .75em;
+    @include xsmall {
+        margin-right: 1.75em;
+        margin-bottom: .5em;
+    }
     @include medium {
-        margin-left: 1em;
+        margin-right: 1em;
     }
     @include large {
-        margin-left: 2em;
+        margin-right: 2em;
+    }
+    &:last-child {
+        margin-right: 0;
     }
 }
+
 .nav__link {
     color: $color-nav-link;
     font-weight: $font-weight-medium;
-//    transition: color .125s ease-in-out;
     @include hover(color, $color-nav-link-hover, false);
+
     &.is-active {
         color: $color-nav-link-active;
     }
-    &.is-active > .i {
-        @extend .i--grey;
-    }
-    & > .i {
-        @extend .i--teal;
-    }
-    @include hover(background-position, 0 $icon-bg-hover, false, ".i");
 }
 
 
@@ -109,7 +104,7 @@
     @extend %pagination-circle;
     background-color: $color-nav-link;
     transition: background-color .125s ease-in-out;
-    @include hover(background-color, $color-nav-link-invert-hover, false);
+    @include hover(background-color, $color-nav-link-hover, false);
 }
 .pagination__inactive {
     @extend %pagination-circle;

@@ -1,14 +1,17 @@
 var path = require("path");
 var rootPath = path.join("./core");
-
 var appPath = path.join(rootPath, "frontend");
 
+var prod = process.env.NODE_ENV === 'production';
+
 module.exports = {
+    prod: prod,
 
     paths: {
         root: rootPath,
         sass: path.join(appPath, "sass"),
         js: path.join(appPath, "js"),
+        svg: path.join(appPath, "svg"),
         appName: 'wagtailsites.js',
         build: path.join(rootPath, "build"),
         content: path.join(rootPath, "content"),
@@ -18,7 +21,7 @@ module.exports = {
     },
 
     PleeeaseOptions: {
-        minifier: false,
+        minifier: prod,
         sourcemaps: false,
         mqpacker: false,
         filters: true,

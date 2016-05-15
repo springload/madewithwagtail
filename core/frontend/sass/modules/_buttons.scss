@@ -30,12 +30,6 @@ html input[disabled] {
         margin-top: $spacing;
     }
 
-    //    &:active {
-//        background-color: $color-base-font;
-//        border-color: $color-base-font;
-//        color: $color-base-font-invert;
-//    }
-
 }
 
 
@@ -43,10 +37,9 @@ html input[disabled] {
     @extend %btn;
 
     @include hover(background-color, $color-base-link-hover, false);
+    @include hover(color, #fff, false);
 
 }
-
-
 
 
 %theme--invert {

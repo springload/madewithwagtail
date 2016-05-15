@@ -2,57 +2,57 @@
   SVG icons
 ==============================================================================*/
 
+
+$spacing-icon: .25em;
+
 .i {
-
-    $spacing-icon: .25em;
-
-    @extend %inline-block;
-
+    display: inline-block;
     width: rem(20);
     height: rem(20);
-
     background-size: cover;
+}
 
-    .icon-text > & {
-        margin-right: $spacing-icon / 1.5;
+    .icon-text {
+        > svg {
+            vertical-align: middle;
+            margin-top: -0.125em;
+            margin-right: $spacing-icon / 1.5;
+
+            &:last-child {
+                margin-right: 0;
+                margin-left: $spacing-icon / 2;
+            }
+        }
     }
-    .icon-text--rev > & {
-        margin-left: $spacing-icon / 2;
-    }
-    .icon-text > &,
-    .icon-text--rev > & {
-        margin-top: -0.1em;
-        vertical-align: middle;
-    }
-    .icon-text > & + span {
-        vertical-align: middle;
+
+    svg > use {
+        fill: currentColor;
     }
 
-}
+    .i--black > use {
+        fill: #000;
+    }
 
+    .i--white > use {
+        fill: #fff;
+    }
 
-$icon-color-count: 4;
+    .i--grey > use {
+        fill: #767676;
+    }
 
-$icon-bg-black: 0;
-$icon-bg-white: percentage(1 / $icon-color-count * 1);
-$icon-bg-grey: percentage(1 / $icon-color-count * 2);
-$icon-bg-teal: percentage(1 / $icon-color-count * 3);
-$icon-bg-hover: percentage(1 / $icon-color-count * 4);
+    .i--teal > use {
+        fill: #43B1B0;
+    }
 
+    .i--hover:hover > use,
+    a:hover .i--hover > use {
+        fill: #358c8b;
+    }
 
-/* colourised icons */
-.i--white {
-    background-position: 0 $icon-bg-white;
-}
-.i--grey {
-    background-position: 0 $icon-bg-grey;
-}
-.i--teal {
-    background-position: 0 $icon-bg-teal;
-}
-.i--hover {
-    @include hover(background-position, 0 $icon-bg-hover, false);
-}
+    .i--no-fill > use {
+        fill: none;
+    }
 
 
 
@@ -64,9 +64,12 @@ $icon-bg-hover: percentage(1 / $icon-color-count * 4);
 
 .made-with-wagtail {
     @extend %inline-block;
-    background-size: cover;
     width: rem(205);
     height: rem(32);
+
+    > use {
+        fill: #231F20;
+    }
 }
 .wagtail {
     @extend %inline-block;

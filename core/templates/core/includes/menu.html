@@ -1,4 +1,4 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags core_tags %}
 
 <ul class='nav'>
     {% for link in links %}
@@ -12,7 +12,10 @@
     <li class='nav__item'>
         <a href="{% url 'wagtailsearch_search' %}" class="nav__link{% if request.path == '/search/' %} is-active{% endif %}">
             <span class="u-hide--small">Search</span>
-            <i class="i i-search i--small {% if request.path == '/search/' %} {% else %} i--teal {% endif %} u-middle"></i>
+            {% if not request.path == '/search/' %}
+                {% set color = "teal" %}
+            {% endif %}
+            {% include "core/includes/icon.html" with icon="search" class="i--small u-middle i--hover" %}
         </a>
     </li>
 

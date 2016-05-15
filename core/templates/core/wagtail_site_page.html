@@ -29,8 +29,8 @@
                     {{ self.body|richtext }}
 
                     <a href="{{ self.site_url }}" title="{{ self.title}}" class="btn -small icon-text" data-analytics="Project|Link click">
-                        <i class="i i-visit i--white i--small u-middle"></i>
-                        Visit site
+                        {% include "core/includes/icon.html" with icon="visit" color="white" class="i--small u-middle" %}
+                        <span>Visit site</span>
                     </a>
 
                     <hr>
@@ -38,13 +38,6 @@
                     {% include "core/includes/tags.html" %}
                 </div>
             </div>
-
-             {# <div class="card"> #}
-                     {#{% image self.image_tablet width-300 %}#}
-                {#</div>#}
-                {#<div class="card">#}
-                    {#{% image self.image_phone width-300 %}#}
-               {# </div> #}
     </div>
 
 {% endblock %}

@@ -13,11 +13,13 @@
                 {% endif %}
                 </a>
                 <div class="project__links">
-                    <a class="project__info" href="{{ page.url }}" title="Project Info">
-                        <i class="i i-info i--grey i--hover"></i>
+                    <a class="project__info" href="{{ page.url }}">
+                        <span class="u-sr-only">Project info</span>
+                        {% include "core/includes/icon.html" with icon="info" color="grey" class="i--hover" %}
                     </a>
                     <a class="project__visit" href="{{ page.site_url }}" title="Project link" data-analytics="Project|Link click">
-                        <i class="i i-visit i--grey i--hover"></i>
+                        <span class="u-sr-only">Project link</span>
+                        {% include "core/includes/icon.html" with icon="visit" color="grey" class="i--hover" %}
                     </a>
                 </div>
             </div>

@@ -3,7 +3,7 @@
 <ol class="breadcrumb">
     <li>
         <a href="/">Home</a>
-        <i class="i i-arrow-right i--grey"></i>
+        {% include "core/includes/icon.html" with icon="arrow-right" color="grey" %}
     </li>
     {% for ancestor in ancestors %}
         {% if forloop.last %}
@@ -11,7 +11,7 @@
         {% else %}
             <li>
                 <a href="{% pageurl ancestor %}">{{ ancestor }}</a>
-                <i class="i i-arrow-right i--grey"></i>
+                {% include "core/includes/icon.html" with icon="arrow-right" color="grey" %}
             </li>
         {% endif %}
     {% endfor %}

@@ -25,7 +25,7 @@
                             {% if self.location %}
                                 <li class="company__info__item">
                                     <span class="icon-text">
-                                        <i class="i i-location"></i>
+                                        {% include "core/includes/icon.html" with icon="location" color="grey" %}
                                         {{ self.location }}
                                     </span>
                                 </li>
@@ -33,7 +33,7 @@
                             {% if self.company_url %}
                                 <li class="company__info__item">
                                     <a class="icon-text" href="{{ self.company_url }}">
-                                        <i class="i i-link"></i>
+                                        {% include "core/includes/icon.html" with icon="link" color="grey" class="i--hover" %}
                                         {{ self.company_url }}
                                     </a>
                                 </li>
@@ -41,7 +41,7 @@
                             {% if self.twitter_url %}
                                 <li class="company__info__item">
                                     <a class="icon-text" href="{{ self.twitter_url }}">
-                                        <i class="i i-twitter"></i>
+                                        {% include "core/includes/icon.html" with icon="twitter" color="grey" class="i--hover" %}
                                         {{ self.twitter_handler }}
                                     </a>
                                 </li>
@@ -49,7 +49,7 @@
                             {% if self.github_url %}
                                 <li class="company__info__item">
                                     <a class="icon-text" href="{{ self.github_url }}">
-                                        <i class="i i-github"></i>
+                                        {% include "core/includes/icon.html" with icon="github" color="grey" class="i--hover" %}
                                         {{ self.github_user }}
                                     </a>
                                 </li>

@@ -13,8 +13,8 @@ Vagrant.configure(2) do |config|
 
     # Forward a port from the guest to the host, which allows for outside
     # computers to access the VM, whereas host only networking does not.
-    config.vm.network "forwarded_port", guest: 8000, host: 8111
-    config.vm.network "forwarded_port", guest: 5432, host: 15432
+    config.vm.network "forwarded_port", guest: 8000, host: 8110
+    config.vm.network "forwarded_port", guest: 5432, host: 15438
 
     # Share additional folders, one with the project, another with the media folder mounted from
     # the preview site in delila

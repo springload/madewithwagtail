@@ -105,6 +105,7 @@
     background-color: $color-nav-link;
     transition: background-color .125s ease-in-out;
     @include hover(background-color, $color-nav-link-hover, false);
+    @include hover(color, $color-base-font, false);
 }
 .pagination__inactive {
     @extend %pagination-circle;

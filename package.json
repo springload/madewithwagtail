@@ -8,7 +8,7 @@
     "css": "./node_modules/.bin/gulp css",
     "svg": "./node_modules/.bin/gulp svg",
     "clean": "./node_modules/.bin/gulp clean",
-    "watch": "./node_modules/.bin/gulp watch",
+    "watch": "gulp watch",
     "build": "NODE_ENV=development gulp build",
     "dist": "NODE_ENV=production gulp build",
     "deploy": "git push origin master:deploy/production"

@@ -28,13 +28,13 @@
     {% if pages.number > 1 %}
         <li class="pagination__item">
             <a href="?page={{ pages.number|add:"-1" }}" class="pagination__link">
-                <i class="i i--small i-arrow-left pagination__arrow"></i>
+                {% include "core/includes/icon.html" with icon="arrow-left" class="pagination__arrow i--small" %}
             </a>
         </li>
     {% else %}
         <li class="pagination__item">
             <span class="pagination__inactive">
-                <i class="i i--small i-arrow-left pagination__arrow"></i>
+                {% include "core/includes/icon.html" with icon="arrow-left" class="pagination__arrow i--small" %}
             </span>
         </li>
     {% endif %}
@@ -52,7 +52,7 @@
     {% if pages.number < pages.paginator.num_pages %}
         <li class="pagination__item">
             <a href="?page={{ pages.number|add:"1" }}" class="pagination__link">
-                <i class="i i--small i-arrow-right pagination__arrow"></i>
+                {% include "core/includes/icon.html" with icon="arrow-right" class="pagination__arrow i--small" %}
             </a>
         </li>
     {% endif %}

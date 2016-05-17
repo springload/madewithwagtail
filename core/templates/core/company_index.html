@@ -40,27 +40,5 @@
 
         {% usemacro pagination pages %}
 
-        <ul class="pagination">
-            <li class="pagination__item">
-            <a href="?page={{ pages.number|add:"-1" }}" class="pagination__link">
-                {% include "core/includes/icon.html" with icon="arrow-left" class="pagination__arrow i--small" %}
-            </a>
-        </li>
-        <li class="pagination__item">
-            <span class="pagination__inactive">
-                {% include "core/includes/icon.html" with icon="arrow-left" class="pagination__arrow i--small" %}
-            </span>
-        </li>
-        <li class="pagination__item">
-                <a href='?page={{ page_number }}' class='pagination__link'>1</a>
-
-        </li>
-        <li class="pagination__item">
-            <a href="?page={{ pages.number|add:"1" }}" class="pagination__link">
-                {% include "core/includes/icon.html" with icon="arrow-right" class="pagination__arrow i--small" %}
-            </a>
-        </li>
-        </ul>
-
     </div>
 {% endblock %}

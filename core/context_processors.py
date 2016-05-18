@@ -8,12 +8,15 @@ def google_analytics(request):
     """
     ga_key = getattr(settings, 'GOOGLE_ANALYTICS_KEY', False)
     ga_tag = getattr(settings, 'GOOGLE_TAG_MANAGER', False)
+    gak = getattr(settings, 'GOOGLE_API_KEY', False)
 
     if ga_key:
         return {
             'GOOGLE_ANALYTICS_KEY': ga_key,
             'GOOGLE_TAG_MANAGER': ga_tag,
+            'GOOGLE_API_KEY': gak,
         }
+
     return {}
 
 

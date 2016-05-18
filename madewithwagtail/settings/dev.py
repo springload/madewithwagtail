@@ -17,6 +17,7 @@ TEMPLATES = [
 # Analytics stuff
 GOOGLE_TAG_MANAGER = False
 GOOGLE_ANALYTICS_KEY = False
+GOOGLE_API_KEY = False
 
 DEBUG = True
 

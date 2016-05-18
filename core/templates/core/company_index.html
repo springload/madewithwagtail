@@ -4,46 +4,45 @@
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
 {% block content %}
-    <div class="site-content content-width">
+    <div class="site-content">
+        <div class="content-width">
+            <div class="banner ">
+                <h1>{{ self.title }}</h1>
 
-        <div class="banner ">
-            <h1>{{ self.title }}</h1>
-
-            <div class="intro">
-                {{ self.body|richtext }}
+                <div class="intro">
+                    {{ self.body|richtext }}
+                </div>
             </div>
         </div>
 
         {% if self.show_map and pages.number == 1 %}
-            </div> <!-- Close main div -->
-            
-            <div id="map" class="map content-width--full"></div>
-
-            <div class="site-content content-width"><!-- Reopen main div -->
+        <div id="map" class="content-width--full map"></div>
         {% endif %}
+        
+        <div class="site-content content-width">
+            <div class="grid-float">
+                {% for company in pages %}
+                    <div class="media one-half--medium one-third--large company-listing__column ">
+                        <a class="company-listing  link-ghost" href="{% pageurl company %}">
+                            <div class="media__image">
+                                {% if company.logo %}
+                                {% image company.logo fill-80x80-c100 as company_logo %}
+                                <img src="{{ company_logo.url }}" alt="{{ company_logo.title }}" title="{{ company_logo.title }}" />
+                                {% else %}
+                                <div class="company__placeholder"></div>
+                                {% endif %}
+                            </div>
 
-        <div class="grid-float">
-            {% for company in pages %}
-                <div class="media one-half--medium one-third--large company-listing__column ">
-                    <a class="company-listing  link-ghost" href="{% pageurl company %}">
-                        <div class="media__image">
-                            {% if company.logo %}
-                            {% image company.logo fill-80x80-c100 as company_logo %}
-                            <img src="{{ company_logo.url }}" alt="{{ company_logo.title }}" title="{{ company_logo.title }}" />
-                            {% else %}
-                            <div class="company__placeholder"></div>
-                            {% endif %}
-                        </div>
-
-                        <div class="media__body">
-                            <h4 class="company-listing__title">{{ company.title }}</h4>
-                            {% if company.location %}
-                            <p class="company-listing__location truncate">{{ company.location }}</p>
-                            {% endif %}
-                        </div>
-                    </a>
-                </div>
-            {% endfor %}
+                            <div class="media__body">
+                                <h4 class="company-listing__title">{{ company.title }}</h4>
+                                {% if company.location %}
+                                <p class="company-listing__location truncate">{{ company.location }}</p>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
 
         {% usemacro pagination pages %}
@@ -125,8 +124,8 @@
                 className = "label-xs";
             }
             else if (num_children < 3) {
-                offsetX = 12;
-                offsetY = -3;
+                offsetX = 14;
+                offsetY = -1;
                 className = "label-s";
             }
             else if (num_children < 5) {
@@ -135,12 +134,12 @@
                 className = "label-m";
             }
             else if (num_children < 10) {
-                offsetX = 22;
-                offsetY = -12;
+                offsetX = 24;
+                offsetY = -10;
                 className = "label-l";
             }
             else{
-                offsetX = 34;
+                offsetX = 36;
                 offsetY = -20;
                 className = "label-xl";
             }

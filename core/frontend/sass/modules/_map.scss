@@ -2,8 +2,28 @@
   Devs Google Map
 ==============================================================================*/
 
-.nav { 
+.map { 
     height: rem(380);
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    border-top: solid 1.5rem #fff;
+    border-bottom: solid 1.5rem #fff;
+}
+
+.label-xs {
+    font-size: rem(11);
+}
+
+.label-s {
+    font-size: rem(12);
+}
+
+.label-m {
+    font-size: rem(13);
+}
+
+.label-l {
+    font-size: rem(14);
+}
+
+.label-xl {
+    font-size: rem(15);
 }

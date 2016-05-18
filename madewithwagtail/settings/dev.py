@@ -1,11 +1,24 @@
 from .base import *
 
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            normpath(join(DJANGO_ROOT, 'core/templates')),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'debug': True,
+            'context_processors': ['django.template.context_processors.debug'] + CONTEXT_PROCESSORS
+        }
+    },
+]
+
 # Analytics stuff
 GOOGLE_TAG_MANAGER = False
 GOOGLE_ANALYTICS_KEY = False
 
 DEBUG = True
-TEMPLATE_DEBUG = True
 
 COMPRESS_ENABLED = False
 

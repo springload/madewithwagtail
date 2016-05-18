@@ -1,44 +1,304 @@
 {% extends "base.html" %}
-{% load macros wagtailcore_tags core_tags wagtailimages_tags %}
+{% load macros wagtailcore_tags core_tags wagtailimages_tags static compress %}
 {% loadmacros "core/includes/macros.html" %}
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
 {% block content %}
-    <div class="site-content content-width">
+    <div class="site-content">
+        <div class="content-width">
+            <div class="banner ">
+                <h1>{{ self.title }}</h1>
 
-        <div class="banner ">
-            <h1>{{ self.title }}</h1>
-
-            <div class="intro">
-                {{ self.body|richtext }}
+                <div class="intro">
+                    {{ self.body|richtext }}
+                </div>
             </div>
         </div>
 
-        <div class="grid-float">
-            {% for company in pages %}
-                <div class="media one-half--medium one-third--large company-listing__column ">
-                    <a class="company-listing  link-ghost" href="{% pageurl company %}">
-                        <div class="media__image">
-                            {% if company.logo %}
-                            {% image company.logo fill-80x80-c100 as company_logo %}
-                            <img src="{{ company_logo.url }}" alt="{{ company_logo.title }}" title="{{ company_logo.title }}" />
-                            {% else %}
-                            <div class="company__placeholder"></div>
-                            {% endif %}
-                        </div>
+        {% if self.show_map and pages.number == 1 %}
+        <div id="map" class="content-width--full map"></div>
+        {% endif %}
+        
+        <div class="site-content content-width">
+            <div class="grid-float">
+                {% for company in pages %}
+                    <div class="media one-half--medium one-third--large company-listing__column ">
+                        <a class="company-listing  link-ghost" href="{% pageurl company %}">
+                            <div class="media__image">
+                                {% if company.logo %}
+                                {% image company.logo fill-80x80-c100 as company_logo %}
+                                <img src="{{ company_logo.url }}" alt="{{ company_logo.title }}" title="{{ company_logo.title }}" />
+                                {% else %}
+                                <div class="company__placeholder"></div>
+                                {% endif %}
+                            </div>
 
-                        <div class="media__body">
-                            <h4 class="company-listing__title">{{ company.title }}</h4>
-                            {% if company.location %}
-                            <p class="company-listing__location truncate">{{ company.location }}</p>
-                            {% endif %}
-                        </div>
-                    </a>
-                </div>
-            {% endfor %}
+                            <div class="media__body">
+                                <h4 class="company-listing__title">{{ company.title }}</h4>
+                                {% if company.location %}
+                                <p class="company-listing__location truncate">{{ company.location }}</p>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
 
         {% usemacro pagination pages %}
 
     </div>
 {% endblock %}
+
+{% block extra_js %}
+
+{% if self.show_map %}
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+{% compress js %}
+    <script type="text/javascript" src="{% static 'js/vendor/markerclusterer.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/vendor/elabel.js' %}"></script>
+    <script type="text/javascript">
+
+    /***
+    * HTTP client to perform GET requests to a given aURL
+    ***/
+    var HttpClient = function() {
+        this.get = function(aUrl, aCallback) {
+            var anHttpRequest = new XMLHttpRequest();
+            anHttpRequest.onreadystatechange = function() { 
+                if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200) {
+                    aCallback(anHttpRequest.responseText);
+                }
+            }
+            anHttpRequest.open( "GET", aUrl, true );            
+            anHttpRequest.send( null );
+        }
+    }
+
+    /***
+    * Executed upon DOM initialization
+    ***/
+    function initialize() {
+
+        /***
+        * Returns a google.maps.MarkerImage with a specific size and icon depending
+        * on given num_children (number of sites company/dev holds)
+        ***/
+        var createMarkerImage = function(num_children) {
+            if (num_children == 1) {
+                image_url = '{% static "images/markers/tiny.png" %}';
+                size = 10;
+            }
+            else if (num_children < 3) {
+                image_url = '{% static "images/markers/small.png" %}';
+                size = 20;
+            }
+            else if (num_children < 5) {
+                image_url = '{% static "images/markers/medium.png" %}';
+                size = 30;
+            }
+            else if (num_children < 10) {
+                image_url = '{% static "images/markers/large.png" %}';
+                size = 40;
+            }
+            else{
+                image_url = '{% static "images/markers/xlarge.png" %}';
+                size = 60;
+            }
+
+            return new google.maps.MarkerImage(image_url, new google.maps.Size(size, size));
+        }
+
+        /***
+        * Returns a ELabel with a specific size depending
+        * on given num_children (number of sites company/dev holds)
+        ***/
+        var createLabel = function(latLng, num_children, content) {
+            var offsetX = 0;
+            var offsetY = 0;
+            var className = "";
+
+            if (num_children == 1) {
+                offsetX = 7;
+                offsetY = 3;
+                className = "label-xs";
+            }
+            else if (num_children < 3) {
+                offsetX = 14;
+                offsetY = -1;
+                className = "label-s";
+            }
+            else if (num_children < 5) {
+                offsetX = 17;
+                offsetY = -7;
+                className = "label-m";
+            }
+            else if (num_children < 10) {
+                offsetX = 24;
+                offsetY = -10;
+                className = "label-l";
+            }
+            else{
+                offsetX = 36;
+                offsetY = -20;
+                className = "label-xl";
+            }
+
+            var pixelOffset = new google.maps.Size(offsetX, offsetY);
+            return new ELabel(latLng, content, className, pixelOffset);
+        }
+
+        /***
+        * Show or hide given ELabel depending on current zoom level
+        ***/
+        var showHideLabel = function(elabel, zoom) {
+            if (zoom > 8) {
+                if (elabel.isHidden()) {
+                    elabel.show();
+                }
+            } else {
+                if (!elabel.isHidden()) {
+                    elabel.hide();
+                }
+            }
+        }
+
+        // Map center to the coolest little Capital of the Galaxy
+        var center = new google.maps.LatLng(-41.29244389999999, 174.77836619999994);
+
+        // Three types of cluster markers
+        var cluster_styles = [
+            {
+                url: '{% static "images/markers/medium.png" %}',
+                height: 30,
+                width: 30,
+                textColor: '#ffffff',
+                textSize: 12
+            },
+            {
+                url: '{% static "images/markers/large.png" %}',
+                height: 40,
+                width: 40,
+                textColor: '#ffffff',
+                textSize: 13
+            },
+            {
+                url: '{% static "images/markers/xlarge.png" %}',
+                height: 60,
+                width: 60,
+                textColor: '#ffffff',
+                textSize: 14
+            }
+        ];
+
+        // Style the map
+        var styles = [
+            {
+                featureType: "landscape", 
+                stylers: [
+                    { color: "#E7EDEC" }, 
+                ] 
+            },{
+                featureType: "water",
+                stylers: [
+                    { color: "#ffffff" },
+                ]
+            },{
+                featureType: "administrative",
+                stylers: [
+                  { visibility: "off" }
+                ]
+            },{
+                featureType: "poi",
+                stylers: [
+                  { visibility: "off" }
+                ]
+            },{
+                featureType: "road",
+                stylers: [
+                  { visibility: "off" }
+                ]
+            },{
+                featureType: "transit",
+                stylers: [
+                  { visibility: "off" }
+                ]
+            },{
+                featureType: "all",
+                elementType: "labels",
+                stylers: [
+                  { visibility: "off" }
+                ]
+            }
+        ];
+        // Init map
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 3,
+            maxZoom: 14,
+            center: center,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            scrollwheel: false,
+            disableDefaultUI: true,
+            zoomControl: true,
+            zoomControlOptions: {
+                position: google.maps.ControlPosition.RIGHT_TOP
+            },
+            styles: styles,
+        });
+
+        // HTTP GET to the api and process the data
+        aClient = new HttpClient();
+        aClient.get("{{ API_COMPANIES_ENDPOINT }}", function(response) {
+            var json_data = JSON.parse(response);
+            var markers = [];
+            for (var i = 0; i < json_data.length; i++) {
+                var elem = json_data[i]
+                var latLng = new google.maps.LatLng(elem.lat, elem.lon);
+                var marker = new google.maps.Marker({
+                    position: latLng,
+                    icon: createMarkerImage(elem.children_count)
+                });
+                markers.push(marker);
+
+                var label = createLabel(latLng, elem.children_count, "<a href='" + elem.url + "'>" + elem.title + "</a>");
+                label.setMap(map);
+                label.hide();
+
+                // Event listener for zoom changes
+                google.maps.event.addListener(map, 'zoom_changed', function(elabel, map) {
+                    return function() {
+                        showHideLabel(elabel, map.getZoom());
+                    }
+                }(label, map));
+
+                // Event listener for clicks on marker
+                marker.addListener('click', function(elabel) {
+                    return function() {
+                        if (elabel.isHidden()) {
+                            elabel.show();
+                        }
+                        else {
+                            elabel.hide();
+                        }
+                    }
+                }(label));
+            }
+
+            // Init cluster
+            var markerCluster = new MarkerClusterer(map, markers, {
+                maxZoom: 9,
+                styles: cluster_styles,
+                minimumClusterSize: 2,
+            });
+        });
+    }
+  
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+{% endcompress %}
+
+{% endif %}
+
+{% endblock %}
+

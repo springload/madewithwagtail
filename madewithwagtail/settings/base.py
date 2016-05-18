@@ -10,7 +10,6 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 # Absolute filesystem path to the Django project directory:
 DJANGO_ROOT = dirname(dirname(dirname(abspath(__file__))))
@@ -58,8 +57,7 @@ except NameError:
             secret.write(SECRET_KEY)
             secret.close()
         except IOError:
-            Exception('Please create a %s file with random characters \
-            to generate your secret key!' % SECRET_FILE)
+            Exception('Please create a %s file with random characters to generate your secret key!' % SECRET_FILE)
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -80,6 +78,10 @@ INSTALLED_APPS = (
     'captcha',
     'wagtailcaptcha',
     'core',
+    'overextends',
+    'api',
+    'wagtailgmaps',
+    'rest_framework',
     'wagtail.contrib.wagtailsitemaps',
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.wagtailcore',
@@ -176,19 +178,28 @@ COMPRESS_PRECOMPILERS = (
 )
 
 # Template configuration
-TEMPLATE_CONTEXT_PROCESSORS += (
+CONTEXT_PROCESSORS = [
+    'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.request',
     'core.context_processors.baseurl',
     'core.context_processors.google_analytics',
+    'core.context_processors.api_companies_endpoint',
     'django.contrib.messages.context_processors.messages',
-)
-
-
-TEMPLATE_DIRS = (
-    normpath(join(DJANGO_ROOT, 'core/templates')),
-)
+]
 
 # Wagtail settings
 
 LOGIN_URL = 'wagtailadmin_login'
 LOGIN_REDIRECT_URL = 'wagtailadmin_home'
+
+# Wagtailgmaps settings
+
+WAGTAIL_ADDRESS_MAP_CENTER = 'Wellington, New Zealand'
+WAGTAIL_ADDRESS_MAP_ZOOM = 8
+
+# REST framework
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
+    'PAGINATE_BY': None,
+}

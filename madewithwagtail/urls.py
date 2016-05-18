@@ -14,6 +14,8 @@ from wagtail.wagtailimages import urls as wagtailimages_urls
 from wagtail.contrib.wagtailsitemaps.views import sitemap
 from wagtail.wagtailsearch.signal_handlers import register_signal_handlers as wagtailsearch_register_signal_handlers
 
+from api import urls as api_urls
+
 admin.autodiscover()
 
 # Register search signal handlers
@@ -26,6 +28,7 @@ urlpatterns = patterns(
     url(r'^search/', include(wagtailsearch_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
     url(r'^images/', include(wagtailimages_urls)),
+    url(r'^api/', include(api_urls)),
     url('^sitemap\.xml$', sitemap),
     url('^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     url(r'', include(wagtail_urls)),

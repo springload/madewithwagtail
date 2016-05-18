@@ -1,9 +1,9 @@
 import os
 import re
 
+import django.db.models.options as options
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
-import django.db.models.options as options
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from wagtail.wagtailcore.fields import RichTextField
@@ -12,9 +12,7 @@ from wagtail.wagtailsearch import index
 
 from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
-
 from taggit.models import TaggedItemBase, Tag
-
 from bs4 import BeautifulSoup
 
 from core.utilities import validate_only_one_instance
@@ -29,7 +27,7 @@ class IndexPage(models.Model):
 
     """
     Abstract Index Page class. Declare a couple of abstract methods that should be implemented by
-    any class implementing this interface.
+    any class implementing this 'interface'.
     """
     # Just one instance allowed
 
@@ -132,6 +130,7 @@ class CompanyIndex(Page, IndexPage):
     subpage_types = ['core.WagtailCompanyPage']
     search_fields = ()
     body = RichTextField(null=True, blank=True)
+    show_map = models.BooleanField(default=False, help_text='Show map of companies around the world.')
 
     def children(self):
         return self.get_children().live()
@@ -167,7 +166,7 @@ class CompanyIndex(Page, IndexPage):
         verbose_name = "Company Pages"
         description = "Companies index"
 
-CompanyIndex.content_panels = Page.content_panels + [FieldPanel('body', classname="full")]
+CompanyIndex.content_panels = WAGTAIL_COMPANY_INDEX_PAGE_CONTENT_PANELS
 
 
 class PageTag(TaggedItemBase):
@@ -243,11 +242,13 @@ class WagtailCompanyPage(WagtailPage):
     company_url = models.URLField(
         blank=True,
         null=True,
-        help_text='Paste the URL of your site, something like "http://www.springload.co.nz"',
+        help_text='Paste the URL of your site, something like "https://www.springload.co.nz"',
     )
     github_url = models.URLField(null=True, blank=True)
     twitter_url = models.URLField(null=True, blank=True)
     location = models.CharField(max_length=128, blank=True, null=True)
+    show_map = models.BooleanField(default=True, help_text='Show company in the map of companies around the world.')
+    coords = models.CharField(max_length=255, blank=True, null=True)
 
     logo = models.ForeignKey(
         'wagtailimages.Image',
@@ -263,6 +264,20 @@ class WagtailCompanyPage(WagtailPage):
     )
 
     @property
+    def lat(self):
+        if self.coords:
+            return self.coords.split(",")[0].strip()
+        else:
+            return None
+
+    @property
+    def lon(self):
+        if self.coords:
+            return self.coords.split(",")[1].strip()
+        else:
+            return None
+
+    @property
     def twitter_handler(self):
         if self.twitter_url:
             return "@%s" % self.twitter_url.split("/")[-1]
@@ -275,6 +290,10 @@ class WagtailCompanyPage(WagtailPage):
             return self.github_url.split("/")[-1]
         else:
             return None
+
+    @property
+    def children_count(self):
+        return self.children().count()
 
     @property
     def og_image(self):

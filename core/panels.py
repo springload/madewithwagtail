@@ -39,4 +39,13 @@ WAGTAIL_COMPANY_PAGE_CONTENT_PANELS = HOME_PAGE_CONTENT_PANELS + [
     FieldPanel('twitter_url'),
     ImageChooserPanel('logo'),
     FieldPanel('tags'),
+    MultiFieldPanel([
+        FieldPanel('show_map'),
+        FieldPanel('coords', classname="gmap gmap--latlng"),
+    ], heading="Coordinates")
+]
+
+WAGTAIL_COMPANY_INDEX_PAGE_CONTENT_PANELS = Page.content_panels + [
+    FieldPanel('show_map'),
+    FieldPanel('body', classname="full"),
 ]

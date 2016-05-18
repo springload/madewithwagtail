@@ -187,11 +187,6 @@ CONTEXT_PROCESSORS = [
     'django.contrib.messages.context_processors.messages',
 ]
 
-
-TEMPLATE_DIRS = (
-    normpath(join(DJANGO_ROOT, 'core/templates')),
-)
-
 # Wagtail settings
 
 LOGIN_URL = 'wagtailadmin_login'

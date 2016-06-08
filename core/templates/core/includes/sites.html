@@ -8,7 +8,7 @@
             <div class="card card--link">
                 <a href="{{ page.url }}" class="project-image">
                 {% if page.image_desktop %}
-                {% image page.image_desktop width-680 as image_desktop %}
+                {% image page.image_desktop fill-680x540 as image_desktop %}
                 <img src="{{ image_desktop.url }}" alt="{{ image_desktop.title }}" title="{{ image_desktop.title }}" />
                 {% endif %}
                 </a>

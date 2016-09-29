@@ -18,7 +18,7 @@
         {% if self.show_map and pages.number == 1 %}
         <div id="map" class="content-width--full map"></div>
         {% endif %}
-        
+
         <div class="site-content content-width">
             <div class="grid-float">
                 {% for company in pages %}
@@ -66,12 +66,12 @@
     var HttpClient = function() {
         this.get = function(aUrl, aCallback) {
             var anHttpRequest = new XMLHttpRequest();
-            anHttpRequest.onreadystatechange = function() { 
+            anHttpRequest.onreadystatechange = function() {
                 if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200) {
                     aCallback(anHttpRequest.responseText);
                 }
             }
-            anHttpRequest.open( "GET", aUrl, true );            
+            anHttpRequest.open( "GET", aUrl, true );
             anHttpRequest.send( null );
         }
     }
@@ -164,9 +164,6 @@
             }
         }
 
-        // Map center to the coolest little Capital of the Galaxy
-        var center = new google.maps.LatLng(-41.29244389999999, 174.77836619999994);
-
         // Three types of cluster markers
         var cluster_styles = [
             {
@@ -195,10 +192,10 @@
         // Style the map
         var styles = [
             {
-                featureType: "landscape", 
+                featureType: "landscape",
                 stylers: [
-                    { color: "#E7EDEC" }, 
-                ] 
+                    { color: "#E7EDEC" },
+                ]
             },{
                 featureType: "water",
                 stylers: [
@@ -232,11 +229,11 @@
                 ]
             }
         ];
-        // Init map
+        // Init map with a view of the whole world.
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 3,
+            zoom: 1,
             maxZoom: 14,
-            center: center,
+            center: new google.maps.LatLng(0, 0),
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             scrollwheel: false,
             disableDefaultUI: true,
@@ -293,7 +290,7 @@
             });
         });
     }
-  
+
     google.maps.event.addDomListener(window, 'load', initialize);
 
     </script>

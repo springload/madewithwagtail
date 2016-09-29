@@ -30,6 +30,7 @@ media/*
 *.sass-cache
 .idea
 .coverage
+.bundle
 
 # node
 node_modules/

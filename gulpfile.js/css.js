@@ -9,7 +9,6 @@ var gutil = require('gulp-util');
 var size = require('gulp-size');
 var bs = require('browser-sync').get('main');
 var sourcemaps = require('gulp-sourcemaps');
-//var livereload = require('gulp-livereload');
 
 /*
  ---------------------------------------------------------------------------
@@ -17,9 +16,8 @@ var sourcemaps = require('gulp-sourcemaps');
  ---------------------------------------------------------------------------
  */
 
-gulp.task('css', function (done) {
-
-    gulp.src(path.join(config.paths.sass, "**", "*.scss"))
+gulp.task('css', function() {
+    return gulp.src(path.join(config.paths.sass, "**", "*.scss"))
         .pipe(config.prod ? gutil.noop() : sourcemaps.init())
         .pipe(sass())
         .on('error', function handleError(err) {
@@ -32,8 +30,4 @@ gulp.task('css', function (done) {
         .pipe(size({ title: config.prod ? 'CSS' : 'CSS (unminified)', showFiles: true, gzip: config.prod }))
         .pipe(gulp.dest( path.join(config.paths.assets, "css") ))
         .pipe(bs.stream());
-    ;
-
-    done();
-
 });

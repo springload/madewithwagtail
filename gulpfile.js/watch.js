@@ -3,7 +3,7 @@ var config = require("./config");
 var path = require("path");
 var bs = require('browser-sync').create('main');
 
-gulp.task('watch', ['js', 'css', 'svg'], function() {
+gulp.task('watch', ['build'], function() {
     bs.init({
         open: false,
         // server: config.paths.templates,

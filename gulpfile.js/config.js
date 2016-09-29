@@ -29,8 +29,8 @@ module.exports = {
         pseudoElements: true,
         opacity: true,
         autoprefixer: {
-            "browsers": ["last 10 versions", "ie 8"]
-        }
-    }
+            browsers: ['> 1%'],
+        },
+    },
 
 };

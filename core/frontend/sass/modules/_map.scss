@@ -2,10 +2,11 @@
   Devs Google Map
 ==============================================================================*/
 
-.map { 
-    height: rem(380);
+.map {
+    height: rem(420);
     border-top: solid 1.5rem #fff;
     border-bottom: solid 1.5rem #fff;
+    padding-left: 0;
 }
 
 .label-xs {

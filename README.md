@@ -1,25 +1,76 @@
-[Made with Wagtail](http://madewithwagtail.org) [![Codeship Status for springload/madewithwagtail](https://codeship.com/projects/26741250-da6d-0132-ea89-328081b30bed/status?branch=master)](https://codeship.com/projects/79308)
+[Made with Wagtail](http://madewithwagtail.org) [![Codeship Status for springload/madewithwagtail](https://codeship.com/projects/26741250-da6d-0132-ea89-328081b30bed/status?branch=master)](https://codeship.com/projects/79308) [<img src="https://github.com/torchbox/wagtail/blob/82171f70faaf0c8b8da278261e6f45fed529c899/docs/logo.png" width="83" align="right" alt="Wagtail">](https://wagtail.io/)
 =================
 
-This is the source code of [Made with Wagtail](http://www.madewithwagtail.org).
+> A showcase of sites and apps made with [Wagtail](https://wagtail.io/): an easy to use, open source content management system from [Torchbox](https://github.com/torchbox/wagtail).
 
-# Installation
+## Installation
 
-Install Vagrant and  VirtualBox:
+Install [Vagrant](http://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads), then from the command-line:
 
-* [Vagrant](http://www.vagrantup.com/downloads.html)
-* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
-
-# Setup
-
-```
-  $ git clone git@github.com:springload/madewithwagtail.git madewithwagtail
-  $ cd madewithwagtail
-  $ vagrant up
-  [.. wait until everything gets installed]
-  $ vagrant ssh
-  [.. from your vagrant machine]
-  $ djrun
+```sh
+git clone git@github.com:springload/madewithwagtail.git
+cd madewithwagtail
+vagrant up
+# [.. wait until everything gets installed]
+vagrant ssh
+# [.. from your vagrant machine]
+djrun
 ```
 
 The demo site will now be accessible at [http://localhost:8111/](http://localhost:8111/) and the Wagtail admin interface at [http://localhost:8111/admin/](http://localhost:8111/admin/) . Log into the admin with the credentials ``admin / changeme``.
+
+### Front-end commands
+
+> Everything mentioned in the installation process should already be done.
+
+```sh
+# Make sure you use the right node version.
+nvm use
+# Start the server and the development tools.
+npm run start
+# Builds frontend assets.
+npm run build
+# Runs linting.
+npm run lint
+# Runs tests.
+npm run test
+# View other available commands with:
+npm run
+```
+
+### Adding and upgrading dependencies
+
+This project is [shrinkwrapped](https://docs.npmjs.com/cli/shrinkwrap). Its dependencies are locked down in `npm-shrinkwrap.json` file. To update them,
+
+1. Use `npm run lint:versions` to confirm you are using the right node version.
+2. Use `npm install <package>` with `--save` or `--save-dev` options to change the dependencies.
+3. Check the project still works with the new dependencies / new versions.
+4. Run **`npm run shrinkwrap`** to regenerate `npm-shrinkwrap.json`.
+5. Commit this file, and push.
+
+## Deploying a new version
+
+### To production
+
+```sh
+npm run deploy
+```
+
+From your local machine, it's a good idea to push to the master before
+pushing to the deploy branch. That way you know that both are up to date.
+
+## Documentation
+
+### Browser support
+
+**Supported browser / device versions:**
+
+| Browser | Device/OS | Version |
+|---------|-----------|---------|
+| Mobile Safari | iOS Phone | latest |
+| Mobile Safari | iOS Tablet | latest |
+| Chrome | Android | latest |
+| IE | Desktop | 11 |
+| Chrome | Desktop | latest |
+| Firefox | Desktop | latest |
+| Safari | OSX | latest |

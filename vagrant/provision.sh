@@ -19,33 +19,18 @@ su - vagrant -c "/usr/local/bin/virtualenv $VIRTUALENV_DIR && \
 # Install pip dependencies, recursively and in order
 filename="$PROJECT_DIR/$REQUIREMENTS_FILE"
 
-install_reqs()
-{
-    while read -r line || [[ -n $line ]]
-    do
-        if [[ -n "$line" && "$line" =~ ^\-r ]];then
-            for word in $line; do
-                echo $word
-            done
-            echo "INSTALLING file $word"
-            install_reqs "$PROJECT_DIR/requirements/$word"
-        elif [[ -n "$line" && "$line" != [[:blank:]#]* ]];then
-            echo "INSTALLING package $line"
-            su - vagrant -c "$PIP install $line"
-        fi
-    done < "$1"
-}
-
-install_reqs $filename
+su - vagrant -c "$PIP install -r $filename -f /home/vagrant/wheelhouse"
 
 # Set execute permissions on manage.py
 chmod a+x $DJANGO_DIR/manage.py
 
 # Create and populate DB (on your virtual machine)
+echo "Creating database"
 su - vagrant -c "dropdb --if-exists $DB_NAME && \
                 createdb $DB_NAME"
 
 # Run migrate/update_index/load_initial_data
+echo "Running migrations and loading initial data"
 su - vagrant -c "$PYTHON $PROJECT_DIR/manage.py migrate --noinput && \
                  $PYTHON $PROJECT_DIR/manage.py load_initial_data && \
                  $PYTHON $PROJECT_DIR/manage.py update_index"

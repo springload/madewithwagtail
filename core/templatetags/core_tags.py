@@ -110,13 +110,6 @@ def subtract(value, arg):
     return value - arg
 
 
-@register.filter
-def str_tag(tag):
-    if tag:
-        return "&tag=%s" % tag
-    return ""
-
-
 @register.simple_tag
 def build_qsa(page_number, tag, query_string):
     qsa = "?"

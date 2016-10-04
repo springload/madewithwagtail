@@ -1,7 +1,6 @@
 {% extends "base.html" %}
-{% load macros %}
+{% load macros wagtailcore_tags core_tags wagtailimages_tags%}
 {% loadmacros "core/includes/macros.html" %}
-{% load wagtailcore_tags %}
 
 {% block title %}Search{% if search_results %} Results{% endif %}{% endblock %}
 
@@ -34,6 +33,7 @@
                     </div>
                 {% endfor %}
             </div>
+            {% usemacro pagination search_results "" query_string %}
             {% else %}
                 {% if request.GET.q %}
                     <p>

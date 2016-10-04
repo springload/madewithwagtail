@@ -1,7 +1,6 @@
 {% load macros wagtailcore_tags core_tags %}
 
-{% macro pagination pages tag %}
-
+{% macro pagination pages tag query_string %}
     {% if pages.paginator.num_pages > 1 %}
 
     {# django templates, you are making my cry! #}
@@ -26,7 +25,7 @@
 
     {% if pages.number > 1 %}
         <li class="pagination__item">
-            <a href="?page={{ pages.number|add:"-1" }}{{ tag|str_tag }}" class="pagination__link">
+            <a href="{% build_qsa pages.number|add:"-1" tag query_string %}" class="pagination__link">
                 {% include "core/includes/icon.html" with icon="arrow-left" class="pagination__arrow i--small" %}
             </a>
         </li>
@@ -43,14 +42,14 @@
             {% if page_number == pages.number %}
                 <span class="pagination__current">{{ page_number }}</span>
             {% else %}
-                <a href='?page={{ page_number }}{{ tag|str_tag }}' class='pagination__link'>{{ page_number }}</a>
+                <a href='{% build_qsa page_number tag query_string %}' class='pagination__link'>{{ page_number }}</a>
             {% endif %}
         </li>
     {% endfor %}
 
     {% if pages.number < pages.paginator.num_pages %}
         <li class="pagination__item">
-            <a href="?page={{ pages.number|add:"1" }}{{ tag|str_tag }}" class="pagination__link">
+            <a href="{% build_qsa pages.number|add:"1" tag query_string %}" class="pagination__link">
                 {% include "core/includes/icon.html" with icon="arrow-right" class="pagination__arrow i--small" %}
             </a>
         </li>

@@ -197,6 +197,8 @@ LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 WAGTAIL_ADDRESS_MAP_CENTER = 'Wellington, New Zealand'
 WAGTAIL_ADDRESS_MAP_ZOOM = 8
 
+TAGGIT_CASE_INSENSITIVE = True
+
 # REST framework
 
 REST_FRAMEWORK = {

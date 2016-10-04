@@ -87,7 +87,7 @@ class HomePage(Page, IndexPage):
         # Filter by tag
         tag = request.GET.get('tag')
         if tag:
-            pages = pages.filter(tags__name=tag)
+            pages = pages.filter(tags__name__iexact=tag)
 
         # Pagination
         page = request.GET.get('page')
@@ -142,7 +142,7 @@ class CompanyIndex(Page, IndexPage):
         # Filter by tag
         tag = request.GET.get('tag')
         if tag:
-            pages = pages.filter(tags__name=tag)
+            pages = pages.filter(tags__name__iexact=tag)
 
         # Pagination
         page = request.GET.get('page')

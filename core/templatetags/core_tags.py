@@ -115,3 +115,15 @@ def str_tag(tag):
     if tag:
         return "&tag=%s" % tag
     return ""
+
+
+@register.simple_tag
+def build_qsa(page_number, tag, query_string):
+    qsa = "?"
+    if page_number:
+        qsa += "page=%s&" % page_number
+    if tag:
+        qsa += "tag=%s&" % tag
+    if query_string:
+        qsa += "q=%s" % query_string
+    return qsa

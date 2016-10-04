@@ -102,6 +102,7 @@ class HomePage(Page, IndexPage):
         # Update template context
         context = super(HomePage, self).get_context(request)
         context['pages'] = pages
+        context['tag'] = tag
         # Only tags used by live pages
         context['tags'] = Tag.objects.filter(
             core_pagetag_items__isnull=False,
@@ -157,6 +158,7 @@ class CompanyIndex(Page, IndexPage):
         # Update template context
         context = super(CompanyIndex, self).get_context(request)
         context['pages'] = pages
+        context['tag'] = tag
         return context
 
     def __unicode__(self):

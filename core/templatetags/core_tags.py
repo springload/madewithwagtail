@@ -108,3 +108,10 @@ def addstr(arg1, arg2):
 @register.filter
 def subtract(value, arg):
     return value - arg
+
+
+@register.filter
+def str_tag(tag):
+    if tag:
+        return "&tag=%s" % tag
+    return ""

@@ -1,6 +1,6 @@
 {% load macros wagtailcore_tags core_tags %}
 
-{% macro pagination pages %}
+{% macro pagination pages tag %}
 
     {% if pages.paginator.num_pages > 1 %}
 
@@ -22,12 +22,11 @@
     {% endif %}
 
     {% with start|addstr:":"|addstr:end as my_page_range %}
-
     <ul class="pagination">
 
     {% if pages.number > 1 %}
         <li class="pagination__item">
-            <a href="?page={{ pages.number|add:"-1" }}" class="pagination__link">
+            <a href="?page={{ pages.number|add:"-1" }}{{ tag|str_tag }}" class="pagination__link">
                 {% include "core/includes/icon.html" with icon="arrow-left" class="pagination__arrow i--small" %}
             </a>
         </li>
@@ -44,16 +43,22 @@
             {% if page_number == pages.number %}
                 <span class="pagination__current">{{ page_number }}</span>
             {% else %}
-                <a href='?page={{ page_number }}' class='pagination__link'>{{ page_number }}</a>
+                <a href='?page={{ page_number }}{{ tag|str_tag }}' class='pagination__link'>{{ page_number }}</a>
             {% endif %}
         </li>
     {% endfor %}
 
     {% if pages.number < pages.paginator.num_pages %}
         <li class="pagination__item">
-            <a href="?page={{ pages.number|add:"1" }}" class="pagination__link">
+            <a href="?page={{ pages.number|add:"1" }}{{ tag|str_tag }}" class="pagination__link">
                 {% include "core/includes/icon.html" with icon="arrow-right" class="pagination__arrow i--small" %}
             </a>
+        </li>
+    {% else %}
+        <li class="pagination__item">
+            <span class="pagination__inactive">
+                {% include "core/includes/icon.html" with icon="arrow-right" class="pagination__arrow i--small" %}
+            </span>
         </li>
     {% endif %}
 

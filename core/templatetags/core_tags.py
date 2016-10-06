@@ -2,6 +2,7 @@ from django import template
 from django.core.exceptions import ObjectDoesNotExist
 
 from core.models import NavigationMenu, Page
+import urllib
 
 register = template.Library()
 
@@ -112,11 +113,11 @@ def subtract(value, arg):
 
 @register.simple_tag
 def build_qsa(page_number, tag, query_string):
-    qsa = "?"
+    qsa = {}
     if page_number:
-        qsa += "page=%s&" % page_number
+        qsa['page'] = page_number
     if tag:
-        qsa += "tag=%s&" % tag
+        qsa['tag'] = tag
     if query_string:
-        qsa += "q=%s" % query_string
-    return qsa
+        qsa['q'] = query_string
+    return "?" + urllib.urlencode(qsa)

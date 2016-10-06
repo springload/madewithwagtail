@@ -9,7 +9,7 @@
         <div class="banner content-width">
             {% if request.GET.tag|length %}
                 <h2>
-                    Wagtail sites tagged with <span class="text-light">{{ request.GET.tag|safe }}</span>
+                    Wagtail sites tagged with <span class="text-light">{{ request.GET.tag }}</span>
                 </h2>
                 <a href=" {% pageurl self %} ">Show all sites</a>
             {% else %}

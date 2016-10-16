@@ -74,3 +74,23 @@ pushing to the deploy branch. That way you know that both are up to date.
 | Chrome | Desktop | latest |
 | Firefox | Desktop | latest |
 | Safari | OSX | latest |
+
+### New site submissions workflow
+
+Anyone can submit a site on the [submission form](http://madewithwagtail.org/submit/). When a new site is submitted, the details are saved and also sent to us via an email notification. We then need to manually validate the submission and add the new site via the CMS.
+
+- Check that the submission is valid (site exists, isn't obviously built with something else).
+- If the submission isn't valid, we won't add the site to our showcase. Send an email to the person making the submission to let their know.
+- If the submission is valid,
+
+## Valid submissions
+
+1. Take a 1440x1200 screenshot of the site's homepage with [`screenshotron`](https://github.com/springload/screenshotron).
+2. Log into the CMS at http://madewithwagtail.org/admin/login
+3. Check if the developer already has a page in the CMS.
+4. If not, create a page for the company or individual with their details.
+5. Add a new Site page under this Developer, with the details that are in the submission.
+6. Use the screenshot for the "Desktop image".
+7. Add tags that you deem appropriate, depending on the ones we already have and the characteristics of the site.
+8. Publish!
+9. Let the submitter know by sending them a nice email.

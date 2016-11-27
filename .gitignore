@@ -32,9 +32,11 @@ media/*
 .coverage
 .bundle
 
+core/static/css/*
+core/static/js/*
+!vendor/
+
 # node
 node_modules/
 # bower
 bower_components/
-
-

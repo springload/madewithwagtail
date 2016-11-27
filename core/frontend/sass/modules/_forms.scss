@@ -6,6 +6,7 @@ $input-border:                   #ccc;
 $input-border-radius:            $radius-border;
 $input-border-focus:             $color-base-font;
 $input-placeholder:              $color-base-font-muted;
+$input-label-color:              $color-base-font-muted;
 
 
 .form {
@@ -36,7 +37,7 @@ $input-placeholder:              $color-base-font-muted;
 }
 
 .helptext {
-    display: none;
+    color: $input-label-color;
 }
 
 .errorlist {

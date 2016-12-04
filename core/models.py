@@ -282,14 +282,14 @@ class WagtailCompanyPage(WagtailPage):
     @property
     def twitter_handler(self):
         if self.twitter_url:
-            return "@%s" % self.twitter_url.split("/")[-1]
+            return "@%s" % self.twitter_url.strip('/ ').split("/")[-1]
         else:
             return None
 
     @property
     def github_user(self):
         if self.github_url:
-            return self.github_url.split("/")[-1]
+            return self.github_url.strip('/ ').split("/")[-1]
         else:
             return None
 

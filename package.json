@@ -19,7 +19,6 @@
     "browserify": "^13.0.0",
     "browserify-incremental": "^3.0.0",
     "gulp": "^3.9.1",
-    "gulp-inject": "^4.0.0",
     "gulp-pleeease": "^2.0.2",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.1",

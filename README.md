@@ -80,7 +80,7 @@ pushing to the deploy branch. That way you know that both are up to date.
 Anyone can submit a site on the [submission form](http://madewithwagtail.org/submit/). When a new site is submitted, the details are saved and also sent to us via an email notification. We then need to manually validate the submission and add the new site via the CMS.
 
 - Check that the submission is valid (site exists, isn't obviously built with something else).
-- If the submission isn't valid, we won't add the site to our showcase. Send an email to the person making the submission to let their know.
+- If the submission isn't valid, we won't add the site to our showcase. Remove it from the CMS.
 - If the submission is valid,
 
 ## Valid submissions

@@ -331,7 +331,7 @@
         "company_url": "http://www.springload.co.nz/",
         "github_url": "http://github.com/springload",
         "twitter_url": "https://twitter.com/springloadnz",
-        "location": "Wellington and Auckland, NZ",
+        "location": "Wellington, NZ and Oulu, Finland",
         "logo": 1
     },
     "model": "core.wagtailcompanypage",

@@ -21,6 +21,17 @@ class Site {
         if ('info' in console) {
             console.info(message);
         }
+        let tagsButton = document.querySelector('[data-toggle]');
+        let tags = document.querySelectorAll('[data-tag]');
+        let tagsContainer = document.querySelector('[data-tags-container]');
+
+        tagsButton.addEventListener('click', () => {
+            tags.forEach(tag => {
+                tag.classList.toggle('u-hide');
+            });
+            tagsContainer.classList.toggle('tags__additional--show')
+            tagsButton.innerHTML === 'Show More' ? tagsButton.innerHTML = 'Show Less' : tagsButton.innerHTML = 'Show More';
+        });
     }
 }
 

@@ -34,9 +34,11 @@
                     {% endfor %}
 
                     <span data-tags-additional class="tags__additional">
-                        {% for tag in tags|slice:"10:" %}
-                            <a href="/?tag={{ tag }}" class="btn tag u-hide no-js__inline-block">{{ tag }}</a>
-                        {% endfor %}
+                        <span class="u-hide no-js__inline-block">
+                            {% for tag in tags|slice:"10:" %}
+                                <a href="/?tag={{ tag }}" class="btn tag">{{ tag }}</a>
+                            {% endfor %}
+                        </span>
                     </span>
                 </div>
                 <button type="button" class="btn tag__button no-js__hide" data-tags-toggle>Show more tags</button>

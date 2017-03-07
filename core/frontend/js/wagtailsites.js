@@ -30,9 +30,7 @@ class Site {
 
         if (tagsButton) {
             tagsButton.addEventListener('click', () => {
-                Array.prototype.slice.call(tagsContainer.children).forEach((tag) => {
-                    tag.classList.toggle('u-hide');
-                });
+                tagsContainer.children[0].classList.toggle('u-hide');
                 tagsContainer.classList.toggle('tags__additional--show')
                 tagsButton.innerHTML = tagsButton.innerHTML === 'Show more tags' ? 'Show fewer tags' : 'Show more tags';
             });

@@ -35,11 +35,11 @@
 
                     <span data-tags-container class="tags__additional">
                         {% for tag in tags|slice:"10:" %}
-                            <a data-tag href="/?tag={{ tag }}" title="" class="btn tag u-hide">{{ tag }}</a>
+                            <a data-tag href="/?tag={{ tag }}" title="" class="btn tag u-hide no-js__inline-block">{{ tag }}</a>
                         {% endfor %}
                     </span>
                 </div>
-                <button type="button" class="btn tag__button" data-toggle>Show more tags</button>
+                <button type="button" class="btn tag__button no-js__hide" data-toggle>Show more tags</button>
             </div>
         {% endif %}
 

@@ -17,10 +17,14 @@ Send your CV to apply@springload.co.nz, or better yet, send us a pull request: h
 class Site {
     constructor() {
         GA.init();
+        this.initTags();
 
         if ('info' in console) {
             console.info(message);
         }
+    }
+
+    initTags() {
         let tagsButton = document.querySelector('[data-toggle]');
         let tags = document.querySelectorAll('[data-tag]');
         let tagsContainer = document.querySelector('[data-tags-container]');

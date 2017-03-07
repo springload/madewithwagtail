@@ -25,13 +25,12 @@ class Site {
     }
 
     initTags() {
-        const tagsButton = document.querySelector('[data-toggle]');
-        const tags = document.querySelectorAll('[data-tag]');
-        const tagsContainer = document.querySelector('[data-tags-container]');
+        const tagsButton = document.querySelector('[data-tags-toggle]');
+        const tagsContainer = document.querySelector('[data-tags-additional]');
 
         if (tagsButton) {
             tagsButton.addEventListener('click', () => {
-                tags.forEach((tag) => {
+                Array.prototype.slice.call(tagsContainer.children).forEach((tag) => {
                     tag.classList.toggle('u-hide');
                 });
                 tagsContainer.classList.toggle('tags__additional--show')

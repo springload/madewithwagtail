@@ -25,17 +25,17 @@ class Site {
     }
 
     initTags() {
-        let tagsButton = document.querySelector('[data-toggle]');
-        let tags = document.querySelectorAll('[data-tag]');
-        let tagsContainer = document.querySelector('[data-tags-container]');
+        const tagsButton = document.querySelector('[data-toggle]');
+        const tags = document.querySelectorAll('[data-tag]');
+        const tagsContainer = document.querySelector('[data-tags-container]');
 
         if (tagsButton) {
             tagsButton.addEventListener('click', () => {
-                tags.forEach(tag => {
+                tags.forEach((tag) => {
                     tag.classList.toggle('u-hide');
                 });
                 tagsContainer.classList.toggle('tags__additional--show')
-                tagsButton.innerHTML === 'Show More' ? tagsButton.innerHTML = 'Show Less' : tagsButton.innerHTML = 'Show More';
+                tagsButton.innerHTML = tagsButton.innerHTML === 'Show More' ? 'Show Less' : 'Show More';
             });
         }
     }

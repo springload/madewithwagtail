@@ -1,6 +1,8 @@
 
 import GA from 'springload-analytics.js';
 
+import tagsToggle from './components/tagsToggle';
+
 if ('ontouchstart' in window) {
     document.documentElement.className = document.documentElement.className + ' touch';
 } else {
@@ -17,31 +19,10 @@ Send your CV to apply@springload.co.nz, or better yet, send us a pull request: h
 class Site {
     constructor() {
         GA.init();
-        this.initTags();
+        tagsToggle.init();
 
         if ('info' in console) {
             console.info(message);
-        }
-    }
-
-    initTags() {
-        const tagsToggle = document.querySelector('[data-tags-toggle]');
-        const tagsContainer = document.querySelector('[data-tags-additional]');
-
-        const toggleTags = () => {
-            const wasVisible = JSON.parse(tagsToggle.getAttribute('aria-expanded'));
-            const isVisible = !wasVisible;
-            tagsToggle.setAttribute('aria-expanded', isVisible);
-            tagsContainer.setAttribute('aria-hidden', !isVisible);
-
-            // First toggle hide/show in the inner element, then toggle the animation.
-            tagsContainer.children[0].classList.toggle('u-hide', !isVisible);
-            tagsContainer.classList.toggle('tags__additional--show', isVisible)
-            tagsToggle.innerHTML = isVisible ? 'Show fewer tags' : 'Show more tags';
-        };
-
-        if (tagsToggle) {
-            tagsToggle.addEventListener('click', toggleTags);
         }
     }
 }

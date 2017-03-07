@@ -56,12 +56,14 @@
 .tag__button {
     border: none;
     background: none;
-    font-size: 14px;
+    font-size: .75rem;
+    padding: 0;
     color: $color-base-link;
 
     &:hover {
         text-decoration: underline;
-        @include hover(color, $color-base-link-hover, false);
-
     }
+
+    @include hover(background-color, transparent);
+    @include hover(color, $color-base-link-hover);
 }

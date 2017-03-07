@@ -35,7 +35,7 @@ class Site {
                     tag.classList.toggle('u-hide');
                 });
                 tagsContainer.classList.toggle('tags__additional--show')
-                tagsButton.innerHTML = tagsButton.innerHTML === 'Show More' ? 'Show Less' : 'Show More';
+                tagsButton.innerHTML = tagsButton.innerHTML === 'Show more tags' ? 'Show fewer tags' : 'Show more tags';
             });
         }
     }

@@ -28,7 +28,7 @@
 
         {% if not request.GET.tag|length %}
             <div class="content-width vertical-bottom-l tag__containter">
-                <div class="tag__body">
+                <div>
                     {% for tag in tags|slice:"10" %}
                         <a href="/?tag={{ tag }}" title="" class="btn tag">{{ tag }}</a>
                     {% endfor %}

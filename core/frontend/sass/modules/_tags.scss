@@ -1,57 +1,11 @@
-.btn.tag {
-    background: $color-tags;
-    line-height: 1.4;
-    font-size: .75rem;
-    color: #fff;
-    position: relative;
-    border-radius: .25em;
-    margin-left: .5em;
-    margin-right: .5em;
-    margin-bottom: .75em;
-    text-transform: capitalize;
-
-    &:before {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 100%;
-        margin-right: -1px;
-        border: solid transparent 1.2em;
-        border-right: solid .6em $color-tags;
-    }
-
-    &:after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        right: 100%;
-        width: 5px;
-        height: 5px;
-        background: lighten($color-tags, 10%);
-        border-radius: 20em;
-        margin-top: -3px;
-        margin-right: -10px;
-    }
-
-    &:hover {
-        background: darken($color-tags, 10%);
-        color: #fff;
-
-        &:before {
-            border-right-color: darken($color-tags, 10%);
-        }
-    }
-}
-
 .js .tags__additional {
     opacity: 0;
-    transition: opacity .5s;
+    transition: opacity .75s;
+
     &.tags__additional--show {
         opacity: 1;
-        transition: opacity .75s;
     }
 }
-
 
 .tag__button {
     border: none;

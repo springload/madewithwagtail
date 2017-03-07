@@ -35,7 +35,13 @@
 
                     <hr>
 
-                    {% include "core/includes/tags.html" %}
+                    <div class="btn-group">
+                        {% for tag in self.tags.all %}
+                            <a href="/?tag={{ tag }}" class="btn -tag">
+                                {{ tag }}
+                            </a>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
     </div>

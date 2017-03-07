@@ -16,7 +16,7 @@ class SubmitFormPage(WagtailCaptchaEmailForm if has_recaptcha() else AbstractEma
     """
     Form page, inherits from WagtailCaptchaEmailForm if available, otherwise fallback to AbstractEmailForm
     """
-    search_fields = ()
+    search_fields = []
     body = RichTextField(blank=True, help_text='Edit the content you want to see before the form.')
     thank_you_text = RichTextField(blank=True, help_text='Set the message users will see after submitting the form.')
 

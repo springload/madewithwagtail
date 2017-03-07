@@ -29,13 +29,15 @@ class Site {
         let tags = document.querySelectorAll('[data-tag]');
         let tagsContainer = document.querySelector('[data-tags-container]');
 
-        tagsButton.addEventListener('click', () => {
-            tags.forEach(tag => {
-                tag.classList.toggle('u-hide');
+        if (tagsButton) {
+            tagsButton.addEventListener('click', () => {
+                tags.forEach(tag => {
+                    tag.classList.toggle('u-hide');
+                });
+                tagsContainer.classList.toggle('tags__additional--show')
+                tagsButton.innerHTML === 'Show More' ? tagsButton.innerHTML = 'Show Less' : tagsButton.innerHTML = 'Show More';
             });
-            tagsContainer.classList.toggle('tags__additional--show')
-            tagsButton.innerHTML === 'Show More' ? tagsButton.innerHTML = 'Show Less' : tagsButton.innerHTML = 'Show More';
-        });
+        }
     }
 }
 

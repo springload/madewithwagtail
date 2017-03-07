@@ -30,6 +30,7 @@ class Site {
 
         if (tagsButton) {
             tagsButton.addEventListener('click', () => {
+                // First toggle hide/show in the inner element, then toggle the animation.
                 tagsContainer.children[0].classList.toggle('u-hide');
                 tagsContainer.classList.toggle('tags__additional--show')
                 tagsButton.innerHTML = tagsButton.innerHTML === 'Show more tags' ? 'Show fewer tags' : 'Show more tags';

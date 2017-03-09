@@ -37,9 +37,7 @@
 
                     <div class="btn-group">
                         {% for tag in self.tags.all %}
-                            <a href="/?tag={{ tag }}" class="btn -tag">
-                                {{ tag }}
-                            </a>
+                            {% include 'core/includes/tag.html' with tag=tag %}
                         {% endfor %}
                     </div>
                 </div>

@@ -30,13 +30,13 @@
             <div class="content-width vertical-bottom-l">
                 <div>
                     {% for tag in tags|slice:"10" %}
-                        <a href="/?tag={{ tag.slug }}" class="btn -tag">{{ tag.name }} <span>{{ tag.count }}</span></a>
+                        {% include 'core/includes/tag.html' with tag=tag %}
                     {% endfor %}
 
                     <span data-tags-additional class="tags__additional">
                         <span class="u-hide no-js__inline">
                             {% for tag in tags|slice:"10:" %}
-                                <a href="/?tag={{ tag.slug }}" class="btn -tag">{{ tag.name }} <span>{{ tag.count }}</span></a>
+                                {% include 'core/includes/tag.html' with tag=tag %}
                             {% endfor %}
                         </span>
                     </span>

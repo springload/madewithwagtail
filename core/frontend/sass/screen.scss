@@ -205,6 +205,7 @@ $outer-margin-small: 5%;
 
 @import 'modules/icons';
 @import 'modules/buttons';
+@import 'modules/tags';
 @import 'modules/nav';
 @import 'modules/media';
 @import 'modules/header';
@@ -251,6 +252,9 @@ hr {
 }
 .no-js .no-js__show {
     display: block !important;
+}
+.no-js .no-js__inline {
+    display: inline !important;
 }
 
 

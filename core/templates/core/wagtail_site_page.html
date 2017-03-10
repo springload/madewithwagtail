@@ -35,7 +35,11 @@
 
                     <hr>
 
-                    {% include "core/includes/tags.html" %}
+                    <div class="btn-group">
+                        {% for tag in self.tags.all %}
+                            {% include 'core/includes/tag.html' with tag=tag %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
     </div>

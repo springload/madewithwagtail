@@ -1,6 +1,8 @@
 
 import GA from 'springload-analytics.js';
 
+import tagsToggle from './components/tagsToggle';
+
 if ('ontouchstart' in window) {
     document.documentElement.className = document.documentElement.className + ' touch';
 } else {
@@ -17,6 +19,7 @@ Send your CV to apply@springload.co.nz, or better yet, send us a pull request: h
 class Site {
     constructor() {
         GA.init();
+        tagsToggle.init();
 
         if ('info' in console) {
             console.info(message);

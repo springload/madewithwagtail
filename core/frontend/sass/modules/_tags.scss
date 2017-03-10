@@ -1,0 +1,23 @@
+.js .tags__additional {
+    opacity: 0;
+    transition: opacity .75s;
+
+    &.tags__additional--show {
+        opacity: 1;
+    }
+}
+
+.tag__button {
+    border: none;
+    background: none;
+    font-size: .75rem;
+    padding: 0;
+    color: $color-base-link;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    @include hover(background-color, transparent);
+    @include hover(color, $color-base-link-hover);
+}

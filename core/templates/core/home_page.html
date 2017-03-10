@@ -24,14 +24,27 @@
                     </div>
                 {% endif %}
             {% endif %}
-
-            {% if not request.GET.tag|length %}
-            {% for tag in tags %}
-                <a href="/?tag={{ tag }}" title="" class="btn -tag">{{ tag }}</a>
-            {% endfor %}
-            {% endif %}
-
         </div>
+
+        {% if not request.GET.tag|length %}
+            <div class="content-width vertical-bottom-l">
+                <div>
+                    {% for tag in tags|slice:"10" %}
+                        {% include 'core/includes/tag.html' with tag=tag %}
+                    {% endfor %}
+
+                    <span data-tags-additional class="tags__additional">
+                        <span class="u-hide no-js__inline">
+                            {% for tag in tags|slice:"10:" %}
+                                {% include 'core/includes/tag.html' with tag=tag %}
+                            {% endfor %}
+                        </span>
+                    </span>
+                </div>
+                <button type="button" class="btn tag__button no-js__hide" aria-expanded="false" data-tags-toggle>Show more tags</button>
+            </div>
+        {% endif %}
+
         <div class="content-width">
             {% include "core/includes/sites.html" with pages=pages tag=tag only %}
         </div>

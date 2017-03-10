@@ -3,6 +3,7 @@ import re
 
 import django.db.models.options as options
 from django.db import models
+from django.db.models import Count
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -87,7 +88,7 @@ class HomePage(Page, IndexPage):
         # Filter by tag
         tag = request.GET.get('tag')
         if tag:
-            pages = pages.filter(tags__name__iexact=tag)
+            pages = pages.filter(tags__slug__iexact=tag)
 
         # Pagination
         page = request.GET.get('page')
@@ -107,7 +108,7 @@ class HomePage(Page, IndexPage):
         context['tags'] = Tag.objects.filter(
             core_pagetag_items__isnull=False,
             core_pagetag_items__content_object__live=True
-        ).distinct().order_by('name')
+        ).annotate(count=Count('core_pagetag_items')).distinct().order_by('-count', 'name')
 
         return context
 

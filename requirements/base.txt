@@ -1,9 +1,7 @@
-Django==1.8.15
+Django==1.8.17
 psycopg2==2.6.1
 django-compressor==2.0
-django-modelcluster==2.0
-django-taggit==0.18.1
-wagtail==1.4.6
+wagtail==1.9
 beautifulsoup4>=4.3.2
 wagtail-django-recaptcha==0.2
 wagtailgmaps==0.2.5

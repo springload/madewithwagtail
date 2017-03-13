@@ -64,7 +64,7 @@ class HomePage(Page, IndexPage):
         on_delete=models.SET_NULL,
         related_name='+'
     )
-    search_fields = ()
+    search_fields = []
 
     body = RichTextField(blank=True)
 
@@ -130,7 +130,7 @@ class CompanyIndex(Page, IndexPage):
     HomePage class, inheriting from wagtailcore.Page straight away
     """
     subpage_types = ['core.WagtailCompanyPage']
-    search_fields = ()
+    search_fields = []
     body = RichTextField(null=True, blank=True)
     show_map = models.BooleanField(default=False, help_text='Show map of companies around the world.')
 
@@ -191,7 +191,7 @@ class WagtailPage(Page):
     )
     body = RichTextField(blank=True)
     tags = ClusterTaggableManager(through=PageTag, blank=True)
-    search_fields = ()
+    search_fields = []
 
     @property
     def parent(self):
@@ -261,10 +261,10 @@ class WagtailCompanyPage(WagtailPage):
         related_name='+'
     )
 
-    search_fields = Page.search_fields + (  # Inherit search_fields from Page
+    search_fields = Page.search_fields + [
         index.SearchField('company_url', boost=1),
         index.SearchField('body_text', boost=1)
-    )
+    ]
 
     @property
     def lat(self):
@@ -380,10 +380,10 @@ class WagtailSitePage(WagtailPage):
         help_text='Paste the URL of your site, something like "http://www.springload.co.nz"',
     )
 
-    search_fields = Page.search_fields + (  # Inherit search_fields from Page
+    search_fields = Page.search_fields + [
         index.SearchField('site_url'),
         index.SearchField('body_text')
-    )
+    ]
 
     @property
     def og_image(self):

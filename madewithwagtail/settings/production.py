@@ -48,7 +48,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 # Use Elasticsearch as the search backend for extra performance and better search results
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
+        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
         'INDEX': SITE_NAME,
     },
 }

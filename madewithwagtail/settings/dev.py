@@ -50,3 +50,8 @@ MIDDLEWARE_CLASSES = (
 RECAPTCHA_PUBLIC_KEY = False
 RECAPTCHA_PRIVATE_KEY = False
 NOCAPTCHA = False
+
+try:
+    from .local import *
+except ImportError:
+    pass

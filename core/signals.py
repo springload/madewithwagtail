@@ -3,10 +3,14 @@ import re
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.core.cache import cache
+from django.conf import settings
+
+from slackweb import Slack
 
 from wagtail.wagtailcore.models import PageRevision
+from wagtail.wagtailcore.signals import page_published
 
-from core.models import WagtailPage
+from core.models import WagtailPage, WagtailSitePage
 from core.utilities import replace_tags
 
 # Signals for Models. Some for performing specific class tasks, some just for clearing the cache.
@@ -77,3 +81,25 @@ def post_model_save(sender, instance, **kwargs):
     Clear cache when any kind of Model is saved
     """
     cache.clear()
+
+
+@receiver(page_published, sender=WagtailSitePage)
+def send_to_slack(sender, **kwargs):
+    url = getattr(settings, 'PUBLISH_SLACK_HOOK', None)
+    if not url:
+        return
+
+    page = kwargs['instance']
+    Slack(url).send({
+        'text': 'New site published! :rocket:',
+        'username': 'Made with Wagtail',
+        'icon_emoji': ':bird:',
+        'attachments': [
+            {
+                'fallback': '%s - %s' % (page.title, page.site_url),
+                'title': page.title,
+                'text': page.full_url,
+                'color': '#43b1b0',
+            }
+        ]
+    })

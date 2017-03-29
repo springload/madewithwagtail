@@ -104,3 +104,6 @@ To confirm that a site is made with Wagtail,
 - Look at the homepage HTML to see if static assets are served from `/static/`, a common URL structure of Django sites.
 - If all of those methods are inconclusive, assume that the site submission is faithful and that the site is indeed built with Wagtail.
 
+## Publication hook
+
+We send Slack notifications for every new site page published to Made with Wagtail. To try this locally, set up a `local.py` setting override with the right settings.

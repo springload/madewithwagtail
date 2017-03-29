@@ -98,8 +98,7 @@ def send_to_slack(sender, **kwargs):
             {
                 'fallback': '%s - %s' % (page.title, page.site_url),
                 'title': page.title,
-                'title_link': page.full_url,
-                'text': page.site_url,
+                'text': page.full_url,
                 'color': '#43b1b0',
             }
         ]

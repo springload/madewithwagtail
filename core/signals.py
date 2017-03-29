@@ -91,7 +91,16 @@ def send_to_slack(sender, **kwargs):
 
     page = kwargs['instance']
     Slack(url).send({
-        'text': 'New site published! Check out *%s*' % page.title,
+        'text': 'New site published! Check out *%s* :rocket:' % page.title,
         'username': 'Made with Wagtail',
-        'icon_emoji': ':bird:'
+        'icon_emoji': ':bird:',
+        'attachments': [
+            {
+                'fallback': '%s - %s' % (page.title, page.site_url),
+                'title': page.title,
+                'title_link': page.full_url,
+                'text': page.site_url,
+                'color': '#43b1b0',
+            }
+        ]
     })

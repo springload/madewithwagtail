@@ -197,6 +197,10 @@ LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 WAGTAIL_ADDRESS_MAP_CENTER = 'Wellington, New Zealand'
 WAGTAIL_ADDRESS_MAP_ZOOM = 8
 
+# List of web hook URLs we push Slack messages to on page publish.
+# URLs should stay secret - define them in local.py
+PUBLISH_SLACK_HOOKS = []
+
 TAGGIT_CASE_INSENSITIVE = True
 
 # REST framework

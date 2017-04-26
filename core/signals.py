@@ -1,3 +1,4 @@
+from datetime import timedelta
 import re
 
 from django.db.models.signals import post_save, pre_save
@@ -85,21 +86,28 @@ def post_model_save(sender, instance, **kwargs):
 
 @receiver(page_published, sender=WagtailSitePage)
 def send_to_slack(sender, **kwargs):
-    url = getattr(settings, 'PUBLISH_SLACK_HOOK', None)
-    if not url:
+    hooks = getattr(settings, 'PUBLISH_SLACK_HOOKS', [])
+    if not hooks:
         return
 
     page = kwargs['instance']
-    Slack(url).send({
-        'text': 'New site published! :rocket:',
-        'username': 'Made with Wagtail',
-        'icon_emoji': ':bird:',
-        'attachments': [
-            {
-                'fallback': '%s - %s' % (page.title, page.site_url),
-                'title': page.title,
-                'text': page.full_url,
-                'color': '#43b1b0',
-            }
-        ]
-    })
+    # It is the first publish if there is no time between first publish and latest revision.
+    published_since = page.latest_revision_created_at - page.first_published_at
+    # Add a 5 sec delta to account for slowness of the server.
+    is_first_publish = published_since <= timedelta(seconds=5)
+
+    if is_first_publish:
+        for hook in hooks:
+            Slack(hook).send({
+                'text': 'New site published! :rocket:',
+                'username': 'Made with Wagtail',
+                'icon_emoji': ':bird:',
+                'attachments': [
+                    {
+                        'fallback': '%s - %s' % (page.title, page.site_url),
+                        'title': page.title,
+                        'text': page.full_url,
+                        'color': '#43b1b0',
+                    }
+                ]
+            })

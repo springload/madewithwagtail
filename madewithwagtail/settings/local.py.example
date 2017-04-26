@@ -7,8 +7,10 @@ RECAPTCHA_PUBLIC_KEY = 'set_your_key'
 RECAPTCHA_PRIVATE_KEY = 'set_your_key'
 NOCAPTCHA = True
 
-# Web hook URL for page publication.
-PUBLISH_SLACK_HOOK = 'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX'
+# List of web hook URLs we push Slack messages to on page publish.
+PUBLISH_SLACK_HOOKS = [
+    'https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX'
+]
 
 # Google Analytics settings
 GOOGLE_ANALYTICS_KEY = False

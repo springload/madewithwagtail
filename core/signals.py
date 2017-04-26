@@ -85,21 +85,22 @@ def post_model_save(sender, instance, **kwargs):
 
 @receiver(page_published, sender=WagtailSitePage)
 def send_to_slack(sender, **kwargs):
-    url = getattr(settings, 'PUBLISH_SLACK_HOOK', None)
-    if not url:
+    hooks = getattr(settings, 'PUBLISH_SLACK_HOOKS', [])
+    if not hooks:
         return
 
     page = kwargs['instance']
-    Slack(url).send({
-        'text': 'New site published! :rocket:',
-        'username': 'Made with Wagtail',
-        'icon_emoji': ':bird:',
-        'attachments': [
-            {
-                'fallback': '%s - %s' % (page.title, page.site_url),
-                'title': page.title,
-                'text': page.full_url,
-                'color': '#43b1b0',
-            }
-        ]
-    })
+    for hook in hooks:
+        Slack(hook).send({
+            'text': 'New site published! :rocket:',
+            'username': 'Made with Wagtail',
+            'icon_emoji': ':bird:',
+            'attachments': [
+                {
+                    'fallback': '%s - %s' % (page.title, page.site_url),
+                    'title': page.title,
+                    'text': page.full_url,
+                    'color': '#43b1b0',
+                }
+            ]
+        })

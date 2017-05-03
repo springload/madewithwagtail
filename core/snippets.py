@@ -1,5 +1,6 @@
 from django.db import models
 import django.db.models.options as options
+from django.utils.encoding import python_2_unicode_compatible
 
 from wagtail.wagtailadmin.edit_handlers import InlinePanel, FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
@@ -85,6 +86,7 @@ class LinkFields(models.Model):
         abstract = True
 
 
+@python_2_unicode_compatible
 class MenuElement(LinkFields):
     explicit_name = models.CharField(
         max_length=64,
@@ -128,7 +130,7 @@ class MenuElement(LinkFields):
     def url(self):
         return self.link
 
-    def __unicode__(self):
+    def __str__(self):
         if self.explicit_name:
             title = self.explicit_name
         elif self.link_page:
@@ -160,6 +162,7 @@ class NavigationMenuManager(models.Manager):
 
 
 @register_snippet
+@python_2_unicode_compatible
 class NavigationMenu(ClusterableModel):
 
     objects = NavigationMenuManager()
@@ -169,7 +172,7 @@ class NavigationMenu(ClusterableModel):
     def items(self):
         return self.menu_items.all()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.menu_name
 
     class Meta:

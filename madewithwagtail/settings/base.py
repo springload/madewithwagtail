@@ -53,9 +53,8 @@ except NameError:
             SECRET_KEY = ''.join(
                 [random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(50)]
             )
-            secret = file(SECRET_FILE, 'w')
-            secret.write(SECRET_KEY)
-            secret.close()
+            with open(SECRET_FILE, 'w') as secret:
+                secret.write(SECRET_KEY)
         except IOError:
             Exception('Please create a %s file with random characters to generate your secret key!' % SECRET_FILE)
 

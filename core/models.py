@@ -6,6 +6,7 @@ from django.db import models
 from django.db.models import Count
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.utils.encoding import python_2_unicode_compatible
 
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
@@ -112,9 +113,6 @@ class HomePage(Page, IndexPage):
 
         return context
 
-    def __unicode__(self):
-        return self.title
-
     class Meta:
         verbose_name = "Home page"
         description = "Where the good stuff happens!"
@@ -161,9 +159,6 @@ class CompanyIndex(Page, IndexPage):
         context['pages'] = pages
         context['tag'] = tag
         return context
-
-    def __unicode__(self):
-        return self.title
 
     class Meta:
         verbose_name = "Company Pages"
@@ -331,9 +326,6 @@ class WagtailCompanyPage(WagtailPage):
         context['pages'] = pages
         return context
 
-    def __unicode__(self):
-        return self.title
-
     class Meta:
         verbose_name = "Company page"
         description = "Page for companies developing Wagtail"
@@ -341,6 +333,7 @@ class WagtailCompanyPage(WagtailPage):
 WagtailCompanyPage.content_panels = WAGTAIL_COMPANY_PAGE_CONTENT_PANELS
 
 
+@python_2_unicode_compatible
 class WagtailSitePage(WagtailPage):
     """
     Site page
@@ -397,7 +390,7 @@ class WagtailSitePage(WagtailPage):
         image['type'] = extension[1:]
         return image
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     class Meta:

@@ -17,10 +17,12 @@
                         <span class="u-sr-only">Project info</span>
                         {% include "core/includes/icon.html" with icon="info" color="grey" class="i--hover" %}
                     </a>
-                    <a class="project__visit" href="{{ page.site_url }}" title="Project link" data-analytics="Project|Link click">
-                        <span class="u-sr-only">Project link</span>
-                        {% include "core/includes/icon.html" with icon="visit" color="grey" class="i--hover" %}
-                    </a>
+                    {% if page.site_url %}
+                        <a class="project__visit" href="{{ page.site_url }}" title="Project link" data-analytics="Project|Link click">
+                            <span class="u-sr-only">Project link</span>
+                            {% include "core/includes/icon.html" with icon="visit" color="grey" class="i--hover" %}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
             <h4 class="project-title">

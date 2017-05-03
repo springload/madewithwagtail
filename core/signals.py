@@ -5,6 +5,7 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.core.cache import cache
 from django.conf import settings
+from django.utils.encoding import force_text
 
 from slackweb import Slack
 
@@ -104,7 +105,7 @@ def send_to_slack(sender, **kwargs):
                 'icon_emoji': ':bird:',
                 'attachments': [
                     {
-                        'fallback': '%s - %s' % (page.title, page.site_url),
+                        'fallback': force_text(page),
                         'title': page.title,
                         'text': page.full_url,
                         'color': '#43b1b0',

@@ -359,7 +359,7 @@ class WagtailSitePage(WagtailPage):
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
-        help_text='Use the ratio 1200×996.',
+        help_text='Use the ratio 1200x996.',
     )
     image_tablet = models.ForeignKey(
         'wagtailimages.Image',

@@ -28,10 +28,12 @@
                     </p>
                     {{ self.body|richtext }}
 
-                    <a href="{{ self.site_url }}" title="{{ self.title}}" class="btn -small icon-text" data-analytics="Project|Link click">
-                        {% include "core/includes/icon.html" with icon="visit" color="white" class="i--small u-middle" %}
-                        <span>Visit site</span>
-                    </a>
+                    {% if self.site_url %}
+                        <a href="{{ self.site_url }}" title="{{ self.title }}" class="btn -small icon-text" data-analytics="Project|Link click">
+                            {% include "core/includes/icon.html" with icon="visit" color="white" class="i--small u-middle" %}
+                            <span>Visit site</span>
+                        </a>
+                    {% endif %}
 
                     <hr>
 

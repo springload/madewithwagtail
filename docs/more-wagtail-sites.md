@@ -18,3 +18,5 @@
 - https://www.xml.com/
 - https://www.welikeminimal.com/
 - http://opensourcebasketball.com/
+- https://www.weekendbaltic.com/
+- http://festivalofbrightideas.com.au/

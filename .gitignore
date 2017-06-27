@@ -29,6 +29,7 @@ media/*
 *.DS_Store
 *.sass-cache
 .idea
+.vscode
 .coverage
 .bundle
 

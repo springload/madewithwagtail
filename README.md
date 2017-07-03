@@ -21,9 +21,31 @@ djrun
 
 The demo site will now be accessible at [http://localhost:8111/](http://localhost:8111/) and the Wagtail admin interface at [http://localhost:8111/admin/](http://localhost:8111/admin/) . Log into the admin with the credentials ``admin / changeme``.
 
-### Front-end commands
+### Front-end installation
+
+> Install [Node](https://nodejs.org). This project also uses [nvm](https://github.com/creationix/nvm).
+
+To install our dependencies:
+
+```sh
+nvm install
+# Then, install all project dependencies.
+npm install
+```
+
+## Working on the project
 
 > Everything mentioned in the installation process should already be done.
+
+### Starting the server
+
+```sh
+vagrant up
+vagrant ssh
+djrun
+```
+
+### Front-end commands
 
 ```sh
 # Make sure you use the right node version.

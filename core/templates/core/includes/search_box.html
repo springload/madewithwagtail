@@ -1,6 +1,6 @@
 <form action="{% url 'wagtailsearch_search' %}" method="get" class="grid form search-form">
     <div class="two-thirds " data-validate="required">
-        <input type="search" name="q"{% if query_string %} value="{{ query_string }}"{% endif %} class='' autofocus>
+        <input type="search" name="q"{% if query_string %} value="{{ query_string }}"{% endif %} autofocus>
     </div>
     <div class="one-third" data-validate="required">
         <input type="submit" class="btn -full" value="Search">

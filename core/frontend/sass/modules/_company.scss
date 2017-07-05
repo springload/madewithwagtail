@@ -110,8 +110,8 @@
     margin-bottom: .25em;
 
     @include medium-upto-xlarge {
-            margin-top: 0em;
-            line-height: 1.4em;
+        margin-top: 0;
+        line-height: 1.4em;
     }
 }
 
@@ -119,7 +119,7 @@
     color: $color-light-text;
 
     @include medium-upto-xlarge {
-            line-height: 1.4em;
+        line-height: 1.4em;
     }
 }
 

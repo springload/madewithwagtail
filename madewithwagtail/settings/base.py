@@ -82,6 +82,7 @@ INSTALLED_APPS = (
     'api',
     'wagtailgmaps',
     'rest_framework',
+    'graphene_django',
     'wagtail.contrib.wagtailsitemaps',
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.wagtailcore',
@@ -208,4 +209,8 @@ TAGGIT_CASE_INSENSITIVE = True
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
     'PAGINATE_BY': None,
+}
+
+GRAPHENE = {
+    'SCHEMA': 'api.schema.schema'
 }

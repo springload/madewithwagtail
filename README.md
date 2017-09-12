@@ -55,7 +55,7 @@ npm run start
 # Builds frontend assets.
 npm run build
 # Runs linting.
-npm run lint
+npm run lint:versions
 # Runs tests.
 npm run test
 # View other available commands with:

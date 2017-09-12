@@ -9,10 +9,6 @@
     "type": "git",
     "url": "https://github.com/springload/madewithwagtail"
   },
-  "engines": {
-    "node": "^6.8.0",
-    "npm": "^3.10.8"
-  },
   "devDependencies": {
     "babel-preset-es2015": "^6.18.0",
     "babelify": "^7.3.0",
@@ -45,7 +41,6 @@
     "watch": "gulp watch",
     "build": "NODE_ENV=development gulp build",
     "dist": "NODE_ENV=production gulp build",
-    "lock": "npm run lint:versions -s && npm shrinkwrap --dev && sed -i 's/https:/http:/g' npm-shrinkwrap.json",
     "deploy": "git push origin master:deploy/production"
   }
 }

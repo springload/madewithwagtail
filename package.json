@@ -2,6 +2,9 @@
   "name": "madewithwagtail",
   "version": "1.0.0",
   "private": true,
+  "eslintConfig": {
+    "extends": "springload"
+  },
   "author": "Springload",
   "license": "MIT",
   "main": "manage.py",
@@ -15,6 +18,12 @@
     "browser-sync": "^2.12.7",
     "browserify": "^13.0.0",
     "browserify-incremental": "^3.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-springload": "1.0.4",
+    "eslint-loader": "^1.6.3",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "3.0.2",
+    "eslint-plugin-react": "6.10.3",
     "gulp": "^3.9.1",
     "gulp-pleeease": "^2.0.2",
     "gulp-rename": "^1.2.2",
@@ -29,11 +38,14 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "eslint-config-airbnb-base": "^12.0.0",
     "springload-analytics.js": "^2.0.1"
   },
   "scripts": {
     "start": "npm run lint:versions -s && npm run watch -s",
     "lint:versions": "NVM_VERSION=$(cat .nvmrc); NODE_VERSION=$(node --version); echo $NODE_VERSION | grep -q $NVM_VERSION && echo \"✓ running node $NODE_VERSION - all clear\" || (echo \"✗ running node $NODE_VERSION - expected $NVM_VERSION. Use nvm to install the right version.\" && exit 1)",
+    "linter:js": "eslint",
+    "lint:js": "npm run linter:js -s -- .",
     "js": "gulp js",
     "css": "gulp css",
     "svg": "gulp svg",

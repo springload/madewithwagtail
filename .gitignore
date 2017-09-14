@@ -32,7 +32,7 @@ media/*
 .vscode
 .coverage
 .bundle
-
+credentials.py
 core/static/css/*
 core/static/js/*
 !vendor/

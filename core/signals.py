@@ -9,6 +9,9 @@ from django.utils.encoding import force_text
 
 from slackweb import Slack
 
+import tweepy
+from credentials import *
+
 from wagtail.wagtailcore.models import PageRevision
 from wagtail.wagtailcore.signals import page_published
 
@@ -112,3 +115,9 @@ def send_to_slack(sender, **kwargs):
                     }
                 ]
             })
+
+
+
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+api = tweepy.API(auth)

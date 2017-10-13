@@ -10,7 +10,7 @@ from django.utils.encoding import force_text
 from slackweb import Slack
 
 import tweepy
-from credentials import *
+import os
 
 from wagtail.wagtailcore.models import PageRevision
 from wagtail.wagtailcore.signals import page_published
@@ -87,7 +87,7 @@ def post_model_save(sender, instance, **kwargs):
     """
     cache.clear()
 
-
+# this sends an update to the slack channel @madewithwagtail
 @receiver(page_published, sender=WagtailSitePage)
 def send_to_slack(sender, **kwargs):
     hooks = getattr(settings, 'PUBLISH_SLACK_HOOKS', [])
@@ -116,8 +116,34 @@ def send_to_slack(sender, **kwargs):
                 ]
             })
 
+# this makes a tweet on twitter profile @MadeWithWagtail
+@receiver(page_published, sender=WagtailSitePage)
+def send_to_twitter(sender, **kwargs):
+
+    page = kwargs['instance']
+    # It is the first publish if there is no time between first publish and latest revision.
+    published_since = page.latest_revision_created_at - page.first_published_at
+    # Add a 5 sec delta to account for slowness of the server.
+    is_first_publish = published_since <= timedelta(seconds=5)
+
+    if is_first_publish:
+
+        auth = tweepy.OAuthHandler(settings.CONSUMER_KEY, settings.CONSUMER_SECRET)
+        auth.set_access_token(settings.ACCESS_TOKEN, settings.ACCESS_TOKEN_SECRET)
+
+        api = tweepy.API(auth)
+
+        # base text format of tweet
+        status_here = "New site on MWW! Welcome" + " '" + page.title + "' " + page.full_url
+
+        # if the submission contains a twitter handle, add this to the end of the tweet
+        parent_page = page.get_parent().specific
+        if parent_page.twitter_handler:
+            status_here += " by " + parent_page.twitter_handler
+
+        # full tweet format that includes the status and image
+        api.update_with_media(page.image_desktop.file.name, status_here, file=page.image_desktop.file);
 
 
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
-api = tweepy.API(auth)
+
+

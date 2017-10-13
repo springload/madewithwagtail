@@ -6,3 +6,4 @@ beautifulsoup4>=4.3.2
 wagtail-django-recaptcha==0.2
 wagtailgmaps==0.2.5
 slackweb==1.0.5
+tweepy==3.5.0

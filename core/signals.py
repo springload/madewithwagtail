@@ -133,16 +133,34 @@ def send_to_twitter(sender, **kwargs):
 
         api = tweepy.API(auth)
 
-        # base text format of tweet
-        status_here = "New site on MWW! Welcome" + " '" + page.title + "' " + page.full_url
+        maxTweetLength = 140
+        prefix = "New site on MWW! Welcome '"
+        url = "https://www.sp.co.nz/"
+        titleSuffix = "' "
+        ellipsis = '\u2026'
+        handle = ""
 
         # if the submission contains a twitter handle, add this to the end of the tweet
         parent_page = page.get_parent().specific
         if parent_page.twitter_handler:
-            status_here += " by " + parent_page.twitter_handler
+            handle = " by " + parent_page.twitter_handler
+
+        urlMaxSize = 23
+        remainingTweetLength = maxTweetLength - len(prefix) - len(handle) - min([len(url), urlMaxSize]) - len(titleSuffix)
+
+        if len(page.title) > remainingTweetLength:
+            remainingTweetLength -= len(ellipsis)
+            truncatedTitle = page.title[0:remainingTweetLength]
+            endOfWordIndex = max([truncatedTitle.rfind(' '), truncatedTitle.rfind('.')])
+            truncatedTitle = truncatedTitle[0:endOfWordIndex]
+            title = truncatedTitle + ellipsis
+        else:
+            title = page.title
+
+        tweet = prefix + title + titleSuffix + url + handle
 
         # full tweet format that includes the status and image
-        api.update_with_media(page.image_desktop.file.name, status_here, file=page.image_desktop.file);
+        api.update_with_media(page.image_desktop.file.name, tweet, file=page.image_desktop.file);
 
 
 

@@ -128,14 +128,14 @@ def send_to_twitter(sender, **kwargs):
 
     if is_first_publish:
 
-        auth = tweepy.OAuthHandler(settings.CONSUMER_KEY, settings.CONSUMER_SECRET)
-        auth.set_access_token(settings.ACCESS_TOKEN, settings.ACCESS_TOKEN_SECRET)
+        auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
+        auth.set_access_token(settings.TWITTER_ACCESS_TOKEN, settings.TWITTER_ACCESS_TOKEN_SECRET)
 
         api = tweepy.API(auth)
 
         maxTweetLength = 140
         prefix = "New site on MWW! Welcome '"
-        url = "https://www.sp.co.nz/"
+        url = page.url
         titleSuffix = "' "
         ellipsis = '\u2026'
         handle = ""

@@ -45,6 +45,10 @@ WAGTAIL_COMPANY_PAGE_CONTENT_PANELS = HOME_PAGE_CONTENT_PANELS + [
     ], heading="Coordinates")
 ]
 
+WAGTAIL_COMPANY_PAGE_SETTINGS_PANELS = Page.settings_panels + [
+    FieldPanel('sites_ordering'),
+]
+
 WAGTAIL_COMPANY_INDEX_PAGE_CONTENT_PANELS = Page.content_panels + [
     FieldPanel('show_map'),
     FieldPanel('body', classname="full"),

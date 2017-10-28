@@ -6,4 +6,5 @@ class CoreConfig(AppConfig):
     verbose_name = "Core"
 
     def ready(self):
-        import signals
+        # Imports anything from `.signals` to run the whole module.
+        from .signals import send_to_slack

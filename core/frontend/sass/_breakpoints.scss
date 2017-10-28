@@ -10,6 +10,7 @@ $post-small: $small + $viewport-increment;
 $post-medium: $medium + $viewport-increment;
 $pre-medium: $medium - $viewport-increment;
 $pre-large: $large - $viewport-increment;
+$pre-xlarge: $xlarge - $viewport-increment;
 
 @mixin xsmall() {
     @media only screen and (max-width:$xsmall) {
@@ -33,6 +34,11 @@ $pre-large: $large - $viewport-increment;
 }
 @mixin medium-only() {
     @media only screen and (min-width:$post-small) and (max-width:$pre-large) {
+        @content;
+    }
+}
+@mixin medium-upto-xlarge() {
+    @media only screen and (min-width:$post-small) and (max-width:$pre-xlarge) {
         @content;
     }
 }

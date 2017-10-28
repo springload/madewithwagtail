@@ -43,7 +43,7 @@ $search-field-height: 2.5rem;
 
     @extend %nice-line-length;
 
-    input[type='text'] {
+    input[type='search'] {
         width: 100%;
         height: $search-field-height;
         border-bottom-right-radius: 0;

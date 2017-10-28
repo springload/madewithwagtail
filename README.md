@@ -21,9 +21,31 @@ djrun
 
 The demo site will now be accessible at [http://localhost:8111/](http://localhost:8111/) and the Wagtail admin interface at [http://localhost:8111/admin/](http://localhost:8111/admin/) . Log into the admin with the credentials ``admin / changeme``.
 
-### Front-end commands
+### Front-end installation
+
+> Install [Node](https://nodejs.org). This project also uses [nvm](https://github.com/creationix/nvm).
+
+To install our dependencies:
+
+```sh
+nvm install
+# Then, install all project dependencies.
+npm install
+```
+
+## Working on the project
 
 > Everything mentioned in the installation process should already be done.
+
+### Starting the server
+
+```sh
+vagrant up
+vagrant ssh
+djrun
+```
+
+### Front-end commands
 
 ```sh
 # Make sure you use the right node version.
@@ -33,22 +55,12 @@ npm run start
 # Builds frontend assets.
 npm run build
 # Runs linting.
-npm run lint
+npm run lint:versions
 # Runs tests.
 npm run test
 # View other available commands with:
 npm run
 ```
-
-### Adding and upgrading dependencies
-
-This project is [shrinkwrapped](https://docs.npmjs.com/cli/shrinkwrap). Its dependencies are locked down in `npm-shrinkwrap.json` file. To update them,
-
-1. Use `npm run lint:versions` to confirm you are using the right node version.
-2. Use `npm install <package>` with `--save` or `--save-dev` options to change the dependencies.
-3. Check the project still works with the new dependencies / new versions.
-4. Run **`npm run lock`** to regenerate `npm-shrinkwrap.json`.
-5. Commit this file, and push.
 
 ## Deploying a new version
 

@@ -351,7 +351,8 @@ class WagtailSitePage(WagtailPage):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name='+',
+        help_text='Use the ratio 1200x996.',
     )
     image_tablet = models.ForeignKey(
         'wagtailimages.Image',
@@ -368,7 +369,7 @@ class WagtailSitePage(WagtailPage):
         related_name='+'
     )
     site_url = models.URLField(
-        blank=False,
+        blank=True,
         null=True,
         help_text='Paste the URL of your site, something like "http://www.springload.co.nz"',
     )
@@ -391,6 +392,8 @@ class WagtailSitePage(WagtailPage):
         return image
 
     def __str__(self):
+        if self.site_url:
+            return '%s - %s' % (self.title, self.site_url)
         return self.title
 
     class Meta:

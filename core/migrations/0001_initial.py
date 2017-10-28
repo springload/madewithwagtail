@@ -157,7 +157,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('wagtailpage_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='core.WagtailPage')),
                 ('site_url', models.URLField(help_text=b'Paste the URL of your site, something like "http://www.springload.co.nz"', null=True)),
-                ('image_desktop', models.ForeignKey(related_name='+', on_delete=django.db.models.deletion.SET_NULL, blank=True, to='wagtailimages.Image', null=True)),
+                ('image_desktop', models.ForeignKey(help_text=b'Use the ratio 1200x996.', related_name='+', on_delete=django.db.models.deletion.SET_NULL, blank=True, to='wagtailimages.Image', null=True)),
                 ('image_phone', models.ForeignKey(related_name='+', on_delete=django.db.models.deletion.SET_NULL, blank=True, to='wagtailimages.Image', null=True)),
                 ('image_tablet', models.ForeignKey(related_name='+', on_delete=django.db.models.deletion.SET_NULL, blank=True, to='wagtailimages.Image', null=True)),
             ],

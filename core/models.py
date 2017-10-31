@@ -1,5 +1,6 @@
 import os
 import re
+from operator import itemgetter
 
 import django.db.models.options as options
 from django.db import models
@@ -237,6 +238,26 @@ class WagtailCompanyPage(WagtailPage):
     parent_types = ['core.HomePage']
     subpage_types = ['core.WagtailSitePage']
 
+    SITES_ORDERING_CREATED = 'created'
+    SITES_ORDERING = {
+        'path': {
+            'name': 'Path (i.e. manual)',
+            'ordering': ['-path'],
+        },
+        'alphabetical': {
+            'name': 'Alphabetical',
+            'ordering': ['title'],
+        },
+        SITES_ORDERING_CREATED: {
+            'name': 'Created',
+            'ordering': ['-first_published_at'],
+        },
+    }
+    SITES_ORDERING_CHOICES = [
+        (key, opts['name'])
+        for key, opts in sorted(SITES_ORDERING.iteritems(), key=itemgetter(1))
+    ]
+
     company_url = models.URLField(
         blank=True,
         null=True,
@@ -254,6 +275,14 @@ class WagtailCompanyPage(WagtailPage):
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+'
+    )
+
+    sites_ordering = models.CharField(
+        max_length=20,
+        blank=False,
+        choices=SITES_ORDERING_CHOICES,
+        default=SITES_ORDERING_CREATED,
+        help_text='The order the sites will be listed on the page',
     )
 
     search_fields = Page.search_fields + [
@@ -306,7 +335,8 @@ class WagtailCompanyPage(WagtailPage):
         return image
 
     def children(self):
-        return WagtailSitePage.objects.live().descendant_of(self).order_by('-first_published_at')
+        ordering = self.SITES_ORDERING[self.sites_ordering]['ordering']
+        return WagtailSitePage.objects.live().descendant_of(self).order_by(*ordering)
 
     def get_context(self, request):
         # Get pages
@@ -331,6 +361,7 @@ class WagtailCompanyPage(WagtailPage):
         description = "Page for companies developing Wagtail"
 
 WagtailCompanyPage.content_panels = WAGTAIL_COMPANY_PAGE_CONTENT_PANELS
+WagtailCompanyPage.settings_panels = WAGTAIL_COMPANY_PAGE_SETTINGS_PANELS
 
 
 @python_2_unicode_compatible

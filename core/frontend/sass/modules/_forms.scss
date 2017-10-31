@@ -56,3 +56,8 @@ $input-label-color:              $color-base-font-muted;
     }
 }
 
+.required label:after {
+    content: "*";
+    color: #ff0000;
+    padding-left: 2px;
+}

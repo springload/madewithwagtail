@@ -32,7 +32,6 @@ media/*
 .vscode
 .coverage
 .bundle
-
 core/static/css/*
 core/static/js/*
 !vendor/

@@ -42,3 +42,11 @@ WAGTAILSEARCH_BACKENDS = {
         'HOSTS': 'search.host'
     },
 }
+
+#Twitter credentials
+
+# Create variables for each key, secret, token
+TWITTER_CONSUMER_KEY = ''
+TWITTER_CONSUMER_SECRET = ''
+TWITTER_ACCESS_TOKEN = ''
+TWITTER_ACCESS_TOKEN_SECRET = ''

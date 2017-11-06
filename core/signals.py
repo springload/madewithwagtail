@@ -9,6 +9,9 @@ from django.utils.encoding import force_text
 
 from slackweb import Slack
 
+import tweepy
+import os
+
 from wagtail.wagtailcore.models import PageRevision
 from wagtail.wagtailcore.signals import page_published
 
@@ -84,7 +87,7 @@ def post_model_save(sender, instance, **kwargs):
     """
     cache.clear()
 
-
+# this sends an update to the slack channel @madewithwagtail
 @receiver(page_published, sender=WagtailSitePage)
 def send_to_slack(sender, **kwargs):
     hooks = getattr(settings, 'PUBLISH_SLACK_HOOKS', [])
@@ -112,3 +115,53 @@ def send_to_slack(sender, **kwargs):
                     }
                 ]
             })
+
+# this makes a tweet on twitter profile @MadeWithWagtail
+@receiver(page_published, sender=WagtailSitePage)
+def send_to_twitter(sender, **kwargs):
+
+    page = kwargs['instance']
+    # It is the first publish if there is no time between first publish and latest revision.
+    published_since = page.latest_revision_created_at - page.first_published_at
+    # Add a 5 sec delta to account for slowness of the server.
+    is_first_publish = published_since <= timedelta(seconds=5)
+
+    if is_first_publish:
+
+        auth = tweepy.OAuthHandler(settings.TWITTER_CONSUMER_KEY, settings.TWITTER_CONSUMER_SECRET)
+        auth.set_access_token(settings.TWITTER_ACCESS_TOKEN, settings.TWITTER_ACCESS_TOKEN_SECRET)
+
+        api = tweepy.API(auth)
+
+        maxTweetLength = 140
+        prefix = "New site on MWW! Welcome '"
+        url = page.url
+        titleSuffix = "' "
+        ellipsis = '\u2026'
+        handle = ""
+
+        # if the submission contains a twitter handle, add this to the end of the tweet
+        parent_page = page.get_parent().specific
+        if parent_page.twitter_handler:
+            handle = " by " + parent_page.twitter_handler
+
+        urlMaxSize = 23
+        remainingTweetLength = maxTweetLength - len(prefix) - len(handle) - min([len(url), urlMaxSize]) - len(titleSuffix)
+
+        if len(page.title) > remainingTweetLength:
+            remainingTweetLength -= len(ellipsis)
+            truncatedTitle = page.title[0:remainingTweetLength]
+            endOfWordIndex = max([truncatedTitle.rfind(' '), truncatedTitle.rfind('.')])
+            truncatedTitle = truncatedTitle[0:endOfWordIndex]
+            title = truncatedTitle + ellipsis
+        else:
+            title = page.title
+
+        tweet = prefix + title + titleSuffix + url + handle
+
+        # full tweet format that includes the status and image
+        api.update_with_media(page.image_desktop.file.name, tweet, file=page.image_desktop.file);
+
+
+
+

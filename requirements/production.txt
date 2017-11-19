@@ -2,4 +2,3 @@
 elasticsearch==1.2.0
 redis==2.10.3
 django-redis-cache==0.13.0
-django-jinja

@@ -31,16 +31,3 @@ DATABASES = {
         'CONN_MAX_AGE': 600,  # number of seconds database connections should persist for
     }
 }
-
-# Use Elasticsearch as the search backend for extra performance and better search results:
-# http://wagtail.readthedocs.org/en/latest/howto/performance.html#search
-# http://wagtail.readthedocs.org/en/latest/core_components/search/backends.html#elasticsearch-backend
-
-WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
-        'INDEX': SITE_NAME,
-        'URLS': 'search.host:9200',
-        'HOSTS': 'search.host'
-    },
-}

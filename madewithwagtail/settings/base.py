@@ -179,11 +179,11 @@ COMPRESS_PRECOMPILERS = (
 # Template configuration
 CONTEXT_PROCESSORS = [
     'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.request',
+    'django.contrib.messages.context_processors.messages',
+    'django.template.context_processors.request',
     'core.context_processors.baseurl',
     'core.context_processors.google_credentials',
     'core.context_processors.api_companies_endpoint',
-    'django.contrib.messages.context_processors.messages',
 ]
 
 # Wagtail settings

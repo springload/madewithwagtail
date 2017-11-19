@@ -181,7 +181,7 @@ CONTEXT_PROCESSORS = [
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.request',
     'core.context_processors.baseurl',
-    'core.context_processors.google_analytics',
+    'core.context_processors.google_credentials',
     'core.context_processors.api_companies_endpoint',
     'django.contrib.messages.context_processors.messages',
 ]
@@ -192,9 +192,9 @@ LOGIN_URL = 'wagtailadmin_login'
 LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 
 # Wagtailgmaps settings
-
 WAGTAIL_ADDRESS_MAP_CENTER = 'Wellington, New Zealand'
 WAGTAIL_ADDRESS_MAP_ZOOM = 8
+WAGTAIL_ADDRESS_MAP_KEY = False  # Set in local.py
 
 # List of web hook URLs we push Slack messages to on page publish.
 # URLs should stay secret - define them in local.py

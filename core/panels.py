@@ -2,6 +2,8 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailcore.models import Page
 
+from wagtailgmaps.edit_handlers import MapFieldPanel
+
 
 HOME_PAGE_CONTENT_PANELS = [
     FieldPanel('title', classname="full title"),
@@ -41,7 +43,7 @@ WAGTAIL_COMPANY_PAGE_CONTENT_PANELS = HOME_PAGE_CONTENT_PANELS + [
     FieldPanel('tags'),
     MultiFieldPanel([
         FieldPanel('show_map'),
-        FieldPanel('coords', classname="gmap gmap--latlng"),
+        MapFieldPanel('coords', classname="gmap gmap--latlng"),
     ], heading="Coordinates")
 ]
 

@@ -1,6 +1,6 @@
 import os
 
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
@@ -21,29 +21,26 @@ admin.autodiscover()
 # Register search signal handlers
 wagtailsearch_register_signal_handlers()
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^django-admin/', include(admin.site.urls)),
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^search/', include(wagtailsearch_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
     url(r'^images/', include(wagtailimages_urls)),
     url(r'^api/', include(api_urls)),
-    url('^sitemap\.xml$', sitemap),
-    url('^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
-    url(r'', include(wagtail_urls)),
-)
+    url(r'^sitemap\.xml$', sitemap),
+    url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
+]
 
 if settings.DEBUG:
     import debug_toolbar
+    urlpatterns.append(url(r'^__debug__', include(debug_toolbar.urls)))
+
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-    urlpatterns += patterns(
-        url('^__debug__$', include(debug_toolbar.urls)),
-    )
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL + 'images/', document_root=os.path.join(settings.MEDIA_ROOT, 'images'))
 else:
-    urlpatterns += patterns(
-        '',
-        url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT})
-    )
+    from django.views.static import serve
+    urlpatterns.append(url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}))
+
+urlpatterns.append(url(r'', include(wagtail_urls)))  # This must always be the last one since it's a catch all.

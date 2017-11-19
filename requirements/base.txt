@@ -1,9 +1,9 @@
 Django==1.11.7
 wagtail==1.13.1
 
-psycopg2==2.6.1
+psycopg2==2.7.3.2
 
-django-compressor==2.0
+django-compressor==2.2
 wagtail-django-recaptcha==0.2
 wagtailgmaps==0.3
 slackweb==1.0.5

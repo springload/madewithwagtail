@@ -77,7 +77,6 @@ INSTALLED_APPS = (
     'captcha',
     'wagtailcaptcha',
     'core',
-    'overextends',
     'api',
     'wagtailgmaps',
     'rest_framework',

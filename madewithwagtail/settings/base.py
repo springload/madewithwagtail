@@ -81,6 +81,7 @@ INSTALLED_APPS = (
     'api',
     'wagtailgmaps',
     'rest_framework',
+    'wagtail.contrib.postgres_search',
     'wagtail.contrib.wagtailsitemaps',
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.wagtailcore',
@@ -207,4 +208,12 @@ TAGGIT_CASE_INSENSITIVE = True
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
     'PAGINATE_BY': None,
+}
+
+# Search back-end
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.contrib.postgres_search.backend',
+        'INDEX': SITE_NAME,
+    },
 }

@@ -352,6 +352,7 @@
     "fields": {
         "locked": false,
         "title": "Root",
+        "draft_title": "Root",
         "numchild": 1,
         "show_in_menus": false,
         "live": true,
@@ -382,6 +383,7 @@
     "fields": {
         "locked": false,
         "title": "Explore sites and apps made with the awesome Wagtail CMS",
+        "draft_title": "Explore sites and apps made with the awesome Wagtail CMS",
         "numchild": 2,
         "show_in_menus": false,
         "live": true,
@@ -412,6 +414,7 @@
     "fields": {
         "locked": false,
         "title": "Springload",
+        "draft_title": "Springload",
         "numchild": 3,
         "show_in_menus": false,
         "live": true,
@@ -442,6 +445,7 @@
     "fields": {
         "locked": false,
         "title": "Add a wagtail site",
+        "draft_title": "Add a wagtail site",
         "numchild": 0,
         "show_in_menus": false,
         "live": true,
@@ -472,6 +476,7 @@
     "fields": {
         "locked": false,
         "title": "Companies",
+        "draft_title": "Companies",
         "numchild": 2,
         "show_in_menus": false,
         "live": true,
@@ -502,6 +507,7 @@
     "fields": {
         "locked": false,
         "title": "Torchbox",
+        "draft_title": "Torchbox",
         "numchild": 3,
         "show_in_menus": false,
         "live": true,
@@ -532,6 +538,7 @@
     "fields": {
         "locked": false,
         "title": "Building and Construction Industry Training Organisation - New Zealand",
+        "draft_title": "Building and Construction Industry Training Organisation - New Zealand",
         "numchild": 0,
         "show_in_menus": false,
         "live": true,
@@ -562,6 +569,7 @@
     "fields": {
         "locked": false,
         "title": "Royal College of Art",
+        "draft_title": "Royal College of Art",
         "numchild": 0,
         "show_in_menus": false,
         "live": true,

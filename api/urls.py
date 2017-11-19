@@ -1,5 +1,8 @@
 from django.conf import settings
 from django.conf.urls import url, include
+from django.views.decorators.csrf import csrf_exempt
+
+from graphene_django.views import GraphQLView
 
 from rest_framework import routers
 
@@ -9,6 +12,8 @@ router = routers.DefaultRouter()
 router.register(r'companies', CompanyViewSet)
 
 urlpatterns = [
+    url(r'^graphql', csrf_exempt(GraphQLView.as_view())),
+    url(r'^graphiql', csrf_exempt(GraphQLView.as_view(graphiql=True, pretty=True))),
     url(r'^', include(router.urls)),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

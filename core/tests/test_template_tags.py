@@ -32,7 +32,7 @@ class TemplateTagsTestCase(WagtailTest):
 
         # Render and check footer has 2 items
         rendered = Template("{% load core_tags %}{% footer_menu name='Footer' current_page=self.home_page %}").render(Context({"request": response.request}))
-        soup = BeautifulSoup(rendered)
+        soup = BeautifulSoup(rendered, 'html5lib')
 
         self.assertEqual(
             len(soup.findAll("a")),
@@ -50,7 +50,7 @@ class TemplateTagsTestCase(WagtailTest):
         # Render and check footer has 2 items
         rendered = Template("{% load core_tags %}{% menu name='Main' current_page=self.home_page %}").render(Context({"request": response.request}))
 
-        soup = BeautifulSoup(rendered)
+        soup = BeautifulSoup(rendered, 'html5lib')
 
         self.assertEqual(
             len(soup.findAll("a")),

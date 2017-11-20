@@ -15,6 +15,8 @@ PUBLISH_SLACK_HOOKS = [
 # Google Analytics settings
 GOOGLE_ANALYTICS_KEY = False
 GOOGLE_TAG_MANAGER = False
+GOOGLE_MAPS_API_KEY = False  # API Key with Embed and Javascript API enabled.
+WAGTAIL_ADDRESS_MAP_KEY = GOOGLE_MAPS_API_KEY
 
 # Setup your DB backend
 
@@ -28,17 +30,4 @@ DATABASES = {
         'PORT': '',  # Set to empty string for default.
         'CONN_MAX_AGE': 600,  # number of seconds database connections should persist for
     }
-}
-
-# Use Elasticsearch as the search backend for extra performance and better search results:
-# http://wagtail.readthedocs.org/en/latest/howto/performance.html#search
-# http://wagtail.readthedocs.org/en/latest/core_components/search/backends.html#elasticsearch-backend
-
-WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch.ElasticSearch',
-        'INDEX': SITE_NAME,
-        'URLS': 'search.host:9200',
-        'HOSTS': 'search.host'
-    },
 }

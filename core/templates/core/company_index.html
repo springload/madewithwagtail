@@ -54,7 +54,7 @@
 {% block extra_js %}
 
 {% if self.show_map %}
-<script src="https://maps.googleapis.com/maps/api/js{% if GOOGLE_API_KEY %}?key={{ GOOGLE_API_KEY }}{% endif %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js{% if GOOGLE_MAPS_API_KEY %}?key={{ GOOGLE_MAPS_API_KEY }}{% endif %}"></script>
 {% compress js %}
     <script type="text/javascript" src="{% static 'js/vendor/markerclusterer.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/vendor/elabel.js' %}"></script>

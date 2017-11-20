@@ -1,23 +1,13 @@
 from django.conf import settings
 
 
-def google_analytics(request):
-    """
-    Use the variables returned in this function to
-    render your Google Analytics tracking code template.
-    """
-    ga_key = getattr(settings, 'GOOGLE_ANALYTICS_KEY', False)
-    ga_tag = getattr(settings, 'GOOGLE_TAG_MANAGER', False)
-    gak = getattr(settings, 'GOOGLE_API_KEY', False)
+def google_credentials(request):
 
-    if ga_key:
-        return {
-            'GOOGLE_ANALYTICS_KEY': ga_key,
-            'GOOGLE_TAG_MANAGER': ga_tag,
-            'GOOGLE_API_KEY': gak,
-        }
-
-    return {}
+    return {
+        'GOOGLE_ANALYTICS_KEY': getattr(settings, 'GOOGLE_ANALYTICS_KEY', False),
+        'GOOGLE_TAG_MANAGER': getattr(settings, 'GOOGLE_TAG_MANAGER', False),
+        'GOOGLE_MAPS_API_KEY': getattr(settings, 'GOOGLE_MAPS_API_KEY', False),
+    }
 
 
 def baseurl(request):

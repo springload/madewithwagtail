@@ -4,12 +4,13 @@ from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailforms.forms import FormBuilder
 
 from modelcluster.fields import ParentalKey
+from wagtailcaptcha.forms import WagtailCaptchaFormBuilder
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
 
 from core.utilities import has_recaptcha
 
 
-class SubmitFormBuilder(FormBuilder):
+class SubmitFormBuilder(WagtailCaptchaFormBuilder if has_recaptcha() else FormBuilder):
     def get_form_class(self):
         form_class = super(SubmitFormBuilder, self).get_form_class()
         form_class.required_css_class = 'required'
@@ -25,7 +26,12 @@ class SubmitFormPage(WagtailCaptchaEmailForm if has_recaptcha() else AbstractEma
     Form page, inherits from WagtailCaptchaEmailForm if available, otherwise fallback to AbstractEmailForm
     """
 
-    form_builder = SubmitFormBuilder
+    def __init__(self, *args, **kwargs):
+        super(SubmitFormPage, self).__init__(*args, **kwargs)
+
+        # WagtailCaptcha does not respect cls.form_builder and overwrite with its own.
+        # See https://github.com/springload/wagtail-django-recaptcha/issues/7 for more info.
+        self.form_builder = SubmitFormBuilder
 
     search_fields = []
     body = RichTextField(blank=True, help_text='Edit the content you want to see before the form.')

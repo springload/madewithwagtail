@@ -24,6 +24,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='wagtailcompanypage',
             name='company_url',
-            field=models.URLField(help_text=b'Paste the URL of your site, something like "https://www.springload.co.nz"', null=True, blank=True),
+            field=models.URLField(help_text=b'The URL of your site, something like "https://www.springload.co.nz"', null=True, blank=True),
         ),
     ]

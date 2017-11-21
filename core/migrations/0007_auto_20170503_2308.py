@@ -76,7 +76,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='wagtailcompanypage',
             name='company_url',
-            field=models.URLField(blank=True, help_text='Paste the URL of your site, something like "https://www.springload.co.nz"', null=True),
+            field=models.URLField(blank=True, help_text='The URL of your site, something like "https://www.springload.co.nz"', null=True),
         ),
         migrations.AlterField(
             model_name='wagtailcompanypage',
@@ -91,6 +91,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='wagtailsitepage',
             name='site_url',
-            field=models.URLField(blank=True, help_text='Paste the URL of your site, something like "http://www.springload.co.nz"', null=True),
+            field=models.URLField(blank=True, help_text='The URL of your site, something like "https://www.springload.co.nz"', null=True),
         ),
     ]

@@ -261,7 +261,7 @@ class WagtailCompanyPage(WagtailPage):
     company_url = models.URLField(
         blank=True,
         null=True,
-        help_text='Paste the URL of your site, something like "https://www.springload.co.nz"',
+        help_text='The URL of your site, something like "https://www.springload.co.nz"',
     )
     github_url = models.URLField(null=True, blank=True)
     twitter_url = models.URLField(null=True, blank=True)
@@ -374,7 +374,7 @@ class WagtailSitePage(WagtailPage):
         "Featured",
         default=False,
         blank=False,
-        help_text='''If enabled, this site will appear on top of the sites list of the homepage.'''
+        help_text='If enabled, this site will appear on top of the sites list of the homepage.'
     )
     image_desktop = models.ForeignKey(
         'wagtailimages.Image',
@@ -401,7 +401,7 @@ class WagtailSitePage(WagtailPage):
     site_url = models.URLField(
         blank=True,
         null=True,
-        help_text='Paste the URL of your site, something like "http://www.springload.co.nz"',
+        help_text='The URL of your site, something like "https://www.springload.co.nz"',
     )
 
     search_fields = Page.search_fields + [

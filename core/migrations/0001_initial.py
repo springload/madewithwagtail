@@ -136,7 +136,7 @@ class Migration(migrations.Migration):
             name='WagtailCompanyPage',
             fields=[
                 ('wagtailpage_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='core.WagtailPage')),
-                ('company_url', models.URLField(help_text=b'Paste the URL of your site, something like "http://www.springload.co.nz"', null=True, blank=True)),
+                ('company_url', models.URLField(help_text=b'The URL of your site, something like "https://www.springload.co.nz"', null=True, blank=True)),
                 ('github_url', models.URLField(null=True, blank=True)),
                 ('twitter_url', models.URLField(null=True, blank=True)),
                 ('location', models.CharField(max_length=128, null=True, blank=True)),
@@ -151,7 +151,7 @@ class Migration(migrations.Migration):
             name='WagtailSitePage',
             fields=[
                 ('wagtailpage_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='core.WagtailPage')),
-                ('site_url', models.URLField(help_text=b'Paste the URL of your site, something like "http://www.springload.co.nz"', null=True)),
+                ('site_url', models.URLField(help_text=b'The URL of your site, something like "https://www.springload.co.nz"', null=True)),
                 ('image_desktop', models.ForeignKey(help_text=b'Use the ratio 1200x996.', related_name='+', on_delete=django.db.models.deletion.SET_NULL, blank=True, to='wagtailimages.Image', null=True)),
                 ('image_phone', models.ForeignKey(related_name='+', on_delete=django.db.models.deletion.SET_NULL, blank=True, to='wagtailimages.Image', null=True)),
                 ('image_tablet', models.ForeignKey(related_name='+', on_delete=django.db.models.deletion.SET_NULL, blank=True, to='wagtailimages.Image', null=True)),

@@ -55,9 +55,7 @@ class HomePage(Page, IndexPage):
     subpage_types = [
         'core.WagtailPage',
         'core.CompanyIndex',
-        'core.WagtailCompanyPage',
-        'core.WagtailSitePage',
-        'core.SubmitFormPage'
+        'core.SubmitFormPage',
     ]
     feed_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -128,6 +126,7 @@ class CompanyIndex(Page, IndexPage):
     """
     HomePage class, inheriting from wagtailcore.Page straight away
     """
+    parent_types = ['core.HomePage']
     subpage_types = ['core.WagtailCompanyPage']
     search_fields = []
     body = RichTextField(null=True, blank=True, features=['bold', 'italic', 'ol', 'ul', 'link', 'cleanhtml'])
@@ -174,10 +173,12 @@ class PageTag(TaggedItemBase):
 
 # Main core Page model. All main content pages inherit from this class.
 class WagtailPage(Page):
-
     """
     Our main custom Page class. All content pages should inherit from this one.
     """
+    parent_types = ['core.HomePage']
+    subpage_types = ['core.WagtailPage']
+
     feed_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -369,7 +370,7 @@ class WagtailSitePage(WagtailPage):
     """
     Site page
     """
-    parent_types = ['core.WagtailCompanyPage', 'core.HomePage']
+    parent_types = ['core.WagtailCompanyPage']
     subpage_types = []
     is_featured = models.BooleanField(
         "Featured",

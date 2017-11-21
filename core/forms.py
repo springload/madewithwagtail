@@ -33,6 +33,9 @@ class SubmitFormPage(WagtailCaptchaEmailForm if has_recaptcha() else AbstractEma
         # See https://github.com/springload/wagtail-django-recaptcha/issues/7 for more info.
         self.form_builder = SubmitFormBuilder
 
+    parent_types = ['core.HomePage']
+    subpage_types = []
+
     search_fields = []
     body = RichTextField(blank=True, help_text='Edit the content you want to see before the form.')
     thank_you_text = RichTextField(blank=True, help_text='Set the message users will see after submitting the form.')

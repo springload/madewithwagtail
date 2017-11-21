@@ -674,7 +674,7 @@
         "is_featured": true,
         "site_url": "http://www.bcito.org.nz/",
         "image_tablet": null,
-        "image_desktop": 3
+        "site_screenshot": 3
     },
     "model": "core.wagtailsitepage",
     "pk": 7
@@ -685,7 +685,7 @@
         "is_featured": false,
         "site_url": "http://www.rca.ac.uk/",
         "image_tablet": null,
-        "image_desktop": 4
+        "site_screenshot": 4
     },
     "model": "core.wagtailsitepage",
     "pk": 8

@@ -8,6 +8,7 @@ from django.db.models import Count
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.encoding import python_2_unicode_compatible
+from django.utils.html import mark_safe
 
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
@@ -376,27 +377,17 @@ class WagtailSitePage(WagtailPage):
         blank=False,
         help_text='If enabled, this site will appear on top of the sites list of the homepage.'
     )
-    image_desktop = models.ForeignKey(
+    site_screenshot = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
-        help_text='Use the ratio 1200x996.',
-    )
-    image_tablet = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-    image_phone = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
+        help_text=mark_safe(
+            'Use a <b>ratio</b> of <i>16:13.28</i> '
+            'and a <b>size</b> of at least <i>1200x996 pixels</i> '
+            'for an optimal display.'
+        ),
     )
     site_url = models.URLField(
         blank=True,
@@ -415,8 +406,8 @@ class WagtailSitePage(WagtailPage):
         image = {'image': None, 'type': None}
         if self.feed_image:
             image['image'] = self.feed_image
-        elif self.image_desktop:
-            image['image'] = self.image_desktop
+        elif self.site_screenshot:
+            image['image'] = self.site_screenshot
         name, extension = os.path.splitext(image['image'].file.url)
         image['type'] = extension[1:]
         return image

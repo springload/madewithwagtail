@@ -7,9 +7,9 @@
         <div class="one-half--medium one-third--large">
             <div class="card card--link">
                 <a href="{{ page.url }}" class="project-image">
-                {% if page.image_desktop %}
-                {% image page.image_desktop fill-680x540 as image_desktop %}
-                <img src="{{ image_desktop.url }}" alt="{{ image_desktop.title }}" title="{{ image_desktop.title }}" />
+                {% if page.site_screenshot %}
+                {% image page.site_screenshot fill-680x564 as site_screenshot %}
+                <img src="{{ site_screenshot.url }}" alt="{{ site_screenshot.title }}" title="{{ site_screenshot.title }}" />
                 {% endif %}
                 </a>
                 <div class="project__links">

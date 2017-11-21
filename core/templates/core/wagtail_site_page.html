@@ -12,9 +12,9 @@
             <div class="two-thirds--medium">
                     <div class="card">
                         <div class="project-big-image">
-                            {% if self.image_desktop %}
-                                {% image self.image_desktop width-1200 as image_desktop %}
-                                <img src="{{ image_desktop.url }}" alt="{{ image_desktop.title }}" title="{{ image_desktop.title }}" class="img--responsive" />
+                            {% if self.site_screenshot %}
+                                {% image self.site_screenshot fill-1200x996 as site_screenshot %}
+                                <img src="{{ site_screenshot.url }}" alt="{{ site_screenshot.title }}" title="{{ site_screenshot.title }}" class="img--responsive" />
                             {% endif %}
                         </div>
                     </div>

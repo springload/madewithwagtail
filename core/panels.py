@@ -27,9 +27,7 @@ WAGTAIL_SITE_PAGE_PROMOTE_PANELS = [
 WAGTAIL_SITE_PAGE_CONTENT_PANELS = [
     FieldPanel('title', classname="full title"),
     FieldPanel('site_url'),
-    ImageChooserPanel('image_desktop'),
-    ImageChooserPanel('image_tablet'),
-    ImageChooserPanel('image_phone'),
+    ImageChooserPanel('site_screenshot'),
     FieldPanel('body', classname="full"),
     FieldPanel('tags'),
 ]

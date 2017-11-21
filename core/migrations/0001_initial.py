@@ -26,7 +26,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Companies Index Page',
-                'description': 'Companies index',
             },
             bases=('wagtailcore.page', models.Model),
         ),
@@ -39,7 +38,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Home Page',
-                'description': 'Where the good stuff happens!',
             },
             bases=('wagtailcore.page', models.Model),
         ),
@@ -57,7 +55,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Menu item',
-                'description': 'Elements appearing in the main menu',
             },
             bases=(models.Model,),
         ),
@@ -69,7 +66,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Navigation menu',
-                'description': 'Navigation menu',
             },
             bases=(models.Model,),
         ),
@@ -121,7 +117,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Form Page',
-                'description': 'Page with the form to submit a new Wagtail site',
             },
             bases=('wagtailcore.page',),
         ),
@@ -134,7 +129,6 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
                 'verbose_name': 'Content Page',
-                'description': 'Content Page',
             },
             bases=('wagtailcore.page',),
         ),
@@ -150,7 +144,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Company Page',
-                'description': 'Page for companies developing Wagtail',
             },
             bases=('core.wagtailpage',),
         ),
@@ -165,7 +158,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Site Page',
-                'description': 'Page to show case an existing site based on Wagtail',
             },
             bases=('core.wagtailpage',),
         ),

@@ -113,7 +113,7 @@ class HomePage(Page, IndexPage):
         return context
 
     class Meta:
-        verbose_name = "Home page"
+        verbose_name = "Home Page"
         description = "Where the good stuff happens!"
 
 
@@ -161,7 +161,7 @@ class CompanyIndex(Page, IndexPage):
         return context
 
     class Meta:
-        verbose_name = "Company Pages"
+        verbose_name = "Companies Index Page"
         description = "Companies index"
 
 CompanyIndex.content_panels = WAGTAIL_COMPANY_INDEX_PAGE_CONTENT_PANELS
@@ -227,6 +227,10 @@ class WagtailPage(Page):
         name, extension = os.path.splitext(image['image'].file.url)
         image['type'] = extension[1:]
         return image
+
+    class Meta:
+        verbose_name = "Content Page"
+        description = "Content Page"
 
 WagtailPage.content_panels = WAGTAIL_PAGE_CONTENT_PANELS
 WagtailPage.promote_panels = WAGTAIL_PAGE_PROMOTE_PANELS
@@ -358,7 +362,7 @@ class WagtailCompanyPage(WagtailPage):
         return context
 
     class Meta:
-        verbose_name = "Company page"
+        verbose_name = "Company Page"
         description = "Page for companies developing Wagtail"
 
 WagtailCompanyPage.content_panels = WAGTAIL_COMPANY_PAGE_CONTENT_PANELS
@@ -429,7 +433,7 @@ class WagtailSitePage(WagtailPage):
         return self.title
 
     class Meta:
-        verbose_name = "Site page"
+        verbose_name = "Site Page"
         description = "Page to show case an existing site based on Wagtail"
 
 WagtailSitePage.content_panels = WAGTAIL_SITE_PAGE_CONTENT_PANELS

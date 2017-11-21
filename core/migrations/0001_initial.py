@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
                 ('body', wagtail.wagtailcore.fields.RichTextField(null=True, blank=True)),
             ],
             options={
-                'verbose_name': 'Company Pages',
+                'verbose_name': 'Companies Index Page',
                 'description': 'Companies index',
             },
             bases=('wagtailcore.page', models.Model),
@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('feed_image', models.ForeignKey(related_name='+', on_delete=django.db.models.deletion.SET_NULL, blank=True, to='wagtailimages.Image', null=True)),
             ],
             options={
-                'verbose_name': 'Home page',
+                'verbose_name': 'Home Page',
                 'description': 'Where the good stuff happens!',
             },
             bases=('wagtailcore.page', models.Model),
@@ -120,7 +120,7 @@ class Migration(migrations.Migration):
                 ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
             ],
             options={
-                'verbose_name': 'Add a site page',
+                'verbose_name': 'Form Page',
                 'description': 'Page with the form to submit a new Wagtail site',
             },
             bases=('wagtailcore.page',),
@@ -133,6 +133,8 @@ class Migration(migrations.Migration):
             ],
             options={
                 'abstract': False,
+                'verbose_name': 'Content Page',
+                'description': 'Content Page',
             },
             bases=('wagtailcore.page',),
         ),
@@ -147,7 +149,7 @@ class Migration(migrations.Migration):
                 ('logo', models.ForeignKey(related_name='+', on_delete=django.db.models.deletion.SET_NULL, blank=True, to='wagtailimages.Image', null=True)),
             ],
             options={
-                'verbose_name': 'Company page',
+                'verbose_name': 'Company Page',
                 'description': 'Page for companies developing Wagtail',
             },
             bases=('core.wagtailpage',),
@@ -162,7 +164,7 @@ class Migration(migrations.Migration):
                 ('image_tablet', models.ForeignKey(related_name='+', on_delete=django.db.models.deletion.SET_NULL, blank=True, to='wagtailimages.Image', null=True)),
             ],
             options={
-                'verbose_name': 'Site page',
+                'verbose_name': 'Site Page',
                 'description': 'Page to show case an existing site based on Wagtail',
             },
             bases=('core.wagtailpage',),

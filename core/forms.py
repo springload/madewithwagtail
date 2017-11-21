@@ -41,7 +41,7 @@ class SubmitFormPage(WagtailCaptchaEmailForm if has_recaptcha() else AbstractEma
     thank_you_text = RichTextField(blank=True, help_text='Set the message users will see after submitting the form.')
 
     class Meta:
-        verbose_name = "Add a site page"
+        verbose_name = "Form Page"
         description = "Page with the form to submit a new Wagtail site"
 
 

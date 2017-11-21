@@ -42,7 +42,6 @@ class SubmitFormPage(WagtailCaptchaEmailForm if has_recaptcha() else AbstractEma
 
     class Meta:
         verbose_name = "Form Page"
-        description = "Page with the form to submit a new Wagtail site"
 
 
 SubmitFormPage.content_panels = [

@@ -23,8 +23,6 @@ from core.panels import *
 from core.snippets import *
 from core.forms import *
 
-options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
-
 
 class IndexPage(models.Model):
 
@@ -114,7 +112,6 @@ class HomePage(Page, IndexPage):
 
     class Meta:
         verbose_name = "Home Page"
-        description = "Where the good stuff happens!"
 
 
 HomePage.content_panels = HOME_PAGE_CONTENT_PANELS
@@ -162,7 +159,6 @@ class CompanyIndex(Page, IndexPage):
 
     class Meta:
         verbose_name = "Companies Index Page"
-        description = "Companies index"
 
 CompanyIndex.content_panels = WAGTAIL_COMPANY_INDEX_PAGE_CONTENT_PANELS
 
@@ -230,7 +226,6 @@ class WagtailPage(Page):
 
     class Meta:
         verbose_name = "Content Page"
-        description = "Content Page"
 
 WagtailPage.content_panels = WAGTAIL_PAGE_CONTENT_PANELS
 WagtailPage.promote_panels = WAGTAIL_PAGE_PROMOTE_PANELS
@@ -363,7 +358,6 @@ class WagtailCompanyPage(WagtailPage):
 
     class Meta:
         verbose_name = "Company Page"
-        description = "Page for companies developing Wagtail"
 
 WagtailCompanyPage.content_panels = WAGTAIL_COMPANY_PAGE_CONTENT_PANELS
 WagtailCompanyPage.settings_panels = WAGTAIL_COMPANY_PAGE_SETTINGS_PANELS
@@ -434,7 +428,6 @@ class WagtailSitePage(WagtailPage):
 
     class Meta:
         verbose_name = "Site Page"
-        description = "Page to show case an existing site based on Wagtail"
 
 WagtailSitePage.content_panels = WAGTAIL_SITE_PAGE_CONTENT_PANELS
 WagtailSitePage.promote_panels = WAGTAIL_SITE_PAGE_PROMOTE_PANELS

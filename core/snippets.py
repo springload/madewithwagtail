@@ -13,8 +13,6 @@ from modelcluster.models import ClusterableModel
 from core.utilities import *
 from core.snippets import *
 
-options.DEFAULT_NAMES = options.DEFAULT_NAMES + ('description',)
-
 
 class LinkFields(models.Model):
 
@@ -141,7 +139,6 @@ class MenuElement(LinkFields):
 
     class Meta:
         verbose_name = "Menu item"
-        description = "Elements appearing in the main menu"
 
     panels = LinkFields.panels + [
         FieldPanel('explicit_name'),
@@ -177,7 +174,6 @@ class NavigationMenu(ClusterableModel):
 
     class Meta:
         verbose_name = "Navigation menu"
-        description = "Navigation menu"
 
 
 NavigationMenu.panels = [

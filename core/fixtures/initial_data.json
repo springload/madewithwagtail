@@ -670,10 +670,8 @@
 },
 {
     "fields": {
-        "image_phone": null,
         "is_featured": true,
         "site_url": "http://www.bcito.org.nz/",
-        "image_tablet": null,
         "site_screenshot": 3
     },
     "model": "core.wagtailsitepage",
@@ -681,10 +679,8 @@
 },
 {
     "fields": {
-        "image_phone": null,
         "is_featured": false,
         "site_url": "http://www.rca.ac.uk/",
-        "image_tablet": null,
         "site_screenshot": 4
     },
     "model": "core.wagtailsitepage",

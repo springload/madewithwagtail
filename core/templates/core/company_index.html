@@ -38,6 +38,12 @@
                                 {% if company.location %}
                                 <p class="company-listing__location truncate">{{ company.location }}</p>
                                 {% endif %}
+                                {% if company.sites_count %}
+                                <p class="company-listing__site-count">
+                                    {{ company.sites_count }}
+                                    site{{ company.sites_count|pluralize }}
+                                </p>
+                                {% endif %}
                             </div>
                         </a>
                     </div>

@@ -39,7 +39,7 @@ class IndexPage(models.Model):
     def children(self):
         raise NotImplementedError("Class %s doesn't implement aMethod()" % (self.__class__.__name__))
 
-    def get_context(self, request):
+    def get_context(self, request, *args, **kwargs):
         raise NotImplementedError("Class %s doesn't implement aMethod()" % (self.__class__.__name__))
 
     class Meta:
@@ -80,7 +80,7 @@ class HomePage(Page, IndexPage):
     def children(self):
         return self.get_children().live()
 
-    def get_context(self, request):
+    def get_context(self, request, *args, **kwargs):
         # Get pages
         pages = WagtailSitePage.objects.live().descendant_of(self).order_by('-is_featured', '-latest_revision_created_at')
 
@@ -100,7 +100,7 @@ class HomePage(Page, IndexPage):
             pages = paginator.page(paginator.num_pages)
 
         # Update template context
-        context = super(HomePage, self).get_context(request)
+        context = super(HomePage, self).get_context(request, *args, **kwargs)
         context['pages'] = pages
         context['tag'] = tag
         # Only tags used by live pages
@@ -133,7 +133,7 @@ class CompanyIndex(Page, IndexPage):
     def children(self):
         return self.get_children().live()
 
-    def get_context(self, request):
+    def get_context(self, request, *args, **kwargs):
         # Get pages. Note: `numchild` includes draft/unpublished pages but does not create additional queries.
         pages = WagtailCompanyPage.objects.live().descendant_of(self).distinct().order_by('-numchild', '-latest_revision_created_at')
 
@@ -153,7 +153,7 @@ class CompanyIndex(Page, IndexPage):
             pages = paginator.page(paginator.num_pages)
 
         # Update template context
-        context = super(CompanyIndex, self).get_context(request)
+        context = super(CompanyIndex, self).get_context(request, *args, **kwargs)
         context['pages'] = pages
         context['tag'] = tag
         return context
@@ -339,7 +339,7 @@ class WagtailCompanyPage(WagtailPage):
         ordering = self.SITES_ORDERING[self.sites_ordering]['ordering']
         return WagtailSitePage.objects.live().descendant_of(self).order_by(*ordering)
 
-    def get_context(self, request):
+    def get_context(self, request, *args, **kwargs):
         # Get pages
         pages = self.children()
         # Pagination
@@ -353,7 +353,7 @@ class WagtailCompanyPage(WagtailPage):
             pages = paginator.page(paginator.num_pages)
 
         # Update template context
-        context = super(WagtailCompanyPage, self).get_context(request)
+        context = super(WagtailCompanyPage, self).get_context(request, *args, **kwargs)
         context['pages'] = pages
         return context
 

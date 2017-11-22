@@ -115,12 +115,14 @@
     }
 }
 
-.company-listing__location {
+.company-listing__location,
+.company-listing__site-count {
     color: $color-light-text;
+    margin-bottom: .25em;
+    margin-right: 0;
 
     @include medium-upto-xlarge {
         line-height: 1.4em;
     }
 }
-
 

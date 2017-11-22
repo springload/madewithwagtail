@@ -134,7 +134,7 @@ class CompanyIndex(Page, IndexPage):
         return self.get_children().live()
 
     def get_context(self, request):
-        # Get pages
+        # Get pages. Note: `numchild` includes draft/unpublished pages but does not create additional queries.
         pages = WagtailCompanyPage.objects.live().descendant_of(self).distinct().order_by('-numchild', '-latest_revision_created_at')
 
         # Filter by tag
@@ -144,7 +144,7 @@ class CompanyIndex(Page, IndexPage):
 
         # Pagination
         page = request.GET.get('page')
-        paginator = Paginator(pages, 12)  # Show 12 pages per page
+        paginator = Paginator(pages, 12)
         try:
             pages = paginator.page(page)
         except PageNotAnInteger:
@@ -356,6 +356,11 @@ class WagtailCompanyPage(WagtailPage):
         context = super(WagtailCompanyPage, self).get_context(request)
         context['pages'] = pages
         return context
+
+    @property
+    def sites_count(self):
+        # Note: It uses `self.numchild` which counts draft/unpublished pages but does not create additional queries.
+        return self.get_children_count()
 
     class Meta:
         verbose_name = "Company Page"

@@ -32,6 +32,7 @@ media/*
 .vscode
 .coverage
 .bundle
+npm-debug.log*
 
 core/static/css/*
 core/static/js/*

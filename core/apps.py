@@ -7,4 +7,4 @@ class CoreConfig(AppConfig):
 
     def ready(self):
         # Imports anything from `.signals` to run the whole module.
-        from .signals import send_to_slack
+        from .signals import send_to_slack  # noqa: F401

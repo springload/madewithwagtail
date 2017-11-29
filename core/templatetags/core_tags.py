@@ -1,8 +1,9 @@
+import urllib
+
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
 
 from core.models import NavigationMenu, Page
-import urllib
 
 register = template.Library()
 

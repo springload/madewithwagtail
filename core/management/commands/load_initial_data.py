@@ -2,8 +2,8 @@ import os
 import shutil
 
 from django.conf import settings
-from django.core.management.base import NoArgsCommand
 from django.core.management import call_command
+from django.core.management.base import NoArgsCommand
 
 
 class Command(NoArgsCommand):

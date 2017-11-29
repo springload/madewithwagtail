@@ -1,7 +1,7 @@
 from taggit.models import Tag
 
-from core.tests.utils import *
-from core.models import *
+from core.models import HomePage, WagtailSitePage
+from core.tests.utils import WagtailTest
 
 
 class ClientTestCase(WagtailTest):
@@ -17,7 +17,8 @@ class ClientTestCase(WagtailTest):
         # Check it comes with the appropiate number of pages
         pages = WagtailSitePage.objects.live().descendant_of(home_page)
         self.assertEqual(response.context['pages'].paginator.count, pages.count())
-        self.assertContains(response, 'one-half--medium one-third--large', count=response.context['pages'].paginator.count)
+        self.assertContains(
+            response, 'one-half--medium one-third--large', count=response.context['pages'].paginator.count)
         # Check the first page is featured
         self.assertEqual(response.context['pages'][0].is_featured, True)
         # Check the tags are printed

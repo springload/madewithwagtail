@@ -1,9 +1,8 @@
+from bs4 import BeautifulSoup
 from django.template import Context, Template
 
-from bs4 import BeautifulSoup
-
-from core.tests.utils import *
-from core.models import *
+from core.models import HomePage
+from core.tests.utils import WagtailTest
 
 
 class TemplateTagsTestCase(WagtailTest):
@@ -31,7 +30,8 @@ class TemplateTagsTestCase(WagtailTest):
         response = self.client.get(self.home_page.url)
 
         # Render and check footer has 2 items
-        rendered = Template("{% load core_tags %}{% footer_menu name='Footer' current_page=self.home_page %}").render(Context({"request": response.request}))
+        template_str = "{% load core_tags %}{% footer_menu name='Footer' current_page=self.home_page %}"
+        rendered = Template(template_str).render(Context({"request": response.request}))
         soup = BeautifulSoup(rendered, 'html5lib')
 
         self.assertEqual(
@@ -48,7 +48,8 @@ class TemplateTagsTestCase(WagtailTest):
         response = self.client.get(self.home_page.url)
 
         # Render and check footer has 2 items
-        rendered = Template("{% load core_tags %}{% menu name='Main' current_page=self.home_page %}").render(Context({"request": response.request}))
+        template_str = "{% load core_tags %}{% menu name='Main' current_page=self.home_page %}"
+        rendered = Template(template_str).render(Context({"request": response.request}))
 
         soup = BeautifulSoup(rendered, 'html5lib')
 

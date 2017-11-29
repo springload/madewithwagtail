@@ -1,6 +1,5 @@
 from django.conf import settings
-from django.conf.urls import url, include
-
+from django.conf.urls import include, url
 from rest_framework import routers
 
 from api.views import CompanyViewSet

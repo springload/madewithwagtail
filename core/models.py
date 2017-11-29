@@ -2,36 +2,32 @@ import os
 import re
 from operator import itemgetter
 
-import django.db.models.options as options
+from bs4 import BeautifulSoup
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.db.models import Count
-from django.core.exceptions import ObjectDoesNotExist
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import mark_safe
-
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailsearch import index
-
 from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
-from taggit.models import TaggedItemBase, Tag
-from bs4 import BeautifulSoup
+from taggit.models import Tag, TaggedItemBase
+from wagtail.wagtailcore.fields import RichTextField
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
+from wagtail.wagtailsearch import index
+from wagtailcaptcha.models import WagtailCaptchaEmailForm
 
-from core.utilities import validate_only_one_instance
-from core.panels import *
-from core.snippets import *
-from core.forms import *
+from core import panels
+from core.forms import SubmitFormBuilder
+from core.utilities import has_recaptcha, validate_only_one_instance
 
 
 class IndexPage(models.Model):
-
     """
     Abstract Index Page class. Declare a couple of abstract methods that should be implemented by
     any class implementing this 'interface'.
     """
-    # Just one instance allowed
 
     def clean(self):
         validate_only_one_instance(self)
@@ -47,10 +43,10 @@ class IndexPage(models.Model):
 
 
 class HomePage(Page, IndexPage):
-
     """
     HomePage class, inheriting from wagtailcore.Page straight away
     """
+
     subpage_types = [
         'core.WagtailPage',
         'core.CompanyIndex',
@@ -82,7 +78,10 @@ class HomePage(Page, IndexPage):
 
     def get_context(self, request, *args, **kwargs):
         # Get pages
-        pages = WagtailSitePage.objects.live().descendant_of(self).order_by('-is_featured', '-latest_revision_created_at')
+        pages = WagtailSitePage.objects\
+            .live()\
+            .descendant_of(self)\
+            .order_by('-is_featured', '-latest_revision_created_at')
 
         # Filter by tag
         tag = request.GET.get('tag')
@@ -114,16 +113,15 @@ class HomePage(Page, IndexPage):
     class Meta:
         verbose_name = "Home Page"
 
-
-HomePage.content_panels = HOME_PAGE_CONTENT_PANELS
-HomePage.promote_panels = WAGTAIL_PAGE_PROMOTE_PANELS
+    content_panels = panels.HOME_PAGE_CONTENT_PANELS
+    promote_panels = panels.WAGTAIL_PAGE_PROMOTE_PANELS
 
 
 class CompanyIndex(Page, IndexPage):
-
     """
     HomePage class, inheriting from wagtailcore.Page straight away
     """
+
     parent_types = ['core.HomePage']
     subpage_types = ['core.WagtailCompanyPage']
     search_fields = []
@@ -134,8 +132,13 @@ class CompanyIndex(Page, IndexPage):
         return self.get_children().live()
 
     def get_context(self, request, *args, **kwargs):
-        # Get pages. Note: `numchild` includes draft/unpublished pages but does not create additional queries.
-        pages = WagtailCompanyPage.objects.live().descendant_of(self).distinct().order_by('-numchild', '-latest_revision_created_at')
+        # Get pages.
+        # Note: `numchild` includes draft/unpublished pages but does not create additional queries.
+        pages = WagtailCompanyPage.objects\
+            .live()\
+            .descendant_of(self)\
+            .distinct()\
+            .order_by('-numchild', '-latest_revision_created_at')
 
         # Filter by tag
         tag = request.GET.get('tag')
@@ -161,7 +164,7 @@ class CompanyIndex(Page, IndexPage):
     class Meta:
         verbose_name = "Companies Index Page"
 
-CompanyIndex.content_panels = WAGTAIL_COMPANY_INDEX_PAGE_CONTENT_PANELS
+    content_panels = panels.WAGTAIL_COMPANY_INDEX_PAGE_CONTENT_PANELS
 
 
 class PageTag(TaggedItemBase):
@@ -173,6 +176,7 @@ class WagtailPage(Page):
     """
     Our main custom Page class. All content pages should inherit from this one.
     """
+
     parent_types = ['core.HomePage']
     subpage_types = ['core.WagtailPage']
 
@@ -191,7 +195,7 @@ class WagtailPage(Page):
     def parent(self):
         try:
             return self.get_ancestors().reverse()[0]
-        except:
+        except IndexError:
             return None
 
     @property
@@ -228,14 +232,15 @@ class WagtailPage(Page):
     class Meta:
         verbose_name = "Content Page"
 
-WagtailPage.content_panels = WAGTAIL_PAGE_CONTENT_PANELS
-WagtailPage.promote_panels = WAGTAIL_PAGE_PROMOTE_PANELS
+    content_panels = panels.WAGTAIL_PAGE_CONTENT_PANELS
+    promote_panels = panels.WAGTAIL_PAGE_PROMOTE_PANELS
 
 
 class WagtailCompanyPage(WagtailPage):
     """
     Company page listing a bunch of site pages
     """
+
     parent_types = ['core.HomePage']
     subpage_types = ['core.WagtailSitePage']
 
@@ -365,8 +370,8 @@ class WagtailCompanyPage(WagtailPage):
     class Meta:
         verbose_name = "Company Page"
 
-WagtailCompanyPage.content_panels = WAGTAIL_COMPANY_PAGE_CONTENT_PANELS
-WagtailCompanyPage.settings_panels = WAGTAIL_COMPANY_PAGE_SETTINGS_PANELS
+    content_panels = panels.WAGTAIL_COMPANY_PAGE_CONTENT_PANELS
+    settings_panels = panels.WAGTAIL_COMPANY_PAGE_SETTINGS_PANELS
 
 
 @python_2_unicode_compatible
@@ -425,5 +430,34 @@ class WagtailSitePage(WagtailPage):
     class Meta:
         verbose_name = "Site Page"
 
-WagtailSitePage.content_panels = WAGTAIL_SITE_PAGE_CONTENT_PANELS
-WagtailSitePage.promote_panels = WAGTAIL_SITE_PAGE_PROMOTE_PANELS
+    content_panels = panels.WAGTAIL_SITE_PAGE_CONTENT_PANELS
+    promote_panels = panels.WAGTAIL_SITE_PAGE_PROMOTE_PANELS
+
+
+class SubmitFormField(AbstractFormField):
+    page = ParentalKey('SubmitFormPage', related_name='form_fields')
+
+
+class SubmitFormPage(WagtailCaptchaEmailForm if has_recaptcha() else AbstractEmailForm):
+    """
+    Form page, inherits from WagtailCaptchaEmailForm if available, otherwise fallback to AbstractEmailForm
+    """
+
+    def __init__(self, *args, **kwargs):
+        super(SubmitFormPage, self).__init__(*args, **kwargs)
+
+        # WagtailCaptcha does not respect cls.form_builder and overwrite with its own.
+        # See https://github.com/springload/wagtail-django-recaptcha/issues/7 for more info.
+        self.form_builder = SubmitFormBuilder
+
+    parent_types = ['core.HomePage']
+    subpage_types = []
+
+    search_fields = []
+    body = RichTextField(blank=True, help_text='Edit the content you want to see before the form.')
+    thank_you_text = RichTextField(blank=True, help_text='Set the message users will see after submitting the form.')
+
+    class Meta:
+        verbose_name = "Form Page"
+
+    content_panels = panels.SUBMIT_FORM_PAGE_CONTENT_PANELS

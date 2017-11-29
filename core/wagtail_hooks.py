@@ -1,10 +1,8 @@
-from django.utils.html import format_html_join
 from django.conf import settings
-
+from django.utils.html import format_html_join
 from wagtail.wagtailadmin.rich_text import HalloPlugin
-from wagtail.wagtailcore.whitelist import attribute_rule
-from wagtail.wagtailcore.whitelist import check_url
 from wagtail.wagtailcore import hooks
+from wagtail.wagtailcore.whitelist import attribute_rule, check_url
 
 
 @hooks.register('insert_editor_css')

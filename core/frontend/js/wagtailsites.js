@@ -1,12 +1,11 @@
-
 import GA from 'springload-analytics.js';
 
 import tagsToggle from './components/tagsToggle';
 
 if ('ontouchstart' in window) {
-    document.documentElement.className = document.documentElement.className + ' touch';
+    document.documentElement.className += ' touch';
 } else {
-    document.documentElement.className = document.documentElement.className + ' no-touch';
+    document.documentElement.className += ' no-touch';
 }
 
 const message = `
@@ -22,9 +21,9 @@ class Site {
         tagsToggle.init();
 
         if ('info' in console) {
-            console.info(message);
+            console.info(message); // eslint-disable-line no-console
         }
     }
 }
 
-window.site = new Site({ });
+window.site = new Site({});

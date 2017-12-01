@@ -1,4 +1,4 @@
-.PHONY: help clean-pyc lint-py action
+.PHONY: help clean-pyc lint-py lint-js
 .DEFAULT_GOAL := help
 
 help: ## See what commands are available.
@@ -10,5 +10,8 @@ clean-pyc: ## Remove Python file artifacts.
 	find . -name '*~' -exec rm -f {} +
 
 lint-py: ## Run Python linters
-	flake8 $(files)
-	isort --check-only --diff --recursive $(files)
+	flake8 $(LINT_FILES)
+	isort --check-only --diff --recursive $(LINT_FILES)
+
+lint-js: ## Run JavaScript linters
+	npm run linter:js -- $(LINT_FILES)

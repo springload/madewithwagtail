@@ -2,7 +2,7 @@ command_exists () {
     type "$1" &> /dev/null ;
 }
 
-PYTHON_FILES=$(echo "$1" | { grep .py$ || true; })
+PYTHON_FILES=$(echo "$1" | { grep "\.py$" || true; })
 
 [[ -z "$PYTHON_FILES" ]] && return
 
@@ -13,10 +13,10 @@ then
     vagrant ssh -c "
         source /home/vagrant/.virtualenvs/madewithwagtail/bin/activate &&
         cd /home/vagrant/madewithwagtail/ &&
-        make lint-py files=$PYTHON_FILES
+        make lint-py LINT_FILES=$PYTHON_FILES
     "
 else
     echo "Vagrant is unavailable. Running Python linting locally instead."
     echo "Ensure the virtual environment is up to date and activated; Results might be inconsistent otherwise."
-    make lint-py files=$PYTHON_FILES
+    make lint-py LINT_FILES=$PYTHON_FILES
 fi

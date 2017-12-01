@@ -12,6 +12,7 @@ Install [Vagrant](http://www.vagrantup.com/downloads.html) and [VirtualBox](http
 ```sh
 git clone git@github.com:springload/madewithwagtail.git
 cd madewithwagtail
+.githooks/deploy
 vagrant up
 # [.. wait until everything gets installed]
 vagrant ssh

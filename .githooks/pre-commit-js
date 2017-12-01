@@ -1,0 +1,5 @@
+JS_FILES=$(echo "$CHANGED_FILES" | { grep "\.js$" || true; })
+
+[[ -z "$JS_FILES" ]] && return
+
+make lint-js LINT_FILES=$JS_FILES

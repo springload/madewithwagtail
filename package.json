@@ -39,8 +39,8 @@
     "svg": "gulp svg",
     "clean": "gulp clean",
     "watch": "gulp watch",
-    "build": "NODE_ENV=development gulp build",
-    "dist": "NODE_ENV=production gulp build",
+    "build": "npm run lint:versions -s && NODE_ENV=development gulp build",
+    "dist": "npm run lint:versions -s && NODE_ENV=production gulp build",
     "deploy": "git push origin master:deploy/production"
   }
 }

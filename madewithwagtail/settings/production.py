@@ -24,7 +24,7 @@ TEMPLATES = [
 ]
 INSTALLED_APPS = (
     'raven.contrib.django.raven_compat',
-}
+)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 

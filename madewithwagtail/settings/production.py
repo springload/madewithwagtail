@@ -1,4 +1,13 @@
 from .base import *
+import os
+import raven
+
+RAVEN_CONFIG = {
+    'dsn': 'https://d217d252fc444568afe6b639d1cbda28:62b3d23d132442dbab3886706e458f7c@sentry.io/255231',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
+}
 
 TEMPLATES = [
     {
@@ -13,7 +22,9 @@ TEMPLATES = [
         }
     },
 ]
-
+INSTALLED_APPS = (
+    'raven.contrib.django.raven_compat',
+}
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 

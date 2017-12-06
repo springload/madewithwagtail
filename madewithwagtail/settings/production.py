@@ -2,11 +2,11 @@ from .base import *
 import os
 import raven
 
+
 RAVEN_CONFIG = {
     'dsn': 'https://d217d252fc444568afe6b639d1cbda28:62b3d23d132442dbab3886706e458f7c@sentry.io/255231',
     # If you are using git, you can also automatically configure the
     # release based on the git info.
-    'release': raven.fetch_git_sha(os.path.join(os.path.dirname(__file__), '..')),
 }
 
 TEMPLATES = [
@@ -90,6 +90,11 @@ LOGGING = {
         },
     },
     'handlers': {
+        'sentry': {
+            'level': 'ERROR', # To capture more than ERROR, change to WARNING, INFO, etc.
+            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+            'tags': {'custom-tag': 'x'},
+        },
         'file': {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',

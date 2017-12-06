@@ -1,3 +1,4 @@
 -r base.txt
 redis==2.10.6
 django-redis-cache==1.7.1
+raven==6.3.0

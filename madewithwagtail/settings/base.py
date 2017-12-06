@@ -71,6 +71,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'compressor',
     'taggit',
     'modelcluster',
@@ -108,6 +109,7 @@ MIDDLEWARE_CLASSES = (
 
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 )
+SITE_ID = 1
 
 # Name and email addresses of recipients
 ADMINS = (

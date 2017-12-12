@@ -1,5 +1,7 @@
-JS_FILES=$(echo "$CHANGED_FILES" | { grep "\.js$" || true; })
+#!/usr/bin/env bash
 
-[[ -z "$JS_FILES" ]] && return
+JS_FILES=$(echo "$1" | { grep "\.js$" || true; })
+
+[[ -z "$JS_FILES" ]] && exit 0
 
 make lint-js LINT_FILES=$JS_FILES

@@ -1,10 +1,12 @@
+#!/usr/bin/env bash
+
 command_exists () {
     type "$1" &> /dev/null ;
 }
 
 PYTHON_FILES=$(echo "$1" | { grep "\.py$" || true; })
 
-[[ -z "$PYTHON_FILES" ]] && return
+[[ -z "$PYTHON_FILES" ]] && exit 0
 
 # Run linting within the vagrant box if it is available; locally otherwise
 if command_exists vagrant && vagrant status | grep -q 'running'

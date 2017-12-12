@@ -28,5 +28,5 @@ HOOKS=$PROJECT_ROOT/$GIT_ROOT/hooks/pre-commit-*
 
 for HOOK in $HOOKS
 do
-    source $HOOK "$CHANGED_FILES"
+    $HOOK "$CHANGED_FILES"
 done

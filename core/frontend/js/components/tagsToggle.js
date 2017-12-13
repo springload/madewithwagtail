@@ -11,7 +11,7 @@ const toggleTagsVisibility = (tagsContainer, e) => {
 
     // First toggle hide/show in the inner element, then toggle the animation.
     tagsContainer.children[0].classList.toggle('u-hide', !isVisible);
-    tagsContainer.classList.toggle('tags__additional--show', isVisible)
+    tagsContainer.classList.toggle('tags__additional--show', isVisible);
     tagsToggle.innerHTML = isVisible ? 'Show fewer tags' : 'Show more tags';
 };
 
@@ -21,7 +21,10 @@ export default {
         const tagsContainer = document.querySelector('[data-tags-additional]');
 
         if (tagsToggle) {
-            tagsToggle.addEventListener('click', toggleTagsVisibility.bind(null, tagsContainer));
+            tagsToggle.addEventListener(
+                'click',
+                toggleTagsVisibility.bind(null, tagsContainer),
+            );
         }
     },
 };

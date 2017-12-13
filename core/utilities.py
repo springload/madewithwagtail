@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.core.exceptions import ValidationError
-#  A place to define methods used in different parts of the app
 
 
 def validate_only_one_instance(obj):

@@ -1,8 +1,10 @@
+import urllib
+
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
+from wagtail.wagtailcore.models import Page
 
-from core.models import NavigationMenu, Page
-import urllib
+from core.snippets import NavigationMenu
 
 register = template.Library()
 

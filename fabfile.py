@@ -1,5 +1,5 @@
+# flake8: noqa
 from fabric.api import *
-
 
 env.roledefs = {
     'app': [],

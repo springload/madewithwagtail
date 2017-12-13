@@ -1,7 +1,7 @@
 from django.template import Context, Template
 
-from core.tests.utils import *
-from core.models import *
+from core.models import HomePage
+from core.tests.utils import WagtailTest
 
 
 class TemplateFiltersTestCase(WagtailTest):

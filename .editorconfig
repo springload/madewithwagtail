@@ -20,3 +20,8 @@ indent_size = 2
 # Rules for markdown documents.
 [*.md]
 trim_trailing_whitespace = false
+
+# Makefiles are special.
+[Makefile]
+indent_style = tab
+indent_size = 8

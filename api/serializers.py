@@ -1,5 +1,6 @@
-from core.models import WagtailCompanyPage
 from rest_framework import serializers
+
+from core.models import WagtailCompanyPage
 
 
 class CompanySerializer(serializers.HyperlinkedModelSerializer):

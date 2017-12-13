@@ -1,14 +1,12 @@
-from datetime import timedelta
 import re
+from datetime import timedelta
 
+from django.conf import settings
+from django.core.cache import cache
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from django.core.cache import cache
-from django.conf import settings
 from django.utils.encoding import force_text
-
 from slackweb import Slack
-
 from wagtail.wagtailcore.models import PageRevision
 from wagtail.wagtailcore.signals import page_published
 

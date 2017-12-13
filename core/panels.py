@@ -1,9 +1,7 @@
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.wagtailcore.models import Page
-
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtailgmaps.edit_handlers import MapFieldPanel
-
 
 HOME_PAGE_CONTENT_PANELS = [
     FieldPanel('title', classname="full title"),
@@ -52,4 +50,16 @@ WAGTAIL_COMPANY_PAGE_SETTINGS_PANELS = Page.settings_panels + [
 WAGTAIL_COMPANY_INDEX_PAGE_CONTENT_PANELS = Page.content_panels + [
     FieldPanel('show_map'),
     FieldPanel('body', classname="full"),
+]
+
+SUBMIT_FORM_PAGE_CONTENT_PANELS = [
+    FieldPanel('title', classname="full title"),
+    FieldPanel('body', classname="full"),
+    FieldPanel('thank_you_text', classname="full"),
+    InlinePanel('form_fields', label="Form fields"),
+    MultiFieldPanel([
+        FieldPanel('to_address'),
+        FieldPanel('from_address'),
+        FieldPanel('subject'),
+    ], "Email notification")
 ]

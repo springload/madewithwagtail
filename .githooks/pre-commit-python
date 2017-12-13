@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+command_exists () {
+    type "$1" &> /dev/null ;
+}
+
+PYTHON_FILES=$(echo "$1" | { grep "\.py$" || true; })
+
+[[ -z "$PYTHON_FILES" ]] && exit 0
+
+# Run linting within the vagrant box if it is available; locally otherwise
+if command_exists vagrant && vagrant status | grep -q 'running'
+then
+    # Use double quotes for the command so `$PYTHON_FILES` is interpoled; will be blank otherwise.
+    vagrant ssh -c "
+        source /home/vagrant/.virtualenvs/madewithwagtail/bin/activate &&
+        cd /home/vagrant/madewithwagtail/ &&
+        make lint-py PYTHON_FILES=$PYTHON_FILES
+    "
+else
+    echo "Vagrant is unavailable. Running Python linting locally instead."
+    echo "Ensure the virtual environment is up to date and activated; Results might be inconsistent otherwise."
+    make lint-py PYTHON_FILES=$PYTHON_FILES
+fi

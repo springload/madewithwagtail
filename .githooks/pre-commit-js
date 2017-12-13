@@ -4,4 +4,4 @@ JS_FILES=$(echo "$1" | { grep "\.js$" || true; })
 
 [[ -z "$JS_FILES" ]] && exit 0
 
-make lint-js LINT_FILES=$JS_FILES
+make lint-js JS_FILES=$JS_FILES

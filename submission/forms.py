@@ -43,11 +43,12 @@ class SubmissionForm(UserCreationForm):
         # TODO force unique email per user?
 
     def save(self, commit=True):
+        # create an user account
         user = super(SubmissionForm, self).save(commit)
 
-        # create company page for given developer (user)
-        create_company_page(self.company_index_page, self.cleaned_data['company_name'])
+        # create draft company page for given developer (user)
+        company_page = create_company_page(self.company_index_page, self.cleaned_data['company_name'], live=False)
 
         # TODO create permission group for given developer page
         # TODO grant created permission group to created user
-        return user
+        return user, company_page

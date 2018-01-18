@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+{% block content %}
+    <div class="site-content content-width">
+        <div class="banner">
+            <h1>Sign Up</h1>
+        </div>
+
+        <form action="{{ request.path }}" method="POST" class="form">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button class="btn" type="submit">
+                Sign Up
+            </button>
+        </form>
+    </div>
+{% endblock %}

@@ -131,6 +131,9 @@ class CompanyIndex(Page, IndexPage):
     def children(self):
         return self.get_children().live()
 
+    def has_company(self, company_name):
+        return self.children().filter(title__iexact=company_name).exists()
+
     def get_context(self, request, *args, **kwargs):
         # Get pages.
         # Note: `numchild` includes draft/unpublished pages but does not create additional queries.

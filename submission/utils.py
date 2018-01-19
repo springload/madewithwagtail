@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+from django.contrib.auth.models import Group, Permission
 from wagtail.wagtailcore.models import Collection
 
 from core.models import CompanyIndex, WagtailCompanyPage
@@ -32,3 +33,15 @@ def create_collection(name):
     root_collection = Collection.get_first_root_node()
     root_collection.add_child(instance=collection)
     return collection
+
+
+def create_wagtail_admin_group(name):
+    """
+    Create a new group with access to Wagtail administration
+    """
+    access_admin_permission = Permission.objects.get_by_natural_key(
+        codename='access_admin', app_label='wagtailadmin', model='admin'
+    )
+    group = Group.objects.create(name=name)
+    group.permissions.add(access_admin_permission)
+    return group

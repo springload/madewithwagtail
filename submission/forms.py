@@ -5,7 +5,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
 from core.models import WagtailCompanyPage
-from submission.utils import create_collection, create_company_page, get_developers_index_page
+from submission.utils import (
+    create_collection,
+    create_company_page,
+    create_wagtail_admin_group,
+    get_developers_index_page
+)
+
 
 company_page_title_field = WagtailCompanyPage._meta.get_field('title')
 
@@ -52,9 +58,11 @@ class SubmissionForm(UserCreationForm):
         # create image gallery for given user
         create_collection(company_name)
 
-        # TODO create a new permission group with 'Can access Wagtail admin' permission
+        # create a new permission group with 'Can access Wagtail admin' permission
+        group = create_wagtail_admin_group(name=company_name)
         # TODO grant company page add, edit permissions to permission group
         # TODO grant image gallery add, edit permissions to permission group
 
-        # TODO grant created permission group to created user
+        # grant created permission group to created user
+        user.groups.add(group)
         return user, company_page

@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
 from core.models import WagtailCompanyPage
-from submission.utils import create_company_page, get_developers_index_page
+from submission.utils import create_collection, create_company_page, get_developers_index_page
 
 company_page_title_field = WagtailCompanyPage._meta.get_field('title')
 
@@ -45,10 +45,16 @@ class SubmissionForm(UserCreationForm):
     def save(self, commit=True):
         # create an user account
         user = super(SubmissionForm, self).save(commit)
+        company_name = self.cleaned_data['company_name']
+        # create draft company page for given user
+        company_page = create_company_page(self.company_index_page, company_name, live=False)
 
-        # create draft company page for given developer (user)
-        company_page = create_company_page(self.company_index_page, self.cleaned_data['company_name'], live=False)
+        # create image gallery for given user
+        create_collection(company_name)
 
-        # TODO create permission group for given developer page
+        # TODO create a new permission group with 'Can access Wagtail admin' permission
+        # TODO grant company page add, edit permissions to permission group
+        # TODO grant image gallery add, edit permissions to permission group
+
         # TODO grant created permission group to created user
         return user, company_page

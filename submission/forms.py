@@ -2,7 +2,9 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
+from wagtail.wagtailcore.models import Collection
 
 from core.models import WagtailCompanyPage
 from submission.utils import (
@@ -14,7 +16,6 @@ from submission.utils import (
     grant_wagtail_collection_permission,
     grant_wagtail_page_permission
 )
-
 
 company_page_title_field = WagtailCompanyPage._meta.get_field('title')
 
@@ -34,7 +35,9 @@ class SubmissionForm(UserCreationForm):
         Enforce company name is unique
         """
         company_name = self.cleaned_data['company_name']
-        if self.company_index_page.has_company(company_name):
+        if self.company_index_page.has_company(company_name) or \
+           Group.objects.filter(name__iexact=company_name).exists() or \
+           Collection.get_first_root_node().get_children().filter(name__iexact=company_name):
             # TODO improve error message for end user
             raise ValidationError('Developer registered already.')
 

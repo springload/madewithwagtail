@@ -9,7 +9,10 @@ from submission.utils import (
     create_collection,
     create_company_page,
     create_wagtail_admin_group,
-    get_developers_index_page
+    get_developers_index_page,
+    get_wagtail_image_permission,
+    grant_wagtail_collection_permission,
+    grant_wagtail_page_permission
 )
 
 
@@ -56,12 +59,19 @@ class SubmissionForm(UserCreationForm):
         company_page = create_company_page(self.company_index_page, company_name, live=False)
 
         # create image gallery for given user
-        create_collection(company_name)
+        image_collection = create_collection(company_name)
 
         # create a new permission group with 'Can access Wagtail admin' permission
         group = create_wagtail_admin_group(name=company_name)
-        # TODO grant company page add, edit permissions to permission group
-        # TODO grant image gallery add, edit permissions to permission group
+        # grant company page add, edit permissions to permission group
+        grant_wagtail_page_permission('add', company_page, group)
+        grant_wagtail_page_permission('edit', company_page, group)
+
+        # grant image gallery add, edit permissions to permission group
+        add_image = get_wagtail_image_permission('add_image')
+        change_image = get_wagtail_image_permission('change_image')
+        grant_wagtail_collection_permission(add_image, image_collection, group)
+        grant_wagtail_collection_permission(change_image, image_collection, group)
 
         # grant created permission group to created user
         user.groups.add(group)

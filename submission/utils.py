@@ -2,7 +2,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 from django.contrib.auth.models import Group, Permission
-from wagtail.wagtailcore.models import Collection
+from wagtail.wagtailcore.models import Collection, GroupCollectionPermission, GroupPagePermission
 
 from core.models import CompanyIndex, WagtailCompanyPage
 
@@ -45,3 +45,40 @@ def create_wagtail_admin_group(name):
     group = Group.objects.create(name=name)
     group.permissions.add(access_admin_permission)
     return group
+
+
+def grant_wagtail_page_permission(permission_name, page, group):
+    """
+    Grant wagtail page permission to permission group
+    returns True if permission granted
+    """
+    perm, created = GroupPagePermission.objects.get_or_create(
+        group=group,
+        page=page,
+        permission_type=permission_name
+    )
+    return bool(perm)
+
+
+def grant_wagtail_collection_permission(permission, collection, group):
+    """
+    Grant wagtail collection permission to permission group
+    returns True if permission granted
+    """
+    perm, created = GroupCollectionPermission.objects.get_or_create(
+        group=group,
+        collection=collection,
+        permission=permission
+    )
+    return bool(perm)
+
+
+def get_wagtail_image_permission(name):
+    """
+    Get permission instance for wagtail image model
+    """
+    return Permission.objects.get_by_natural_key(
+        codename=name,
+        app_label='wagtailimages',
+        model='image'
+    )

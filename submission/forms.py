@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
+from django.db import transaction
 from wagtail.wagtailcore.models import Collection
 
 from core.models import WagtailCompanyPage
@@ -54,6 +55,7 @@ class SubmissionForm(UserCreationForm):
         # TODO email verification?
         # TODO force unique email per user?
 
+    @transaction.atomic()
     def save(self, commit=True):
         # create an user account
         user = super(SubmissionForm, self).save(commit)

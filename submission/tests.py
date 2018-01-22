@@ -4,15 +4,51 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
+from mock import Mock, patch
 from wagtail.wagtailcore.models import Collection, GroupCollectionPermission, GroupPagePermission, Page
 
+from core.models import CompanyIndex, WagtailCompanyPage
 from submission.utils import (
     create_collection,
+    create_company_page,
     create_wagtail_admin_group,
+    get_developers_index_page,
     get_wagtail_image_permission,
     grant_wagtail_collection_permission,
     grant_wagtail_page_permission
 )
+
+
+class TestGetDevelopersIndexPage(TestCase):
+
+    def test_get_developers_index_page(self):
+        # Given we mock company index queryset
+        params = dict(slug='developers', live=True)  # hardcoded way to found developers page
+        expected = Mock()
+        with patch.object(CompanyIndex.objects, 'get', return_value=expected) as patched_get:
+            # When getting developers company index page
+            index_page = get_developers_index_page()
+
+        # Then we should get correct company index page queryset call
+        self.assertIs(index_page, expected)
+        patched_get.assert_called_once_with(**params)
+
+
+class TestCreateCompanyPage(TestCase):
+
+    def test_create_company_page(self):
+        # Given some company index page
+        index_page = Mock()
+        title = 'test page title'
+        # When adding a new company page
+        company_page = create_company_page(index_page, title, live=False)
+
+        # Then a new company page should be created and added to index
+        self.assertIsInstance(company_page, WagtailCompanyPage)
+        self.assertEqual(company_page.title, title)
+        self.assertFalse(company_page.live)
+        self.assertIsNone(company_page.id)  # add_child responsible for saving (mocked in this test)
+        index_page.add_child.assert_called_once_with(instance=company_page)
 
 
 class TestCreateWagtailCollection(TestCase):

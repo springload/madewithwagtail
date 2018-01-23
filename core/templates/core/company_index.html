@@ -26,7 +26,7 @@
                         <a class="company-listing  link-ghost" href="{% pageurl company %}">
                             <div class="media__image">
                                 {% if company.logo %}
-                                {% image company.logo fill-80x80-c100 as company_logo %}
+                                {% image company.logo max-80x80 as company_logo %}
                                 <img src="{{ company_logo.url }}" alt="{{ company_logo.title }}" title="{{ company_logo.title }}" />
                                 {% else %}
                                 <div class="company__placeholder"></div>

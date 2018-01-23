@@ -13,7 +13,7 @@
                     {% if self.logo %}
                         <div>
                             <div class="company__logo">
-                                {% image self.logo width-500 as company_logo %}
+                                {% image self.logo max-120x120 as company_logo %}
                                 <img src="{{ company_logo.url }}" alt="{{ company_logo.title }}" title="{{ company_logo.title }}" />
                             </div>
                         </div>

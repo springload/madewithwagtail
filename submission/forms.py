@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function, unicode_literals
 
+from captcha.fields import ReCaptchaField
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
@@ -8,6 +9,7 @@ from django.db import transaction
 from wagtail.wagtailcore.models import Collection
 
 from core.models import WagtailCompanyPage
+from core.utilities import has_recaptcha
 from submission.utils import (
     create_collection,
     create_company_page,
@@ -30,6 +32,8 @@ class SubmissionForm(UserCreationForm):
         help_text="Who build the website? Provide a company name or your full name",
         required=True
     )
+    if has_recaptcha():
+        captcha = ReCaptchaField(label='')
 
     def clean_company_name(self):
         """

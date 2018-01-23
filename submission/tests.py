@@ -23,7 +23,7 @@ class TestGetDevelopersIndexPage(TestCase):
 
     def test_get_developers_index_page(self):
         # Given we mock company index queryset
-        params = dict(slug='developers', live=True)  # hardcoded way to found developers page
+        params = dict(live=True)  # hardcoded way to found developers page
         expected = Mock()
         with patch.object(CompanyIndex.objects, 'get', return_value=expected) as patched_get:
             # When getting developers company index page

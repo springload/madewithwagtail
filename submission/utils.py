@@ -12,7 +12,7 @@ def get_developers_index_page():
     Get developer company index page
     :return:
     """
-    return CompanyIndex.objects.get(slug='developers', live=True)  # hardcoded way to get developers index page
+    return CompanyIndex.objects.get(live=True)  # hardcoded - developers index page is a singleton
 
 
 def create_company_page(company_index, title, **kwargs):

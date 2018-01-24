@@ -7,7 +7,7 @@ RAVEN_CONFIG = {
     'dsn': 'https://d217d252fc444568afe6b639d1cbda28:62b3d23d132442dbab3886706e458f7c@sentry.io/255231',
     # If you are using git, you can also automatically configure the
     # release based on the git info.
-    'release': raven.fetch_git_sha(os.path.join(os.path.dirname(__file__), '..')),
+    'release': raven.fetch_git_sha(DJANGO_ROOT),
 }
 
 TEMPLATES = [

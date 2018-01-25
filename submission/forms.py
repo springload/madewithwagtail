@@ -14,7 +14,9 @@ from submission.utils import (
     create_collection,
     create_company_page,
     create_wagtail_admin_group,
+    get_collection_name,
     get_developers_index_page,
+    get_permission_group_name,
     get_wagtail_image_permission,
     grant_wagtail_collection_permission,
     grant_wagtail_page_permission
@@ -40,9 +42,11 @@ class SubmissionForm(UserCreationForm):
         Enforce company name is unique
         """
         company_name = self.cleaned_data['company_name']
+        group_name = get_permission_group_name(company_name)
+        collection_name = get_collection_name(company_name)
         if self.company_index_page.has_company(company_name) or \
-           Group.objects.filter(name__iexact=company_name).exists() or \
-           Collection.get_first_root_node().get_children().filter(name__iexact=company_name):
+           Group.objects.filter(name__iexact=group_name).exists() or \
+           Collection.get_first_root_node().get_children().filter(name__iexact=collection_name):
             # TODO improve error message for end user
             raise ValidationError('Developer registered already.')
 
@@ -68,10 +72,10 @@ class SubmissionForm(UserCreationForm):
         company_page = create_company_page(self.company_index_page, company_name, live=False)
 
         # create image gallery for given user
-        image_collection = create_collection(company_name)
+        image_collection = create_collection(get_permission_group_name(company_name))
 
         # create a new permission group with 'Can access Wagtail admin' permission
-        group = create_wagtail_admin_group(name=company_name)
+        group = create_wagtail_admin_group(name=get_collection_name(company_name))
         # grant company page add, edit permissions to permission group
         grant_wagtail_page_permission('add', company_page, group)
         grant_wagtail_page_permission('edit', company_page, group)

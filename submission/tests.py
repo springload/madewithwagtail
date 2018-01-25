@@ -12,7 +12,9 @@ from submission.utils import (
     create_collection,
     create_company_page,
     create_wagtail_admin_group,
+    get_collection_name,
     get_developers_index_page,
+    get_permission_group_name,
     get_wagtail_image_permission,
     grant_wagtail_collection_permission,
     grant_wagtail_page_permission
@@ -138,3 +140,27 @@ class TestGetWagtailImagePermission(TestCase):
         self.assertIsInstance(permission, Permission)
         self.assertEqual(permission.codename, 'add_image')
         self.assertEqual(permission.content_type, image_type)
+
+
+class TestGetPermissionGroupName(TestCase):
+
+    def test_get_permission_group_name(self):
+        # Given some long company name
+        company_name = 'some long company name' * 5
+        max_length = 80  # as per Group.name max length
+        # When getting permission group name
+        group_name = get_permission_group_name(company_name)
+        # Then valid group name should be given
+        self.assertEqual(max_length, len(group_name))
+
+
+class TestGetCollectionName(TestCase):
+
+    def test_get_collection_name(self):
+        # Given some long company name
+        company_name = 'some long company name' * 15
+        max_length = 255  # as per Collection.name max length
+        # When getting permission collection name
+        collection_name = get_collection_name(company_name)
+        # Then valid collection name should be given
+        self.assertEqual(max_length, len(collection_name))

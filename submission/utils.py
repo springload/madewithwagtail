@@ -2,6 +2,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 from django.contrib.auth.models import Group, Permission
+from django.utils.text import slugify
 from wagtail.wagtailcore.models import Collection, GroupCollectionPermission, GroupPagePermission
 
 from core.models import CompanyIndex, WagtailCompanyPage
@@ -82,3 +83,23 @@ def get_wagtail_image_permission(name):
         app_label='wagtailimages',
         model='image'
     )
+
+
+def get_permission_group_name(company_name):
+    """
+    Creates permission group name based on company name
+    """
+    suffix = '-company-page'
+    length_limit = Group._meta.get_field('name').max_length - len(suffix)
+    name = slugify(company_name)[:length_limit]
+    return name + suffix
+
+
+def get_collection_name(company_name):
+    """
+    Creates wagtail collection name based on company name
+    """
+    suffix = '-collection'
+    length_limit = Collection._meta.get_field('name').max_length - len(suffix)
+    name = slugify(company_name)[:length_limit]
+    return name + suffix

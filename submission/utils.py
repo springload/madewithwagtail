@@ -103,3 +103,41 @@ def get_collection_name(company_name):
     length_limit = Collection._meta.get_field('name').max_length - len(suffix)
     name = slugify(company_name)[:length_limit]
     return name + suffix
+
+
+def create_company_submission(user, company_name, company_index_page=None):
+    """
+    Creates a company page and sets all necessary permissions
+    """
+    company_index_page = company_index_page or get_developers_index_page()
+    # create draft company page
+    company_page = create_company_page(company_index_page, company_name, live=False)
+    # create image gallery
+    image_collection = create_collection(get_collection_name(company_name))
+
+    # create a new permission group with 'Can access Wagtail admin' permission
+    group = create_wagtail_admin_group(get_permission_group_name(company_name))
+    # grant company page add, edit permissions to permission group
+    grant_wagtail_page_permissions(company_page, group, permissions=('add', 'edit'))
+    # grant image gallery add, edit permissions to permission group
+    grant_wagtail_image_permissions(image_collection, group, permissions=('add_image', 'change_image'))
+    # grant created permission group to user
+    user.groups.add(group)
+    return company_page
+
+
+def grant_wagtail_page_permissions(page, group, permissions):
+    """
+    Grant permissions for given wagtail page to given permission group
+    """
+    for permission in permissions:
+        grant_wagtail_page_permission(permission, page, group)
+
+
+def grant_wagtail_image_permissions(collection, group, permissions):
+    """
+    Grant wagtail image permissions for given wagtail collection to given permission group
+    """
+    for permission_name in permissions:
+        permission = get_wagtail_image_permission(permission_name)
+        grant_wagtail_collection_permission(permission, collection, group)

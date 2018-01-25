@@ -10,17 +10,8 @@ from wagtail.wagtailcore.models import Collection
 
 from core.models import WagtailCompanyPage
 from core.utilities import has_recaptcha
-from submission.utils import (
-    create_collection,
-    create_company_page,
-    create_wagtail_admin_group,
-    get_collection_name,
-    get_developers_index_page,
-    get_permission_group_name,
-    get_wagtail_image_permission,
-    grant_wagtail_collection_permission,
-    grant_wagtail_page_permission
-)
+
+from .utils import create_company_submission, get_collection_name, get_developers_index_page, get_permission_group_name
 
 company_page_title_field = WagtailCompanyPage._meta.get_field('title')
 
@@ -37,6 +28,17 @@ class SubmissionForm(UserCreationForm):
     if has_recaptcha():
         captcha = ReCaptchaField(label='')
 
+    class Meta(UserCreationForm.Meta):
+        fields = UserCreationForm.Meta.fields + ('email', )
+
+    def __init__(self, *args, **kwargs):
+        self.company_index_page = kwargs.pop('company_index_page', None) or get_developers_index_page()
+        super(SubmissionForm, self).__init__(*args, **kwargs)
+        # require email field
+        self.fields['email'].required = True
+        # TODO email verification?
+        # TODO force unique email per user?
+
     def clean_company_name(self):
         """
         Enforce company name is unique
@@ -52,40 +54,9 @@ class SubmissionForm(UserCreationForm):
 
         return company_name
 
-    class Meta(UserCreationForm.Meta):
-        fields = UserCreationForm.Meta.fields + ('email', )
-
-    def __init__(self, *args, **kwargs):
-        self.company_index_page = kwargs.pop('company_index_page', None) or get_developers_index_page()
-        super(SubmissionForm, self).__init__(*args, **kwargs)
-        # require email field
-        self.fields['email'].required = True
-        # TODO email verification?
-        # TODO force unique email per user?
-
     @transaction.atomic()
     def save(self, commit=True):
         # create an user account
         user = super(SubmissionForm, self).save(commit)
-        company_name = self.cleaned_data['company_name']
-        # create draft company page for given user
-        company_page = create_company_page(self.company_index_page, company_name, live=False)
-
-        # create image gallery for given user
-        image_collection = create_collection(get_permission_group_name(company_name))
-
-        # create a new permission group with 'Can access Wagtail admin' permission
-        group = create_wagtail_admin_group(name=get_collection_name(company_name))
-        # grant company page add, edit permissions to permission group
-        grant_wagtail_page_permission('add', company_page, group)
-        grant_wagtail_page_permission('edit', company_page, group)
-
-        # grant image gallery add, edit permissions to permission group
-        add_image = get_wagtail_image_permission('add_image')
-        change_image = get_wagtail_image_permission('change_image')
-        grant_wagtail_collection_permission(add_image, image_collection, group)
-        grant_wagtail_collection_permission(change_image, image_collection, group)
-
-        # grant created permission group to created user
-        user.groups.add(group)
+        company_page = create_company_submission(user, self.cleaned_data['company_name'], self.company_index_page)
         return user, company_page

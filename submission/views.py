@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic.edit import CreateView
 
-from submission.forms import SubmissionForm
+from .forms import SubmissionForm
 
 
 class AutomateSubmission(CreateView):

@@ -21,6 +21,7 @@ admin.autodiscover()
 wagtailsearch_register_signal_handlers()
 
 urlpatterns = [
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^django-admin/', include(admin.site.urls)),
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^search/', include(wagtailsearch_urls)),

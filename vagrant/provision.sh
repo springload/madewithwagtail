@@ -19,6 +19,7 @@ su - vagrant -c "/usr/local/bin/virtualenv $VIRTUALENV_DIR && \
 # Install pip dependencies, recursively and in order
 filename="$PROJECT_DIR/$REQUIREMENTS_FILE"
 
+su - vagrant -c "$PIP install -U pip setuptools -f /home/vagrant/wheelhouse"
 su - vagrant -c "$PIP install -r $filename -f /home/vagrant/wheelhouse"
 
 # Set execute permissions on manage.py

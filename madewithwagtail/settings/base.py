@@ -202,7 +202,7 @@ CONTEXT_PROCESSORS = [
 
 # Wagtail settings
 
-LOGIN_URL = 'wagtailadmin_login'
+WAGTAIL_FRONTEND_LOGIN_URL = LOGIN_URL = 'account_login'
 LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 
 # Wagtailgmaps settings
@@ -233,3 +233,4 @@ WAGTAILSEARCH_BACKENDS = {
 
 # allauth configuration
 ACCOUNT_EMAIL_REQUIRED = True  # we want to send page published confirmation email to the user
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False  # prevent redirect loop in case user log in without permissions

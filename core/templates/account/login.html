@@ -6,7 +6,7 @@
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-
+{% include "partials/messages.html" %}
 <h1>{% trans "Sign In" %}</h1>
 
 {% if user.is_authenticated and request.GET.next %}

@@ -4,3 +4,4 @@ ipdb==0.8
 ipython<=5.0,<6.0
 flake8
 isort
+django-extensions

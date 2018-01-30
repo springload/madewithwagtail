@@ -37,6 +37,7 @@ INTERNAL_IPS = (
 INSTALLED_APPS += (
     'debug_toolbar',
     'wagtail.contrib.wagtailstyleguide',
+    'django_extensions',
 )
 
 CACHE_MIDDLEWARE_SECONDS = 0

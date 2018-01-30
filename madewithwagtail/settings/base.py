@@ -234,3 +234,4 @@ WAGTAILSEARCH_BACKENDS = {
 # allauth configuration
 ACCOUNT_EMAIL_REQUIRED = True  # we want to send page published confirmation email to the user
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False  # prevent redirect loop in case user log in without permissions
+ACCOUNT_SIGNUP_FORM_CLASS = 'contrib.allauth.account.form.BaseSignUpForm'

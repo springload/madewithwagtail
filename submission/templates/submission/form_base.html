@@ -5,7 +5,7 @@
 {% block content %}
     <div class="site-content content-width">
         <div class="banner">
-            <h1>Sign Up</h1>
+            <h1>{% block content_tile %}{% endblock %}</h1>
         </div>
 
         <form action="{{ request.path }}" method="POST" class="form">
@@ -13,7 +13,7 @@
             {{ form.as_p }}
 
             <button class="btn" type="submit">
-                Sign Up
+                {% block form_submit_button %}{% endblock %}
             </button>
         </form>
     </div>

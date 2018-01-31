@@ -29,6 +29,9 @@ INSTALLED_APPS += (
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+# Makes session cookie work over HTTPS only
+SESSION_COOKIE_SECURE = True
+
 
 # Compress static files offline
 # http://django-compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_OFFLINE

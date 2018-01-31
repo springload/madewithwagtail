@@ -13,6 +13,7 @@ from .utils import (
     create_collection,
     create_company_page,
     create_company_submission,
+    create_url_with_redirect,
     create_wagtail_admin_group,
     get_collection_name,
     get_developers_index_page,
@@ -297,3 +298,24 @@ class TestGrantWagtailImagePermissions(PatchInUtilsMixin, TestCase):
 
         expected_calls = [call(add_permission, collection, group), call(edit_permission, collection, group)]
         self.assertListEqual(self.grant_wagtail_collection_permission_mock.mock_calls, expected_calls)
+
+
+class TestCreateUrlWithRedirect(PatchInUtilsMixin, TestCase):
+
+    def setUp(self):
+        self.path_in_utils('reverse')
+
+    def test_create_url_with_redirect(self):
+        # Given url pattern and redirect pattern
+        pattern = 'to_go'
+        redirect = 'to_go_next'
+        name = 'next_field'
+        url = 'to/go/'
+        redirect_url = 'next'
+        self.reverse_mock.side_effect = [url, redirect_url]
+        expected = '{}?{}={}'.format(url, name, redirect_url)
+        # When full url created
+        result = create_url_with_redirect(pattern, redirect, name)
+        # Then correct url created
+        self.assertEqual(expected, result)
+        self.assertListEqual(self.reverse_mock.mock_calls, [call(pattern), call(redirect)])

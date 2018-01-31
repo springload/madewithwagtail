@@ -2,6 +2,8 @@
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 from django.contrib.auth.models import Group, Permission
+from django.http import QueryDict
+from django.urls import reverse
 from django.utils.text import slugify
 from wagtail.wagtailcore.models import Collection, GroupCollectionPermission, GroupPagePermission
 
@@ -141,3 +143,13 @@ def grant_wagtail_image_permissions(collection, group, permissions):
     for permission_name in permissions:
         permission = get_wagtail_image_permission(permission_name)
         grant_wagtail_collection_permission(permission, collection, group)
+
+
+def create_url_with_redirect(url_pattern, redirect_pattern, redirect_field_name):
+    """
+    Create url with extra next url in url query params
+    """
+    url = reverse(url_pattern)
+    params = QueryDict(mutable=True)
+    params[redirect_field_name] = reverse(redirect_pattern)
+    return '{url}?{query}'.format(url=url, query=params.urlencode())

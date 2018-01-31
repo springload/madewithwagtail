@@ -1,38 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from captcha.fields import ReCaptchaField
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import Group
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from wagtail.wagtailcore.models import Collection
 
 from core.models import WagtailCompanyPage
-from core.utilities import has_recaptcha
 
 from .utils import create_company_submission, get_collection_name, get_developers_index_page, get_permission_group_name
 
 company_page_title_field = WagtailCompanyPage._meta.get_field('title')
-
-
-class SignUpForm(UserCreationForm):
-    """
-    A form that creates user
-    """
-    if has_recaptcha():
-        captcha = ReCaptchaField(label='')
-
-    class Meta(UserCreationForm.Meta):
-        fields = UserCreationForm.Meta.fields + ('email',)
-
-    def __init__(self, *args, **kwargs):
-        super(SignUpForm, self).__init__(*args, **kwargs)
-        # require email field
-        self.fields['email'].required = True
-        # TODO email verification?
-        # TODO force unique email per user?
 
 
 class SubmissionForm(forms.ModelForm):

@@ -1,31 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-from django.contrib.auth import login
+from allauth.account.views import SignupView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import RedirectView
 from django.views.generic.edit import CreateView
 
-from .forms import SignUpForm, SubmissionForm
-
-
-class SignUpView(CreateView):
-    """
-    Django view to handle user sign up.
-    """
-    form_class = SignUpForm
-    template_name = 'submission/sign_up.html'
-    success_url = reverse_lazy('submission_new')  # let NewSubmissionView to drive the submission steps
-
-    def form_valid(self, form):
-        """
-        If the form is valid, save the associated model.
-        """
-        response = super(SignUpView, self).form_valid(form)
-        login(self.request, user=self.object)
-        return response
+from .forms import SubmissionForm
+from .utils import create_url_with_redirect
 
 
 class AutomateSubmissionView(LoginRequiredMixin, CreateView):
@@ -63,6 +47,8 @@ class NewSubmissionView(RedirectView):
     Step 1 skipped if user signed in already
     """
     permanent = False  # this view points to different pages, see set_redirect_url
+    step1_pattern_name = 'account_signup'
+    step2_pattern_name = 'submission_developer'
 
     def dispatch(self, request, *args, **kwargs):
         self.set_redirect_url(request.user)
@@ -73,6 +59,14 @@ class NewSubmissionView(RedirectView):
         Sign up a new user or continue to company/developer creation
         """
         if user.is_authenticated:
-            self.pattern_name = 'submission_developer'
+            self.url = reverse(self.step2_pattern_name)
         else:
-            self.pattern_name = 'submission_signup'
+            self.url = create_url_with_redirect(
+                self.step1_pattern_name, self.step2_pattern_name, SignupView.redirect_field_name
+            )
+
+    def get_redirect_url(self, *args, **kwargs):
+        """
+        Return the URL redirect to.
+        """
+        return self.url

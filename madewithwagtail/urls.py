@@ -14,6 +14,7 @@ from wagtail.wagtailsearch import urls as wagtailsearch_urls
 from wagtail.wagtailsearch.signal_handlers import register_signal_handlers as wagtailsearch_register_signal_handlers
 
 from api import urls as api_urls
+from submission import urls as submission_urls
 
 admin.autodiscover()
 
@@ -34,6 +35,7 @@ urlpatterns = [
     url(r'^api/', include(api_urls)),
     url(r'^sitemap\.xml$', sitemap),
     url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
+    url(r'^submission/', include(submission_urls)),
 ]
 
 if settings.DEBUG:

@@ -80,6 +80,7 @@ INSTALLED_APPS = (
     'core',
     'api',
     'wagtailgmaps',
+    'submission',
     'rest_framework',
     'wagtail.contrib.postgres_search',
     'wagtail.contrib.wagtailsitemaps',

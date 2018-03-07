@@ -2,6 +2,17 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 
 
+class SingletonPageDescriptor(object):
+    """
+    Returns false if a page already exists.
+    Usage:
+        class CustomPage(wagtail.wagtailcore.Page):
+            is_creatable = SingletonPageDescriptor()
+    """
+    def __get__(self, obj, cls):
+        return not cls.objects.exists()
+
+
 def validate_only_one_instance(obj):
     """
     Allow only one instance

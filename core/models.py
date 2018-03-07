@@ -20,7 +20,7 @@ from wagtailcaptcha.models import WagtailCaptchaEmailForm
 
 from core import panels
 from core.forms import SubmitFormBuilder
-from core.utilities import has_recaptcha, validate_only_one_instance
+from core.utilities import SingletonPageDescriptor, has_recaptcha, validate_only_one_instance
 
 
 class IndexPage(models.Model):
@@ -121,6 +121,7 @@ class CompanyIndex(Page, IndexPage):
     """
     HomePage class, inheriting from wagtailcore.Page straight away
     """
+    is_creatable = SingletonPageDescriptor()
 
     parent_types = ['core.HomePage']
     subpage_types = ['core.WagtailCompanyPage']
@@ -130,6 +131,9 @@ class CompanyIndex(Page, IndexPage):
 
     def children(self):
         return self.get_children().live()
+
+    def has_company(self, company_name):
+        return self.children().filter(title__iexact=company_name).exists()
 
     def get_context(self, request, *args, **kwargs):
         # Get pages.

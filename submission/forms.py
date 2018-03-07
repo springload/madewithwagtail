@@ -56,7 +56,7 @@ class SubmissionForm(forms.ModelForm):
         # require company title field
         self.fields['title'].required = True
 
-    def clean_title_name(self):
+    def clean_title(self):
         """
         Enforce company name is unique
         """

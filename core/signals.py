@@ -1,5 +1,7 @@
+import logging
 import re
 from datetime import timedelta
+from urllib2 import HTTPError
 
 from django.conf import settings
 from django.core.cache import cache
@@ -12,6 +14,8 @@ from wagtail.wagtailcore.signals import page_published
 
 from core.models import WagtailPage, WagtailSitePage
 from core.utilities import replace_tags
+
+logger = logging.getLogger('core')
 
 # Signals for Models. Some for performing specific class tasks, some just for clearing the cache.
 
@@ -97,7 +101,7 @@ def send_to_slack(sender, **kwargs):
 
     if is_first_publish:
         for hook in hooks:
-            Slack(hook).send({
+            payload = {
                 'text': 'New site published! :rocket:',
                 'username': 'Made with Wagtail',
                 'icon_emoji': ':bird:',
@@ -109,4 +113,9 @@ def send_to_slack(sender, **kwargs):
                         'color': '#43b1b0',
                     }
                 ]
-            })
+            }
+
+            try:
+                Slack(hook).send(payload)
+            except HTTPError as e:
+                logger.error('Unable to notify to slack hook ending with `%s`. %s', hook[-10:], e)

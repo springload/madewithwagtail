@@ -1,4 +1,4 @@
-Django==1.11.7
+Django==2.0.3
 wagtail==1.13.1
 
 psycopg2==2.7.3.2

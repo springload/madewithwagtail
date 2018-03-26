@@ -1,4 +1,4 @@
--r base.txt
+-r production.txt
 django-debug-toolbar==1.9.1
 ipdb==0.11
 ipython<=5.0,<6.0

@@ -1,5 +1,5 @@
 -c constraints.txt
-Django==2.0.3
+Django==2.0.4
 wagtail==2.0
 
 psycopg2==2.7.4

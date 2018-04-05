@@ -13,12 +13,12 @@ pin: False
 
 # set the default branch
 # default: empty, the default branch on GitHub
-branch:
+#branch:
 
 # update schedule
 # default: empty
 # allowed: "every day", "every week", ..
-schedule:
+#schedule:
 
 # search for requirement files
 # default: True
@@ -49,21 +49,21 @@ requirements:
 # add a label to pull requests, default is not set
 # requires private repo permissions, even on public repos
 # default: empty
-label_prs:
+#label_prs:
 
 # assign users to pull requests, default is not set
 # requires private repo permissions, even on public repos
 # default: empty
-assignees:
+#assignees:
 
 # configure the branch prefix the bot is using
 # default: pyup-
-branch_prefix:
+#branch_prefix:
 
 # set a global prefix for PRs
 # default: empty
-pr_prefix:
+#pr_prefix:
 
 # allow to close stale PRs
 # default: True
-close_prs: True
+#close_prs: True

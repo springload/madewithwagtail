@@ -13,7 +13,7 @@ pin: False
 
 # set the default branch
 # default: empty, the default branch on GitHub
-#branch:
+branch: pyup-config
 
 # update schedule
 # default: empty

@@ -2,7 +2,7 @@ backports.shutil-get-terminal-size==1.0.0
 beautifulsoup4==4.6.0
 configparser==3.5.0
 contextlib2==0.5.5
-decorator==4.2.1
+decorator==4.3.0
 Django==2.0.4
 django-appconf==1.0.2
 django-compressor==2.2

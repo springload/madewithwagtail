@@ -3,7 +3,7 @@ beautifulsoup4==4.6.0
 configparser==3.5.0
 contextlib2==0.5.5
 decorator==4.2.1
-Django==1.11.7
+Django==1.11.7  # rq.filter: >=1.11,<2
 django-appconf==1.0.1
 django-compressor==2.2
 django-debug-toolbar==1.5

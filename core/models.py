@@ -405,6 +405,14 @@ class WagtailSitePage(WagtailPage):
         help_text='The URL of your site, something like "https://www.springload.co.nz"',
     )
 
+    in_cooperation_with = models.ForeignKey(
+        'core.WagtailCompanyPage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
     search_fields = Page.search_fields + [
         index.SearchField('site_url'),
         index.SearchField('body_text')

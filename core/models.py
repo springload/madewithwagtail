@@ -346,7 +346,9 @@ class WagtailCompanyPage(WagtailPage):
 
     def get_context(self, request, *args, **kwargs):
         # Get pages
-        pages = self.children()
+        pages = WagtailSitePage.objects.filter(
+            Q(path__startswith=self.path) | Q(in_cooperation_with=self)
+        ).distinct()
         # Pagination
         page = request.GET.get('page')
         paginator = Paginator(pages, 12)  # Show 12 pages per page

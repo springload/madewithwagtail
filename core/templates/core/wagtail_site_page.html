@@ -25,6 +25,12 @@
                         Made by <a href="{{self.parent.url}}" title="">
                             {{ self.parent.title }}
                         </a>
+                        {% if self.in_cooperation_with %}
+                        <span class="project-featuring">&mdash; in cooperation with <a href="{{self.in_cooperation_with.url}}" title="">
+                            {{ self.in_cooperation_with.title }}
+                        </a>
+                        </span>
+                        {% endif %}
                     </p>
                     {{ self.body|richtext }}
 

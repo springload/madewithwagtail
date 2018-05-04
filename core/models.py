@@ -3,10 +3,13 @@ import re
 from operator import itemgetter
 
 from bs4 import BeautifulSoup
+from core import panels
+from core.forms import SubmitFormBuilder
+from core.utilities import has_recaptcha, validate_only_one_instance
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import mark_safe
 from modelcluster.fields import ParentalKey
@@ -17,10 +20,6 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsearch import index
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
-
-from core import panels
-from core.forms import SubmitFormBuilder
-from core.utilities import has_recaptcha, validate_only_one_instance
 
 
 class IndexPage(models.Model):

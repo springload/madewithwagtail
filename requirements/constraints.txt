@@ -31,7 +31,7 @@ prompt-toolkit==1.0.15
 psycopg2==2.7.4
 ptyprocess==0.5.2
 pycodestyle==2.4.0
-pyflakes==1.6.0
+pyflakes==2.0.0
 Pygments==2.2.0
 pytz==2018.4
 raven==6.8.0

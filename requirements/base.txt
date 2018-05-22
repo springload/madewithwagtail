@@ -1,6 +1,6 @@
 -c constraints.txt
 Django==1.11.13  # rq.filter: >=1.11,<2
-wagtail==2.0.1
+wagtail==2.1
 
 psycopg2==2.7.4
 

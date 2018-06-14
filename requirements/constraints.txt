@@ -37,7 +37,7 @@ pytz==2018.4
 raven==6.9.0
 rcssmin==1.0.6
 redis==2.10.6
-requests==2.19.0
+requests==2.19.1
 rjsmin==1.0.12
 scandir==1.7
 simplegeneric==0.8.1

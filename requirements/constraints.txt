@@ -29,7 +29,7 @@ pickleshare==0.7.4
 Pillow==5.1.0
 prompt-toolkit==2.0.3
 psycopg2==2.7.5
-ptyprocess==0.5.2
+ptyprocess==0.6.0
 pycodestyle==2.4.0
 pyflakes==2.0.0
 Pygments==2.2.0

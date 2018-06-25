@@ -1,11 +1,9 @@
 import os
 import re
+from itertools import chain
 from operator import itemgetter
 
 from bs4 import BeautifulSoup
-from core import panels
-from core.forms import SubmitFormBuilder
-from core.utilities import has_recaptcha, validate_only_one_instance
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
@@ -20,6 +18,10 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsearch import index
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
+
+from core import panels
+from core.forms import SubmitFormBuilder
+from core.utilities import has_recaptcha, validate_only_one_instance
 
 
 class IndexPage(models.Model):
@@ -243,13 +245,15 @@ class WagtailCompanyPage(WagtailPage):
     parent_types = ['core.HomePage']
     subpage_types = ['core.WagtailSitePage']
 
+    SITES_ORDERING_ALPHABETICAL = 'alphabetical'
     SITES_ORDERING_CREATED = 'created'
+    SITES_ORDERING_PATH = 'path'
     SITES_ORDERING = {
-        'path': {
+        SITES_ORDERING_PATH: {
             'name': 'Path (i.e. manual)',
             'ordering': ['-path'],
         },
-        'alphabetical': {
+        SITES_ORDERING_ALPHABETICAL: {
             'name': 'Alphabetical',
             'ordering': ['title'],
         },
@@ -341,13 +345,41 @@ class WagtailCompanyPage(WagtailPage):
 
     def children(self):
         ordering = self.SITES_ORDERING[self.sites_ordering]['ordering']
-        return WagtailSitePage.objects.live().descendant_of(self).order_by(*ordering)
+
+        # When ordering by `path`, the collaborations would either all be listed first or last
+        # depending on whether the collaborator(s) page(s) was created before or after this page.
+        # Adding an overwrite here so collaborations always appear last.
+        if self.sites_ordering == self.SITES_ORDERING_PATH:
+            own_site_pages = WagtailSitePage.objects\
+                .live()\
+                .descendant_of(self)\
+                .order_by(*ordering)
+
+            collab_site_pages = WagtailSitePage.objects\
+                .live()\
+                .filter(in_cooperation_with=self)\
+                .order_by(*ordering)
+
+            # Using `itertools.chain` to chain both querysets
+            # as joining them with `|` or `union` does not produce the expected result.
+            site_pages = chain(own_site_pages, collab_site_pages)
+
+        # When ordering alphabetically or by creation date,
+        # own sites and collaboration sites will be sorted together.
+        else:
+            site_pages = WagtailSitePage.objects\
+                .live()\
+                .filter(Q(path__startswith=self.path) | Q(in_cooperation_with=self))\
+                .order_by(*ordering)
+
+        # At this point, `site_pages` might be an iterator or a QuerySet.
+        # It's not ideal to cast it to a list but at least it's consistent.
+        return list(site_pages)
 
     def get_context(self, request, *args, **kwargs):
         # Get pages
-        pages = WagtailSitePage.objects.filter(
-            Q(path__startswith=self.path) | Q(in_cooperation_with=self)
-        ).distinct()
+        pages = self.children()
+
         # Pagination
         page = request.GET.get('page')
         paginator = Paginator(pages, 12)  # Show 12 pages per page

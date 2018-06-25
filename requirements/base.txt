@@ -1,12 +1,11 @@
--c constraints.txt
 Django==1.11.13  # rq.filter: >=1.11,<2
-wagtail==2.1
+wagtail==1.13.1  # rq.filter: >=1.13,<2
 
 psycopg2==2.7.5
 
 django-compressor==2.2
 wagtail-django-recaptcha==1.0
-wagtailgmaps==1.0.1
+wagtailgmaps==0.4  # rq.filter: >=0.4,<1
 slackweb==1.0.5
 
 raven

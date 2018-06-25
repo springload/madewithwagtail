@@ -3,10 +3,13 @@ import re
 from operator import itemgetter
 
 from bs4 import BeautifulSoup
+from core import panels
+from core.forms import SubmitFormBuilder
+from core.utilities import has_recaptcha, validate_only_one_instance
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import mark_safe
 from modelcluster.fields import ParentalKey
@@ -17,10 +20,6 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsearch import index
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
-
-from core import panels
-from core.forms import SubmitFormBuilder
-from core.utilities import has_recaptcha, validate_only_one_instance
 
 
 class IndexPage(models.Model):
@@ -346,7 +345,9 @@ class WagtailCompanyPage(WagtailPage):
 
     def get_context(self, request, *args, **kwargs):
         # Get pages
-        pages = self.children()
+        pages = WagtailSitePage.objects.filter(
+            Q(path__startswith=self.path) | Q(in_cooperation_with=self)
+        ).distinct()
         # Pagination
         page = request.GET.get('page')
         paginator = Paginator(pages, 12)  # Show 12 pages per page
@@ -403,6 +404,14 @@ class WagtailSitePage(WagtailPage):
         blank=True,
         null=True,
         help_text='The URL of your site, something like "https://www.springload.co.nz"',
+    )
+
+    in_cooperation_with = models.ForeignKey(
+        'core.WagtailCompanyPage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
     )
 
     search_fields = Page.search_fields + [

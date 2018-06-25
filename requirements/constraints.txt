@@ -1,4 +1,3 @@
--f /home/vagrant/wheelhouse
 backports.shutil-get-terminal-size==1.0.0
 beautifulsoup4==4.6.0
 certifi==2018.4.16

@@ -1,5 +1,5 @@
 backports.shutil-get-terminal-size==1.0.0
-beautifulsoup4==4.6.0
+beautifulsoup4==4.6.1
 certifi==2018.4.16
 chardet==3.0.4
 configparser==3.5.0

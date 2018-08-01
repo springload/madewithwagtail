@@ -1,5 +1,5 @@
 -c constraints.txt
-Django==1.11.14  # rq.filter: >=1.11,<2
+Django==1.11.15  # rq.filter: >=1.11,<2
 wagtail==1.13.2  # rq.filter: >=1.13,<2
 
 psycopg2==2.7.5

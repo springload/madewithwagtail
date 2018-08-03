@@ -42,7 +42,7 @@ rcssmin==1.0.6
 redis==2.10.6
 requests==2.19.1
 rjsmin==1.0.12
-scandir==1.7
+scandir==1.8
 simplegeneric==0.8.1
 six==1.11.0
 slackweb==1.0.5

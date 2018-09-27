@@ -9,6 +9,7 @@ Follow [django-allauth installation](http://django-allauth.readthedocs.io/en/lat
 - [x] redirect django admin login page to allauth login page (in urls.py)
 - [x] redirect wagtail admin login page to allauth login page (in urls.py)
 - [x] configure allauth login page as default `LOGIN_URL` and `WAGTAIL_FRONTEND_LOGIN_URL`
+- [x] template styling
 
 # Social accounts configuration
 

@@ -24,7 +24,7 @@ Based on [django-allauth documentation](http://django-allauth.readthedocs.io/en/
 - [x] `'allauth.socialaccount.providers.google'` in `INSTALLED_APPS`
 
 ### Configuration in Google developer console
-- [ ] [Create a new project](https://console.developers.google.com/projectcreate)
+- [x] [Create a new project](https://console.developers.google.com/projectcreate)
 - [ ] Fill the details for [OAuth consent screen](https://console.developers.google.com/apis/credentials/consent)
     - [ ] at least the **Product name shown to users** - `Made With Wagtail`
 - [ ] [Go to credentials page](https://console.developers.google.com/apis/credentials), verify your new project selected

@@ -35,13 +35,13 @@ Based on [django-allauth documentation](http://django-allauth.readthedocs.io/en/
 - [ ] copy over `Client ID` and `Client Secret`
 
 ### Configuration in django-allauth admin
-- [ ] In django admin > Social Accounts > Social Applications create a new Social application.
+- [ ] In Django admin > Social Accounts > Social Applications create a new Social application. Keep in mind there are 2 different admin panel _Django_ admin (`/django-admin`) and _Wagtail_ admin (`/admin`).
     - [ ] **Provider** - `Google`
     - [ ] **Name** - `Google`
     - [ ] **Client id** - `Client ID` from Google developer console
     - [ ] **Secret key** - `Client Secret` from Google developer console
     - [ ] **Key** - leave empty
-    - [ ] **Sites** choose - `madewithwagtail.org`
+    - [ ] **Sites** choose - `madewithwagtail.org` (might be different locally e.g. `example.com`)
 
 
 A new users may sign up with their Google account on [Sign Up page](https://madewithwagtail.org/accounts/signup/)

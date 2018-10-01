@@ -8,7 +8,7 @@
 {% block content %}
     <div class="site-content content-width">
         {% if user.is_authenticated and request.GET.next %}
-            <p class="errornote">
+            <p class="alert alert--error">
                 You are authenticated as {{ user.username }}, but are not authorized to
                 access <a href="{{ request.GET.next }}">{{ request.GET.next }}</a> page.
                 Would you like to login to a different account?
@@ -23,14 +23,11 @@
                     of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
                     for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
-                    <div class="socialaccount_ballot">
-
-                        <ul class="socialaccount_providers">
+                    <div class="socialaccount-ballot">
+                        <ul class="socialaccount-providers">
                             {% include "socialaccount/snippets/provider_list.html" with process="login" %}
                         </ul>
-
                         <div class="login-or">{% trans 'or' %}</div>
-
                     </div>
 
                     {% include "socialaccount/snippets/login_extra.html" %}

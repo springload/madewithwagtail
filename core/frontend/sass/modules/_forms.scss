@@ -37,6 +37,12 @@ $input-label-color:              $color-base-font-muted;
         vertical-align: top;
         margin-bottom: .5rem;
     }
+
+    .ctrl-holder {
+        input {
+            width: auto;
+        }
+    }
 }
 
 .helptext {

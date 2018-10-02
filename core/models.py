@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
-from django.db.models import Count
+from django.db.models import Case, Count, Q, Value, When
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import mark_safe
 from modelcluster.fields import ParentalKey
@@ -244,13 +244,15 @@ class WagtailCompanyPage(WagtailPage):
     parent_types = ['core.HomePage']
     subpage_types = ['core.WagtailSitePage']
 
+    SITES_ORDERING_ALPHABETICAL = 'alphabetical'
     SITES_ORDERING_CREATED = 'created'
+    SITES_ORDERING_PATH = 'path'
     SITES_ORDERING = {
-        'path': {
+        SITES_ORDERING_PATH: {
             'name': 'Path (i.e. manual)',
             'ordering': ['-path'],
         },
-        'alphabetical': {
+        SITES_ORDERING_ALPHABETICAL: {
             'name': 'Alphabetical',
             'ordering': ['title'],
         },
@@ -341,12 +343,32 @@ class WagtailCompanyPage(WagtailPage):
         return image
 
     def children(self):
-        ordering = self.SITES_ORDERING[self.sites_ordering]['ordering']
-        return WagtailSitePage.objects.live().descendant_of(self).order_by(*ordering)
+        user_ordering = self.SITES_ORDERING[self.sites_ordering]['ordering']
+        pages = WagtailSitePage.objects.live().filter(Q(path__startswith=self.path) | Q(in_cooperation_with=self))
+
+        # When ordering by `path`, the collaborations would either all be listed first or last
+        # depending on whether the collaborator(s) page(s) was created before or after this page.
+        # Adding an overwrite here so collaborations always appear last.
+        if self.sites_ordering == self.SITES_ORDERING_PATH:
+            pages = pages.annotate(
+                is_own=Case(
+                    When(path__startswith=self.path, then=Value(True)),
+                    default_value=Value(False),
+                    output_field=models.BooleanField(),
+                )
+            ).order_by('is_own', *user_ordering)
+
+        # When ordering alphabetically or by creation date,
+        # own sites and collaboration sites will be sorted together.
+        else:
+            pages = pages.order_by(*user_ordering)
+
+        return pages
 
     def get_context(self, request, *args, **kwargs):
         # Get pages
         pages = self.children()
+
         # Pagination
         page = request.GET.get('page')
         paginator = Paginator(pages, 12)  # Show 12 pages per page
@@ -403,6 +425,14 @@ class WagtailSitePage(WagtailPage):
         blank=True,
         null=True,
         help_text='The URL of your site, something like "https://www.springload.co.nz"',
+    )
+
+    in_cooperation_with = models.ForeignKey(
+        'core.WagtailCompanyPage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
     )
 
     search_fields = Page.search_fields + [

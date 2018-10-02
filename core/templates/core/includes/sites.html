@@ -29,7 +29,17 @@
                 {{ page.title }}
             </h4>
             <p class="project-author">
-                {{ page.parent.title|default:"A Wagtail developer"  }}
+                <a href="{{ page.parent.url }}" title="View the company page of {{ page.parent.title|default:"A Wagtail developer" }}">
+                    {{ page.parent.title|default:"A Wagtail developer"  }}
+                </a>
+                {% if page.in_cooperation_with %}
+                    <span class="project-featuring">
+                        &mdash; in cooperation with
+                        <a href="{{ page.in_cooperation_with.url }}">
+                            {{ page.in_cooperation_with.title }}
+                        </a>
+                    </span>
+                {% endif %}
             </p>
         </div>
     {% endfor %}

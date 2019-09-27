@@ -104,9 +104,9 @@ Anyone can submit a site on the [submission form](http://madewithwagtail.org/sub
     1. Confirm whether it’s a Wagtail website, see [Validating submissions](#validating-submissions).
     2. Find the developer’s profile page or create it if that’s a first submission
     3. Create the website page:
-        - Get a screenshot of the website with google-chrome --headless --hide-scrollbars --disable-gpu --screenshot --window-size=1200,996 https://www.lic.co.nz/
+        - Get a screenshot of the website with [headless Google Chrome](https://developers.google.com/web/updates/2017/04/headless-chrome), e.g. `google-chrome --headless --hide-scrollbars --disable-gpu --screenshot --window-size=1200,996 https://springload.co.nz/`
         - Fill out everything from the submission
-    4. Notify the developer.
+        - Notify the developer
 
 ## Validating submissions
 

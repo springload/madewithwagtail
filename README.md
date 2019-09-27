@@ -98,15 +98,15 @@ Anyone can submit a site on the [submission form](http://madewithwagtail.org/sub
 - If the submission isn't valid, we won't add the site to our showcase. Remove it from the CMS.
 - If the submission is valid,
 
-1. Take a 1440x1200 screenshot of the site's homepage with [`screenshotron`](https://github.com/springload/screenshotron).
-2. Log into the CMS at http://madewithwagtail.org/admin/login
-3. Check if the developer already has a page in the CMS.
-4. If not, create a page for the company or individual with their details.
-5. Add a new Site page under this Developer, with the details that are in the submission.
-6. Use the screenshot for the "Desktop image".
-7. Add tags that you deem appropriate, depending on the ones we already have and the characteristics of the site.
-8. Publish!
-9. Let the submitter know by sending them a nice email.
+1. Look for new submissions https://madewithwagtail.org/admin/forms/submissions/5/ (use the filters at the top to remove already processed dates)
+2. Export to CSV
+3. For each submission:
+    1. Confirm whether it’s a Wagtail website, see [Validating submissions](#validating-submissions).
+    2. Find the developer’s profile page or create it if that’s a first submission
+    3. Create the website page:
+        - Get a screenshot of the website with google-chrome --headless --hide-scrollbars --disable-gpu --screenshot --window-size=1200,996 https://www.lic.co.nz/
+        - Fill out everything from the submission
+    4. Notify the developer.
 
 ## Validating submissions
 
@@ -117,6 +117,10 @@ To confirm that a site is made with Wagtail,
 - Try to go to `<site URL>/admin/`. If the site uses the default admin URLs, it will redirect you to the Wagtail login page.
 - Use the [Wappalyzer](https://wappalyzer.com/) browser extension. It won't flag Wagtail directly, but it can flag Django / Python, and could also uncover other technologies.
 - Look at the homepage HTML to see if static assets are served from `/static/`, a common URL structure of Django sites.
+- Can you find trace of images renditions (e.g. images’ src finish with -max-800 or fill-500x500 or -original or -width-800) in the source? :white_check_mark:
+- Does the page has some meta name="generator" content="..." showing that it was made with Wordpress or Drupal? :x:
+- Does the page has some /wp-upload path for the images? :x:
+- Look at other ideas to figure it out here https://github.com/springload/madewithwagtail/issues/62  :white_check_mark: or :x:
 - If all of those methods are inconclusive, assume that the site submission is faithful and that the site is indeed built with Wagtail.
 
 ## Publication hook

@@ -37,7 +37,14 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "npm-force-resolutions": "0.0.2",
     "springload-analytics.js": "^2.0.1"
+  },
+  "resolutions": {
+    "lodash": "~4.17.13",
+    "lodash.template": "~4.5.0",
+    "lodash.merge": "~4.6.2",
+    "lodash.mergewith": "~4.6.2"
   },
   "scripts": {
     "start": "npm run lint:versions -s && npm run watch -s",

@@ -18,15 +18,14 @@ GOOGLE_TAG_MANAGER = False
 GOOGLE_MAPS_API_KEY = False  # API Key with Embed and Javascript API enabled.
 WAGTAIL_ADDRESS_MAP_KEY = GOOGLE_MAPS_API_KEY
 
-# Setup your DB backend
-
+# Setup your DB backend (example here for docker-compose)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '',
-        'USER': '',
+        'NAME': 'app',
+        'USER': 'postgres',
         'PASSWORD': '',
-        'HOST': '',  # Set to empty string for localhost.
+        'HOST': 'database',  # Set to empty string for localhost.
         'PORT': '',  # Set to empty string for default.
         'CONN_MAX_AGE': 600,  # number of seconds database connections should persist for
     }

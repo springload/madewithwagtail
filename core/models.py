@@ -263,7 +263,7 @@ class WagtailCompanyPage(WagtailPage):
     }
     SITES_ORDERING_CHOICES = [
         (key, opts['name'])
-        for key, opts in sorted(SITES_ORDERING.iteritems(), key=itemgetter(1))
+        for key, opts in sorted(SITES_ORDERING.items(), key=lambda k: k[1]['name'])
     ]
 
     company_url = models.URLField(

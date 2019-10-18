@@ -25,7 +25,7 @@ ENTRYPOINT ["tini", "--" ]
 CMD ["npm", "start", "--prefix", "/madewithwagtail"]
 
 # Base backend
-FROM python:2.7-alpine as base
+FROM python:3.7-alpine as base
 ARG REQUIREMENTS=production.txt
 
 ENV PYCURL_SSL_LIBRARY openssl
@@ -52,8 +52,8 @@ RUN apk update && apk add --virtual build-deps make gcc g++ musl-dev && \
   libevent-dev \
   curl-dev && \
   cd /madewithwagtail && \
-    pip install -r docker/requirements.txt && \
-    pip install -r requirements/${REQUIREMENTS} && \
+    pip3 install -r docker/requirements.txt && \
+    pip3 install -r requirements/${REQUIREMENTS} && \
     apk del build-deps build-headers
 
 COPY --from=frontend /madewithwagtail/ /madewithwagtail/
@@ -89,7 +89,7 @@ RUN chmod +rx /usr/local/bin/wait-for
 
 RUN apk add --virtual build-deps make g++ musl-dev && \
     cd /madewithwagtail && \
-    pip install -r requirements/${REQUIREMENTS} && \
+    pip3 install -r requirements/${REQUIREMENTS} && \
     apk del build-deps
 
 ENTRYPOINT ["/usr/local/bin/wait-for", "database:5432", "--"]

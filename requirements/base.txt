@@ -1,5 +1,5 @@
 -c constraints.txt
-Django==1.11.16
+Django==1.11.24
 wagtail==1.13.1
 
 psycopg2==2.7.5

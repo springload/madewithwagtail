@@ -33,7 +33,6 @@ services:
             default:
                 aliases:
                     - "madewithwagtail.dev.springload.nz"
-            nginx-proxy:
 
     database:
         restart: on-failure
@@ -54,7 +53,3 @@ services:
         image: redis:4-alpine
         ports:
             - "${PORT_PREFIX:-520}79:6379"
-
-networks:
-    nginx-proxy:
-        external: true

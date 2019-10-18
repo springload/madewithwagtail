@@ -1,0 +1,55 @@
+version: "3.7"
+
+services:
+    application:
+        restart: on-failure
+        build:
+            context: .
+            dockerfile: docker/application/Dockerfile
+            target: app-dev
+        volumes:
+            - ".:/madewithwagtail"
+        ports:
+            - "${PORT_PREFIX:-520}80:8000"
+        env_file:
+            - dev.env
+        environment:
+            VIRTUAL_HOST: "madewithwagtail.dev.springload.nz"
+            VIRTUAL_PORT: 8000
+            VIRTUAL_MEDIA_DOMAIN: # Change me once set up
+        entrypoint: ["wait-for", "database:5432", "--"]
+        command:
+            [
+                "/usr/local/bin/gunicorn",
+                "--config",
+                "/madewithwagtail/docker/gunicorn.py",
+                "--reload",
+                "madewithwagtail.wsgi",
+            ]
+        depends_on:
+            - database
+            - cache
+        networks:
+            default:
+                aliases:
+                    - "madewithwagtail.dev.springload.nz"
+
+    database:
+        restart: on-failure
+        image: postgres:9.3-alpine
+        ports:
+            - "${PORT_PREFIX:-520}32:5432" # default 32
+        volumes:
+            - "./docker/database:/docker-entrypoint-initdb.d/:ro"
+        environment:
+            WAGTAIL_SITE_HOSTNAME: "${SITE_HOSTNAME}"
+            WAGTAIL_SITE_PORT: "443"
+            POSTGRES_DB: "madewithwagtail"
+            POSTGRES_USER: "postgres"
+            POSTGRES_PASSWORD: ""
+
+    cache:
+        restart: on-failure
+        image: redis:4-alpine
+        ports:
+            - "${PORT_PREFIX:-520}79:6379"

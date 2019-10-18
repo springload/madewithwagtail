@@ -32,6 +32,7 @@ media/*
 .vscode
 .coverage
 .bundle
+dev.env
 
 core/static/css/*
 core/static/js/*

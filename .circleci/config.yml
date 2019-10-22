@@ -36,7 +36,7 @@ workflows:
                       docker run \
                           -it --name app-test --rm \
                           --link=database --link=cache \
-                          --env-file=dev.env \
+                          --env-file=dev.env.example \
                           -eDATABASE_URL="postgres://postgres@database/${PROJECT}_test" \
                           -eENVIRONMENT=test \
                           -eCACHE_URL=redis://cache:6379/0 \

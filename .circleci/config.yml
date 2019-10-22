@@ -38,7 +38,6 @@ workflows:
                           --link=database --link=cache \
                           -eDATABASE_URL="postgres://postgres@database/${PROJECT}_test" \
                           -eENVIRONMENT=test \
-                          --env-file=dev.env.example \
                           -eCACHE_URL=redis://cache:6379/0 \
                           -eTASK_QUEUE_URL=redis://cache:6379/1 \
                           app-test

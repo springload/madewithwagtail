@@ -1,7 +1,7 @@
 import logging
 import re
 from datetime import timedelta
-from urllib2 import HTTPError
+from urllib.error import HTTPError
 
 from django.conf import settings
 from django.core.cache import cache

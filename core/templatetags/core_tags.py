@@ -1,4 +1,6 @@
-import urllib
+import urllib.error
+import urllib.parse
+import urllib.request
 
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
@@ -73,7 +75,7 @@ class SetVarNode(template.Node):
         except template.VariableDoesNotExist:
             value = ""
         context[self.var_name] = value
-        return u""
+        return ""
 
 
 @register.tag(name='set')
@@ -122,4 +124,4 @@ def build_qsa(page_number, tag, query_string):
         qsa['tag'] = tag
     if query_string:
         qsa['q'] = query_string
-    return "?" + urllib.urlencode(qsa)
+    return "?" + urllib.parse.urlencode(qsa)

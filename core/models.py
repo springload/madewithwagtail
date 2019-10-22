@@ -1,6 +1,5 @@
 import os
 import re
-from operator import itemgetter
 
 from bs4 import BeautifulSoup
 from django.core.exceptions import ObjectDoesNotExist

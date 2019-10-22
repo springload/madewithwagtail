@@ -1,0 +1,76 @@
+version: 2.1
+
+orbs:
+  buildkit: springload/buildkit@0.0.6
+
+workflows:
+  build_test_and_push_image:
+    jobs:
+      - buildkit/builder:
+          cache_version: v3
+          builds:
+            - buildkit/build: # call the build command multiple times to build multiple images
+                target: app # build this stage
+                tag: app # no tag no docker image
+                path: docker/application
+            - buildkit/build:
+                target: app-test
+                tag: app-test
+                path: docker/application
+            # - buildkit/build:
+            #     target: tasks
+            #     tag: tasks
+            #     path: docker/application
+            - buildkit/build:
+                  tag: httpd
+                  context: docker/httpd
+                  path: docker/httpd
+          after-builds:
+            - run:
+                  name: run tests
+                  command: |-
+                      docker run --name=database --expose 5432 \
+                          -ePOSTGRES_DB=${PROJECT}_test \
+                          -d postgres:10-alpine
+                      docker run --name=cache --expose 6379 -d redis:4-alpine
+                      docker run \
+                          -it --name app-test --rm \
+                          --link=database --link=cache \
+                          --env-file=dev.env \
+                          -eDATABASE_URL="postgres://postgres@database/${PROJECT}_test" \
+                          -eENVIRONMENT=test \
+                          -eCACHE_URL=redis://cache:6379/0 \
+                          -eTASK_QUEUE_URL=redis://cache:6379/1 \
+                          app-test
+            - run:
+                  name: tag, push and deploy images
+                  command: |-
+                      set -eu
+
+                      if [ "${CIRCLE_BRANCH}" == "deploy/preview" ]; then
+                          ENVIRONMENT=`basename "${CIRCLE_BRANCH}"`
+                          PROJECT=madewithwagtail
+                          VERSION=$(git rev-parse --short HEAD)
+                          export AWS_ACCESS_KEY_ID=${NEW_AWS_ACCESS_KEY_ID}
+                          export AWS_SECRET_ACCESS_KEY=${NEW_AWS_SECRET_ACCESS_KEY}
+                          wget https://github.com/springload/ecs-tool/releases/download/1.0.1/ecs-tool_1.0.1_linux_amd64.tar.gz && tar -C /usr/bin -xvf ecs-tool_1.0.1_linux_amd64.tar.gz ecs-tool
+                          export AWS_REGION=ap-southeast-2
+                          export REPOSITORY=$(ecs-tool ecr-endpoint)
+                          eval $(ecs-tool ecr-login)
+                          pids=""
+                          for image in app httpd; do #tasks
+                             for tag in circle-${ENVIRONMENT}-${VERSION} circle-${ENVIRONMENT}-latest; do
+                                  docker tag ${image} ${REPOSITORY}/${PROJECT}-${image}:${tag}
+                                  docker push ${REPOSITORY}/${PROJECT}-${image}:${tag} &
+                                  pids="${pids} $!"
+                             done
+                          done
+
+                      for p in $pids; do
+                          wait $p
+                      done
+
+                      ecs-tool -e "${ENVIRONMENT}" run --image_tag "circle-${ENVIRONMENT}-${VERSION}" -- /app/deploy.sh
+                      # deploy new services in parallel
+                      ecs-tool -e "${ENVIRONMENT}" deploy --image_tag "circle-${ENVIRONMENT}-${VERSION}"
+                      fi

@@ -31,12 +31,11 @@ workflows:
                   command: |-
                       docker run --name=database --expose 5432 \
                           -ePOSTGRES_DB=${PROJECT}_test \
-                          -d postgres:10-alpine
+                          -d postgres:9.3-alpine
                       docker run --name=cache --expose 6379 -d redis:4-alpine
                       docker run \
-                          -it --name app-test --rm \
+                          -i --name app-test --rm \
                           --link=database --link=cache \
-                          --env-file=dev.env.example \
                           -eDATABASE_URL="postgres://postgres@database/${PROJECT}_test" \
                           -eENVIRONMENT=test \
                           -eCACHE_URL=redis://cache:6379/0 \

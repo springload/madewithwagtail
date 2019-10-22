@@ -99,5 +99,5 @@ FROM app-dev as app-test
 ARG REQUIREMENTS=test.txt
 ENV DJANGO_SETTINGS_MODULE madewithwagtail.settings.test
 RUN cd /madewithwagtail &&\
-    pip3 install -r requirements/${REQUIREMENTS}
+    pip install -r requirements/${REQUIREMENTS}
 CMD ["/bin/sh", "/madewithwagtail/test.sh"]

@@ -25,7 +25,7 @@ ENTRYPOINT ["tini", "--" ]
 CMD ["npm", "start", "--prefix", "/madewithwagtail"]
 
 # Base backend
-FROM python:3.7-alpine as base
+FROM python:3.6-alpine as base
 ARG REQUIREMENTS=production.txt
 
 ENV PYCURL_SSL_LIBRARY openssl

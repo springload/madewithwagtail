@@ -74,4 +74,3 @@ workflows:
                       # deploy new services in parallel
                       ecs-tool -e "${ENVIRONMENT}" deploy --image_tag "circle-${ENVIRONMENT}-${VERSION}"
                       fi
-

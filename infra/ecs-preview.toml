@@ -1,0 +1,8 @@
+profile = "madewithwagtail"
+cluster = "madewithwagtail-preview"
+task_definition = "madewithwagtail-preview-app"
+container_name = "app"
+log_group = "ecs-tool"
+
+[deploy]
+services = ["app"]

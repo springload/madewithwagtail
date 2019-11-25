@@ -32,7 +32,9 @@ media/*
 .vscode
 .coverage
 .bundle
+
 dev.env
+docker/database/*.sql
 
 core/static/css/*
 core/static/js/*

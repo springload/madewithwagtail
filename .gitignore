@@ -33,7 +33,6 @@ media/*
 .coverage
 .bundle
 
-dev.env
 docker/database/*.sql
 
 core/static/css/*

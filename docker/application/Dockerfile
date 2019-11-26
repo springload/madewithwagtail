@@ -1,5 +1,5 @@
 # Frontend assets
-FROM node:8-stretch as frontend
+FROM node:8-alpine as frontend
 
 ENV APPLICATION madewithwagtail
 
@@ -7,14 +7,19 @@ COPY package.json package-lock.json /madewithwagtail/
 
 WORKDIR /madewithwagtail
 
-RUN apt-get update && apt-get install -y \
-    libsass-dev \
+RUN apk add --no-cache \
+    --repository http://dl-cdn.alpinelinux.org/alpine/v3.10/community \
+    libsass-dev
+
+RUN apk update && apk add --virtual npm-reqs \
     make \
     gcc \
     g++ \
     musl-dev \
     python \
-    && npm install
+    && npm install \
+    && apk del npm-reqs
+
 
 COPY . /madewithwagtail/
 RUN npm run dist
@@ -62,7 +67,7 @@ RUN adduser -S www -u 1000 && chown -R www /madewithwagtail
 
 ARG VERSION=dev
 ENV APPLICATION_VERSION=${VERSION}
-ENV DJANGO_SETTINGS_MODULE madewithwagtail.settings.production
+ENV DJANGO_SETTINGS_MODULE madewithwagtail.settings.hosting
 ENV VERSION=${VERSION}
 ENV ENVIRONMENT unknown
 ENV PROJECT madewithwagtail

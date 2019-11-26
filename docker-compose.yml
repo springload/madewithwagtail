@@ -28,7 +28,6 @@ services:
             ]
         depends_on:
             - database
-            - cache
         networks:
             default:
                 aliases:
@@ -47,9 +46,3 @@ services:
             POSTGRES_DB: "madewithwagtail"
             POSTGRES_USER: "postgres"
             POSTGRES_PASSWORD: ""
-
-    cache:
-        restart: on-failure
-        image: redis:4-alpine
-        ports:
-            - "${PORT_PREFIX:-520}79:6379"

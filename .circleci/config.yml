@@ -32,14 +32,12 @@ workflows:
                       docker run --name=database --expose 5432 \
                           -ePOSTGRES_DB=${PROJECT}_test \
                           -d postgres:9.3-alpine
-                      docker run --name=cache --expose 6379 -d redis:4-alpine
                       docker run \
-                          -i --name app-test --rm \
-                          --link=database --link=cache \
+                          -it --name app-test --rm \
+                          --link=database \
+                          --env-file=dev.env \
                           -eDATABASE_URL="postgres://postgres@database/${PROJECT}_test" \
                           -eENVIRONMENT=test \
-                          -eCACHE_URL=redis://cache:6379/0 \
-                          -eTASK_QUEUE_URL=redis://cache:6379/1 \
                           app-test
             - run:
                   name: tag, push and deploy images
@@ -52,7 +50,7 @@ workflows:
                           VERSION=$(git rev-parse --short HEAD)
                           export AWS_ACCESS_KEY_ID=${NEW_AWS_ACCESS_KEY_ID}
                           export AWS_SECRET_ACCESS_KEY=${NEW_AWS_SECRET_ACCESS_KEY}
-                          wget https://github.com/springload/ecs-tool/releases/download/1.0.1/ecs-tool_1.0.1_linux_amd64.tar.gz && tar -C /usr/bin -xvf ecs-tool_1.0.1_linux_amd64.tar.gz ecs-tool
+                          wget https://github.com/springload/ecs-tool/releases/download/1.3.1/ecs-tool_1.3.1_linux_amd64.tar.gz && tar -C /usr/bin -xvf ecs-tool_1.3.1_linux_amd64.tar.gz ecs-tool
                           export AWS_REGION=ap-southeast-2
                           export REPOSITORY=$(ecs-tool ecr-endpoint)
                           eval $(ecs-tool ecr-login)
@@ -69,7 +67,7 @@ workflows:
                           wait $p
                       done
 
-                      ecs-tool -e "${ENVIRONMENT}" run --image_tag "circle-${ENVIRONMENT}-${VERSION}" -- /app/deploy.sh
+                      ecs-tool -e "${ENVIRONMENT}" run --image_tag "circle-${ENVIRONMENT}-${VERSION}" -- /madewithwagtail/deploy.sh
                       # deploy new services in parallel
                       ecs-tool -e "${ENVIRONMENT}" deploy --image_tag "circle-${ENVIRONMENT}-${VERSION}"
                       fi

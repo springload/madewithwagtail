@@ -7,3 +7,4 @@ export DJANGO_AXES_BEHIND_REVERSE_PROXY=False
 
 python manage.py migrate
 python manage.py test
+flake8

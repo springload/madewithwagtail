@@ -32,6 +32,7 @@ services:
             default:
                 aliases:
                     - "madewithwagtail.dev.springload.nz"
+            nginx-proxy:
 
     database:
         restart: on-failure
@@ -46,3 +47,7 @@ services:
             POSTGRES_DB: "madewithwagtail"
             POSTGRES_USER: "postgres"
             POSTGRES_PASSWORD: ""
+
+networks:
+  nginx-proxy:
+    external: true

@@ -28,8 +28,6 @@ GOOGLE_MAPS_API_KEY = False
 
 DEBUG = True
 
-COMPRESS_ENABLED = False
-
 # To have fake email backend
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

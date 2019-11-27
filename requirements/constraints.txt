@@ -9,7 +9,6 @@ Django==1.11.24
 django-amazon-ses==2.1.1
 django-appconf==1.0.2
 django-cache-url==2.0.0
-django-compressor==2.2
 django-debug-toolbar==1.9.1
 django-extensions==2.0.7
 django-modelcluster==3.1

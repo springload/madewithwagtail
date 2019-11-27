@@ -1,14 +1,6 @@
 from os.path import normpath, join
 from .paths import *
 
-
-# Django compressor settings
-# http://django-compressor.readthedocs.org/en/latest/settings/
-
-COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-)
-
 # Template configuration
 CONTEXT_PROCESSORS = [
     'django.contrib.auth.context_processors.auth',

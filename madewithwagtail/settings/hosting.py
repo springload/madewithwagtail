@@ -22,16 +22,6 @@ MIDDLEWARE_CLASSES = (
 # Makes session cookie work over HTTPS only
 SESSION_COOKIE_SECURE = True
 
-# Compress static files offline
-# http://django-compressor.readthedocs.org/en/latest/settings/#django.conf.settings.COMPRESS_OFFLINE
-
-COMPRESS_OFFLINE = False
-COMPRESS_ENABLED = True
-
-COMPRESS_CSS_FILTERS = [
-    'compressor.filters.css_default.CssAbsoluteFilter',
-    'compressor.filters.cssmin.CSSMinFilter',
-]
 
 SERVER_EMAIL = "errors@madewithwagtail.org"
 

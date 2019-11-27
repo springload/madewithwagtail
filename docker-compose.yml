@@ -16,7 +16,7 @@ services:
         environment:
             VIRTUAL_HOST: "madewithwagtail.dev.springload.nz"
             VIRTUAL_PORT: 8000
-            VIRTUAL_MEDIA_DOMAIN: # Change me once set up
+            VIRTUAL_MEDIA_DOMAIN: "madewithwagtail.org/media"
         entrypoint: ["wait-for", "database:5432", "--"]
         command:
             [

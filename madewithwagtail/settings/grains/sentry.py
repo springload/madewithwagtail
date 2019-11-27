@@ -27,7 +27,7 @@ sentry_sdk.init(
     environment=SENTRY_ENVIRONMENT,
 )
 
-# CSP is not currently configured for Red Cross, so this is
+# CSP is not currently configured for madewithwagtail, so this is
 # a no-op, but might as well leave it in case they do
 CSP_REPORT_URI = [
     "{base_url}&sentry_release={release}&sentry_environment={environment}".format(

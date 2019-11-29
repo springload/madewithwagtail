@@ -5,7 +5,6 @@ from .grains.sentry import *
 from .grains.cache import *
 
 # Google Analytics settings
-GOOGLE_ANALYTICS_KEY = 'REMOVED'
 GOOGLE_TAG_MANAGER = False
 
 DEBUG = False

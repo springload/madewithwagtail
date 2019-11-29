@@ -16,6 +16,10 @@ _ENVVARS = [
     # StringVariable("ELASTICSEARCH_URL"), # Elastic search URL
     StringVariable("DATABASE_URL"),  # e.g. postgres URL
     StringVariable("WAGTAILCMS_TWIW_SLACK_HOOK", default=""),  # e.g. postgres URL
+    StringVariable("RECAPTCHA_PUBLIC_KEY", default=""),  # e.g. postgres URL
+    StringVariable("RECAPTCHA_PRIVATE_KEY", default=""),  # e.g. postgres URL
+    StringVariable("GOOGLE_MAPS_API_KEY", default=""),  # e.g. postgres URL
+    StringVariable("GOOGLE_ANALYTICS_KEY", default=""),  # e.g. postgres URL
 ]
 
 _APP_ENVVARS = [StringVariable("APP_SECRET_KEY")]

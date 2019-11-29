@@ -1,5 +1,4 @@
 from madewithwagtail.settings.grains.django import ALLOWED_HOSTS
-from madewithwagtail.settings.grains.integrations import GOOGLE_MAPS_API_KEY
 
 WAGTAIL_SITE_NAME = "Made with Wagtail"
 

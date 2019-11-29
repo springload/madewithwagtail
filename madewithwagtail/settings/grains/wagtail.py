@@ -1,5 +1,5 @@
 from madewithwagtail.settings.grains.django import ALLOWED_HOSTS
-
+from madewithwagtail.settings import *
 from typed_environment_configuration import *
 
 _ENVVARS = [

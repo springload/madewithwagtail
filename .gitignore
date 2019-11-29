@@ -32,6 +32,7 @@ media/*
 .vscode
 .coverage
 .bundle
+dev.env
 
 docker/database/*.sql
 

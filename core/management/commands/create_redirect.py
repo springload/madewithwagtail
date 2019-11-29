@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import, division, print_function, unicode_literals
 
 from django.core.management import BaseCommand
 from wagtail.wagtailcore.models import Page
@@ -34,7 +33,7 @@ class Command(BaseCommand):
             "--page_slug",
             action="store",
             dest="page_slug",
-            type=unicode,
+            type=str,
             help="Find page by it's current slug",
             required=True,
         )
@@ -42,7 +41,7 @@ class Command(BaseCommand):
             "--page_old_slug",
             action="store",
             dest="page_old_slug",
-            type=unicode,
+            type=str,
             help="Old page slug for redirect",
             required=True,
         )

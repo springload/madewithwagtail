@@ -1,5 +1,11 @@
 from madewithwagtail.settings.grains.django import ALLOWED_HOSTS
 
+from typed_environment_configuration import *
+
+_ENVVARS = [
+    StringVariable("GOOGLE_MAPS_API_KEY", default=""),  # e.g. postgres URL
+]
+
 WAGTAIL_SITE_NAME = "Made with Wagtail"
 
 # Search results template

@@ -22,7 +22,6 @@ MIDDLEWARE_CLASSES = (
 # Makes session cookie work over HTTPS only
 SESSION_COOKIE_SECURE = True
 
-
 SERVER_EMAIL = "errors@madewithwagtail.org"
 
 # Tasks
@@ -37,3 +36,5 @@ CACHE_TEMPLATE_FRAGMENTS_SECONDS = 86400  # 24 hours
 # Make sure we include the needed Middleware apps
 # Excluding logged in (admin) requests
 CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
+
+SECURE_HSTS_SECONDS = 31536000

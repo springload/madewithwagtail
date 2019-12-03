@@ -4,5 +4,10 @@ task_definition = "madewithwagtail-preview-app"
 container_name = "app"
 log_group = "ecs-tool"
 
+[ssh]
+service = "app"
+instance_user = "ben"
+shell = "sh"
+
 [deploy]
 services = ["app"]

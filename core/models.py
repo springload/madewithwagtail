@@ -47,7 +47,6 @@ class HomePage(Page, IndexPage):
     """
 
     subpage_types = [
-        'core.WagtailPage',
         'core.CompanyIndex',
         'core.SubmitFormPage',
     ]

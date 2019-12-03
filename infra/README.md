@@ -1,1 +1,2 @@
-Infra lives in private springload infra repo :)
+Infra lives in private springload infra repo under configs
+

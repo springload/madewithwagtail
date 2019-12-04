@@ -127,3 +127,4 @@ To confirm that a site is made with Wagtail,
 
 We send Slack notifications for every new site page published to Made with Wagtail. To try this locally, set up a `local.py` setting override with the right settings.
  
+

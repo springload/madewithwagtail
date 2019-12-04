@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.utils.html import format_html_join
+
 from wagtail.wagtailadmin.rich_text import HalloPlugin
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.whitelist import attribute_rule, check_url

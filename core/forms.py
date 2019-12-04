@@ -1,7 +1,6 @@
+from core.utilities import has_recaptcha
 from wagtail.wagtailforms.forms import FormBuilder
 from wagtailcaptcha.forms import WagtailCaptchaFormBuilder
-
-from core.utilities import has_recaptcha
 
 
 class SubmitFormBuilder(WagtailCaptchaFormBuilder if has_recaptcha() else FormBuilder):

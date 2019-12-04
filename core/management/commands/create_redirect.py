@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.core.management import BaseCommand
+
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailredirects.models import Redirect
 

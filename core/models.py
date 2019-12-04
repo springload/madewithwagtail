@@ -11,15 +11,15 @@ from django.utils.html import mark_safe
 from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
 from taggit.models import Tag, TaggedItemBase
+
+from core import panels
+from core.forms import SubmitFormBuilder
+from core.utilities import has_recaptcha, validate_only_one_instance
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsearch import index
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
-
-from core import panels
-from core.forms import SubmitFormBuilder
-from core.utilities import has_recaptcha, validate_only_one_instance
 
 
 class IndexPage(models.Model):

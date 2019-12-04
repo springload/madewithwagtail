@@ -1,6 +1,5 @@
 import os
 import re
-from operator import itemgetter
 
 from bs4 import BeautifulSoup
 from django.core.exceptions import ObjectDoesNotExist
@@ -12,15 +11,15 @@ from django.utils.html import mark_safe
 from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
 from taggit.models import Tag, TaggedItemBase
+
+from core import panels
+from core.forms import SubmitFormBuilder
+from core.utilities import has_recaptcha, validate_only_one_instance
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsearch import index
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
-
-from core import panels
-from core.forms import SubmitFormBuilder
-from core.utilities import has_recaptcha, validate_only_one_instance
 
 
 class IndexPage(models.Model):
@@ -48,7 +47,6 @@ class HomePage(Page, IndexPage):
     """
 
     subpage_types = [
-        'core.WagtailPage',
         'core.CompanyIndex',
         'core.SubmitFormPage',
     ]
@@ -180,6 +178,8 @@ class WagtailPage(Page):
     parent_types = ['core.HomePage']
     subpage_types = ['core.WagtailPage']
 
+    is_creatable = False
+
     feed_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -263,7 +263,7 @@ class WagtailCompanyPage(WagtailPage):
     }
     SITES_ORDERING_CHOICES = [
         (key, opts['name'])
-        for key, opts in sorted(SITES_ORDERING.iteritems(), key=itemgetter(1))
+        for key, opts in sorted(SITES_ORDERING.items(), key=lambda k: k[1]['name'])
     ]
 
     company_url = models.URLField(

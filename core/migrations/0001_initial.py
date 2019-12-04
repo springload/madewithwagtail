@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from __future__ import unicode_literals
 
-from django.db import models, migrations
+
 import django.db.models.deletion
+import modelcluster.contrib.taggit
 import modelcluster.fields
 import wagtail.wagtailcore.fields
-import modelcluster.contrib.taggit
+from django.db import models, migrations
 
 
 class Migration(migrations.Migration):

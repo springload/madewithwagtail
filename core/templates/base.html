@@ -1,4 +1,4 @@
-{% load compress static wagtailcore_tags core_tags wagtailimages_tags wagtailuserbar %}
+{% load static wagtailcore_tags core_tags wagtailimages_tags wagtailuserbar %}
 <!DOCTYPE html>
 <!--[if IE 8]> <html class="ie8 no-js"><![endif]-->
 <!--[if !IE]><!--><html class="no-js"><!--<![endif]-->
@@ -28,13 +28,11 @@
         <!-- end:features -->
 
         <!-- styles -->
-        {% compress css %}
-            <link rel="stylesheet" href="{% static 'css/screen.css' %}" />
-        {% endcompress %}
+        <link rel="stylesheet" href="{% static 'css/screen.css' %}" />
         {% block extra_css %}
         {% endblock %}
 
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,800' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,800' rel='stylesheet' type='text/css'>
         <!-- end:styles -->
 
         <!-- js-support -->
@@ -111,9 +109,7 @@
 
         {% endblock %}
 
-        {% compress js %}
-            <script type="text/javascript" src="{% static 'js/wagtailsites.js' %}"></script>
-        {% endcompress %}
+        <script type="text/javascript" src="{% static 'js/wagtailsites.js' %}"></script>
         {% block extra_js %}
         {% endblock %}
         {% if GOOGLE_ANALYTICS_KEY %}

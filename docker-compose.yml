@@ -16,7 +16,7 @@ services:
         environment:
             VIRTUAL_HOST: "madewithwagtail.dev.springload.nz"
             VIRTUAL_PORT: 8000
-            VIRTUAL_MEDIA_DOMAIN: # Change me once set up
+            VIRTUAL_MEDIA_DOMAIN: "madewithwagtail.org/media"
         entrypoint: ["wait-for", "database:5432", "--"]
         command:
             [
@@ -28,11 +28,11 @@ services:
             ]
         depends_on:
             - database
-            - cache
         networks:
             default:
                 aliases:
                     - "madewithwagtail.dev.springload.nz"
+            nginx-proxy:
 
     database:
         restart: on-failure
@@ -48,8 +48,6 @@ services:
             POSTGRES_USER: "postgres"
             POSTGRES_PASSWORD: ""
 
-    cache:
-        restart: on-failure
-        image: redis:4-alpine
-        ports:
-            - "${PORT_PREFIX:-520}79:6379"
+networks:
+  nginx-proxy:
+    external: true

@@ -1,0 +1,2 @@
+# Captcha settings
+NOCAPTCHA = True

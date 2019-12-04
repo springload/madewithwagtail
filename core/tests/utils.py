@@ -1,5 +1,4 @@
 import sys
-import types
 
 from django.core.management import call_command
 from django.test import Client, TestCase
@@ -24,6 +23,6 @@ def str_to_class(field):
         identifier = getattr(sys.modules[__name__], field)
     except AttributeError:
         raise NameError("%s doesn't exist." % field)
-    if isinstance(identifier, (types.ClassType, types.TypeType)):
+    if isinstance(identifier, type):
         return identifier
     raise TypeError("%s is not a class." % field)

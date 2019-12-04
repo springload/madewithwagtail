@@ -178,6 +178,8 @@ class WagtailPage(Page):
     parent_types = ['core.HomePage']
     subpage_types = ['core.WagtailPage']
 
+    is_creatable = False
+
     feed_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,

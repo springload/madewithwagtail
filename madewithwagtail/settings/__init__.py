@@ -11,9 +11,6 @@ _ENVVARS = [
     StringListVariable("ADDRESSES", default=""),
     StringVariable("AWS_STORAGE_BUCKET_NAME", default=""),  # S3 Bucket Name
     StringVariable("AWS_S3_CUSTOM_DOMAIN", default=""),  # S3 Domain
-    #StringVariable("CACHE_URL"),  # Cache url e.g. Redis cache URL
-    #StringVariable("TASK_QUEUE_URL"),  # Task queue url e.g. Redis URL
-    # StringVariable("ELASTICSEARCH_URL"), # Elastic search URL
     StringVariable("DATABASE_URL"),  # e.g. postgres URL
     StringVariable("WAGTAILCMS_TWIW_SLACK_HOOK", default=""),  # e.g. postgres URL
     StringVariable("RECAPTCHA_PUBLIC_KEY", default=""),  # e.g. postgres URL

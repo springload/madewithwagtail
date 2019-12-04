@@ -2,7 +2,6 @@ from .grains.database import *
 from .grains.django import *
 from .grains.il8n import *
 from .grains.email import *
-from .grains.huey import *
 from .grains.paths import *
 from .grains.search.postgres import *
 from .grains.integrations import *

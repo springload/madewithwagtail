@@ -32,7 +32,7 @@ mbstrdecoder==0.8.1
 mccabe==0.6.1
 pexpect==4.6.0
 pickleshare==0.7.4
-Pillow==5.1.0
+Pillow==6.2.0
 prompt-toolkit==1.0.15
 psycopg2==2.7.5
 ptyprocess==0.6.0

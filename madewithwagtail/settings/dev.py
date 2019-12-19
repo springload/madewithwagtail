@@ -1,4 +1,10 @@
 from .base import *
+from .grains.logging import DEV_LOGGING
+from .grains.cache import *
+from .grains.cache import DEV_CACHES
+
+#Tests can't use manage.py createcachetable due to temporary database, so use dummy
+CACHES = DEV_CACHES.copy()
 
 TEMPLATES = [
     {
@@ -14,16 +20,13 @@ TEMPLATES = [
     },
 ]
 
+
 # Analytics stuff
 GOOGLE_TAG_MANAGER = False
 GOOGLE_ANALYTICS_KEY = False
 GOOGLE_MAPS_API_KEY = False
 
 DEBUG = True
-
-COMPRESS_ENABLED = False
-
-DATABASES['default']['PASSWORD'] = ''
 
 # To have fake email backend
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -35,24 +38,28 @@ INTERNAL_IPS = (
 )
 
 INSTALLED_APPS += (
-    'debug_toolbar',
     'wagtail.contrib.wagtailstyleguide',
-    'django_extensions',
 )
 
+LOGGING = DEV_LOGGING.copy()
+
+ALLOWED_HOSTS = ["*"]
+
 CACHE_MIDDLEWARE_SECONDS = 0
-
-MIDDLEWARE_CLASSES = (
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-) + MIDDLEWARE_CLASSES
-
 # Change these if you want to enable recaptcha on submissions form
 # https://github.com/springload/wagtail-django-recaptcha
 RECAPTCHA_PUBLIC_KEY = False
 RECAPTCHA_PRIVATE_KEY = False
 NOCAPTCHA = False
 
-try:
-    from .local import *
-except ImportError:
-    pass
+
+# NOTE: Enable with caution. DJDT will cause stack overflows
+# on a lot of pages (anything using STD_STREAMFIELD, for example)
+
+# INSTALLED_APPS += (
+#     'django_extensions',
+#     'debug_toolbar',
+# )
+# MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
+#     'debug_toolbar.middleware.DebugToolbarMiddleware',
+# )

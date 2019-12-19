@@ -1,5 +1,5 @@
 # Frontend assets
-FROM node:8-stretch as frontend
+FROM node:8-alpine as frontend
 
 ENV APPLICATION madewithwagtail
 
@@ -7,14 +7,19 @@ COPY package.json package-lock.json /madewithwagtail/
 
 WORKDIR /madewithwagtail
 
-RUN apt-get update && apt-get install -y \
-    libsass-dev \
+RUN apk add --no-cache \
+    --repository http://dl-cdn.alpinelinux.org/alpine/v3.10/community \
+    libsass-dev
+
+RUN apk update && apk add --virtual npm-reqs \
     make \
     gcc \
     g++ \
     musl-dev \
     python \
-    && npm install
+    && npm install \
+    && apk del npm-reqs
+
 
 COPY . /madewithwagtail/
 RUN npm run dist
@@ -25,7 +30,7 @@ ENTRYPOINT ["tini", "--" ]
 CMD ["npm", "start", "--prefix", "/madewithwagtail"]
 
 # Base backend
-FROM python:2.7-alpine as base
+FROM python:3.6-alpine as base
 ARG REQUIREMENTS=production.txt
 
 ENV PYCURL_SSL_LIBRARY openssl
@@ -52,8 +57,8 @@ RUN apk update && apk add --virtual build-deps make gcc g++ musl-dev && \
   libevent-dev \
   curl-dev && \
   cd /madewithwagtail && \
-    pip install -r docker/requirements.txt && \
-    pip install -r requirements/${REQUIREMENTS} && \
+    pip3 install -r docker/requirements.txt && \
+    pip3 install -r requirements/${REQUIREMENTS} && \
     apk del build-deps build-headers
 
 COPY --from=frontend /madewithwagtail/ /madewithwagtail/
@@ -62,7 +67,7 @@ RUN adduser -S www -u 1000 && chown -R www /madewithwagtail
 
 ARG VERSION=dev
 ENV APPLICATION_VERSION=${VERSION}
-ENV DJANGO_SETTINGS_MODULE madewithwagtail.settings.production
+ENV DJANGO_SETTINGS_MODULE madewithwagtail.settings.hosting
 ENV VERSION=${VERSION}
 ENV ENVIRONMENT unknown
 ENV PROJECT madewithwagtail
@@ -89,7 +94,7 @@ RUN chmod +rx /usr/local/bin/wait-for
 
 RUN apk add --virtual build-deps make g++ musl-dev && \
     cd /madewithwagtail && \
-    pip install -r requirements/${REQUIREMENTS} && \
+    pip3 install -r requirements/${REQUIREMENTS} && \
     apk del build-deps
 
 ENTRYPOINT ["/usr/local/bin/wait-for", "database:5432", "--"]
@@ -99,5 +104,5 @@ FROM app-dev as app-test
 ARG REQUIREMENTS=test.txt
 ENV DJANGO_SETTINGS_MODULE madewithwagtail.settings.test
 RUN cd /madewithwagtail &&\
-    pip3 install -r requirements/${REQUIREMENTS}
+    pip install -r requirements/${REQUIREMENTS}
 CMD ["/bin/sh", "/madewithwagtail/test.sh"]

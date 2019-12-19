@@ -14,6 +14,7 @@ urlpatterns = [
 
 if settings.DEBUG:
     from django.views.generic import TemplateView
+
     urlpatterns += [
-        url('^data\.json$', TemplateView.as_view(template_name='fixtures/data.json', content_type='text/json')),
+        url('^data.json$', TemplateView.as_view(template_name='fixtures/data.json', content_type='text/json')),
     ]

@@ -44,7 +44,7 @@ workflows:
                   command: |-
                       set -eu
 
-                      if [ "${CIRCLE_BRANCH}" == "deploy/preview" ] || [ "${CIRCLE_BRANCH}" == "deploy/ecs/production" ]; then
+                      if [ "${CIRCLE_BRANCH}" == "deploy/preview" ] || [ "${CIRCLE_BRANCH}" == "deploy/production" ]; then
                           ENVIRONMENT=`basename "${CIRCLE_BRANCH}"`
                           PROJECT=madewithwagtail
                           VERSION=$(git rev-parse --short HEAD)

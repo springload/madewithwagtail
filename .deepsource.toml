@@ -1,4 +1,7 @@
 version = 1
+exclude_patterns = ["app/settings/**"]
+test_patterns = ["**/test.py","*/test/**"]
+
 
 [[analyzers]]
 name = "python"

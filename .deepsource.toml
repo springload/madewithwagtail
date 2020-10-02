@@ -1,5 +1,5 @@
 version = 1
-exclude_patterns = ["app/settings/**"]
+exclude_patterns = ["**/settings/**", "**/test.py"]
 test_patterns = ["**/test.py","*/test/**"]
 
 

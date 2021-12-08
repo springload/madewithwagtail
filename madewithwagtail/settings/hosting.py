@@ -12,10 +12,12 @@ DEBUG = False
 STATICFILES_DIRS = ()
 
 MIDDLEWARE_CLASSES = (
-    'django.middleware.common.BrokenLinkEmailsMiddleware',
-    'django.middleware.cache.UpdateCacheMiddleware',
-) + MIDDLEWARE_CLASSES + (
-    'django.middleware.cache.FetchFromCacheMiddleware',
+    (
+        "django.middleware.common.BrokenLinkEmailsMiddleware",
+        "django.middleware.cache.UpdateCacheMiddleware",
+    )
+    + MIDDLEWARE_CLASSES
+    + ("django.middleware.cache.FetchFromCacheMiddleware",)
 )
 
 # Makes session cookie work over HTTPS only

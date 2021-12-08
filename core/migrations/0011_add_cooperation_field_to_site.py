@@ -9,19 +9,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0010_wagtailsitepage_screenshot'),
+        ("core", "0010_wagtailsitepage_screenshot"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='wagtailsitepage',
-            name='in_cooperation_with',
+            model_name="wagtailsitepage",
+            name="in_cooperation_with",
             field=models.ForeignKey(
                 blank=True,
                 null=True,
                 on_delete=django.db.models.deletion.SET_NULL,
-                related_name='+',
-                to='core.WagtailCompanyPage'
+                related_name="+",
+                to="core.WagtailCompanyPage",
             ),
         ),
     ]

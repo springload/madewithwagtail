@@ -5,7 +5,6 @@ from core.tests.utils import WagtailTest
 
 
 class TemplateFiltersTestCase(WagtailTest):
-
     def setUp(self):
         super(TemplateFiltersTestCase, self).setUp()
 
@@ -16,7 +15,8 @@ class TemplateFiltersTestCase(WagtailTest):
 
         """
         self.homepage = HomePage.objects.all()[0]
-        rendered = Template("{% load core_tags %}{{ homepage|content_type }}") \
-            .render(Context({"homepage": self.homepage}))
+        rendered = Template("{% load core_tags %}{{ homepage|content_type }}").render(
+            Context({"homepage": self.homepage})
+        )
 
-        self.assertEqual('HomePage', rendered)
+        self.assertEqual("HomePage", rendered)

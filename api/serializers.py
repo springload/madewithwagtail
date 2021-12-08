@@ -6,4 +6,4 @@ from core.models import WagtailCompanyPage
 class CompanySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = WagtailCompanyPage
-        fields = ('title', 'lat', 'lon', 'location', 'children_count', 'url')
+        fields = ("title", "lat", "lon", "location", "children_count", "url")

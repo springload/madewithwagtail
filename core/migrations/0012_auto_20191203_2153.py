@@ -9,18 +9,34 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0011_add_cooperation_field_to_site'),
+        ("core", "0011_add_cooperation_field_to_site"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='wagtailcompanypage',
-            name='sites_ordering',
-            field=models.CharField(choices=[('alphabetical', 'Alphabetical'), ('created', 'Created'), ('path', 'Path (i.e. manual)')], default='created', help_text='The order the sites will be listed on the page', max_length=20),
+            model_name="wagtailcompanypage",
+            name="sites_ordering",
+            field=models.CharField(
+                choices=[
+                    ("alphabetical", "Alphabetical"),
+                    ("created", "Created"),
+                    ("path", "Path (i.e. manual)"),
+                ],
+                default="created",
+                help_text="The order the sites will be listed on the page",
+                max_length=20,
+            ),
         ),
         migrations.AlterField(
-            model_name='wagtailsitepage',
-            name='site_screenshot',
-            field=models.ForeignKey(blank=True, help_text='Use a <b>ratio</b> of <i>16:13.28</i> and a <b>size</b> of at least <i>1200x996 pixels</i> for an optimal display.', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailimages.Image'),
+            model_name="wagtailsitepage",
+            name="site_screenshot",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Use a <b>ratio</b> of <i>16:13.28</i> and a <b>size</b> of at least <i>1200x996 pixels</i> for an optimal display.",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailimages.Image",
+            ),
         ),
     ]

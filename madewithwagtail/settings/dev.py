@@ -3,20 +3,21 @@ from .grains.logging import DEV_LOGGING
 from .grains.cache import *
 from .grains.cache import DEV_CACHES
 
-#Tests can't use manage.py createcachetable due to temporary database, so use dummy
+# Tests can't use manage.py createcachetable due to temporary database, so use dummy
 CACHES = DEV_CACHES.copy()
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            normpath(join(DJANGO_ROOT, 'core/templates')),
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
+            normpath(join(DJANGO_ROOT, "core/templates")),
         ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'debug': True,
-            'context_processors': ['django.template.context_processors.debug'] + CONTEXT_PROCESSORS
-        }
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "debug": True,
+            "context_processors": ["django.template.context_processors.debug"]
+            + CONTEXT_PROCESSORS,
+        },
     },
 ]
 
@@ -29,17 +30,15 @@ GOOGLE_MAPS_API_KEY = False
 DEBUG = True
 
 # To have fake email backend
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # As required by debug_toolbar
 INTERNAL_IPS = (
-    '10.0.2.2',
-    '127.0.0.1',
+    "10.0.2.2",
+    "127.0.0.1",
 )
 
-INSTALLED_APPS += (
-    'wagtail.contrib.styleguide',
-)
+INSTALLED_APPS += ("wagtail.contrib.styleguide",)
 
 LOGGING = DEV_LOGGING.copy()
 

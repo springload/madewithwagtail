@@ -7,18 +7,40 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0012_auto_20191203_2153'),
+        ("core", "0012_auto_20191203_2153"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='pagetag',
-            name='tag',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='core_pagetag_items', to='taggit.Tag'),
+            model_name="pagetag",
+            name="tag",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="core_pagetag_items",
+                to="taggit.Tag",
+            ),
         ),
         migrations.AlterField(
-            model_name='submitformfield',
-            name='field_type',
-            field=models.CharField(choices=[('singleline', 'Single line text'), ('multiline', 'Multi-line text'), ('email', 'Email'), ('number', 'Number'), ('url', 'URL'), ('checkbox', 'Checkbox'), ('checkboxes', 'Checkboxes'), ('dropdown', 'Drop down'), ('multiselect', 'Multiple select'), ('radio', 'Radio buttons'), ('date', 'Date'), ('datetime', 'Date/time'), ('hidden', 'Hidden field')], max_length=16, verbose_name='field type'),
+            model_name="submitformfield",
+            name="field_type",
+            field=models.CharField(
+                choices=[
+                    ("singleline", "Single line text"),
+                    ("multiline", "Multi-line text"),
+                    ("email", "Email"),
+                    ("number", "Number"),
+                    ("url", "URL"),
+                    ("checkbox", "Checkbox"),
+                    ("checkboxes", "Checkboxes"),
+                    ("dropdown", "Drop down"),
+                    ("multiselect", "Multiple select"),
+                    ("radio", "Radio buttons"),
+                    ("date", "Date"),
+                    ("datetime", "Date/time"),
+                    ("hidden", "Hidden field"),
+                ],
+                max_length=16,
+                verbose_name="field type",
+            ),
         ),
     ]

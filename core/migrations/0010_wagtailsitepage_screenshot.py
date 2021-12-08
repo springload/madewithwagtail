@@ -8,21 +8,21 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0009_wagtail112upgrade'),
+        ("core", "0009_wagtail112upgrade"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='wagtailsitepage',
-            old_name='image_desktop',
-            new_name='site_screenshot',
+            model_name="wagtailsitepage",
+            old_name="image_desktop",
+            new_name="site_screenshot",
         ),
         migrations.RemoveField(
-            model_name='wagtailsitepage',
-            name='image_phone',
+            model_name="wagtailsitepage",
+            name="image_phone",
         ),
         migrations.RemoveField(
-            model_name='wagtailsitepage',
-            name='image_tablet',
+            model_name="wagtailsitepage",
+            name="image_tablet",
         ),
     ]

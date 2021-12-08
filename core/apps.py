@@ -2,7 +2,7 @@ from django.apps import AppConfig
 
 
 class CoreConfig(AppConfig):
-    name = 'core'
+    name = "core"
     verbose_name = "Core"
 
     def ready(self):

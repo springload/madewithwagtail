@@ -1,5 +1,5 @@
 from core.utilities import has_recaptcha
-from wagtail.wagtailforms.forms import FormBuilder
+from wagtail.contrib.forms.forms import FormBuilder
 from wagtailcaptcha.forms import WagtailCaptchaFormBuilder
 
 

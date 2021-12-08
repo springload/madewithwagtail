@@ -12,8 +12,8 @@ from django.utils.encoding import force_text
 from core.models import WagtailPage, WagtailSitePage
 from core.utilities import replace_tags
 from slackweb import Slack
-from wagtail.wagtailcore.models import PageRevision
-from wagtail.wagtailcore.signals import page_published
+from wagtail.core.models import PageRevision
+from wagtail.core.signals import page_published
 
 logger = logging.getLogger('core')
 

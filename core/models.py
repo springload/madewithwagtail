@@ -15,10 +15,10 @@ from taggit.models import Tag, TaggedItemBase
 from core import panels
 from core.forms import SubmitFormBuilder
 from core.utilities import has_recaptcha, validate_only_one_instance
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
-from wagtail.wagtailsearch import index
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Page
+from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
+from wagtail.search import index
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
 
 

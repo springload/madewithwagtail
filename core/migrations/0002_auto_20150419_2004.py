@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-import wagtail.wagtailcore.fields
+import wagtail.core.fields
 from django.db import models, migrations
 
 
@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='submitformpage',
             name='body',
-            field=wagtail.wagtailcore.fields.RichTextField(help_text=b'Edit the content you want to see before the form.', blank=True),
+            field=wagtail.core.fields.RichTextField(help_text=b'Edit the content you want to see before the form.', blank=True),
             preserve_default=True,
         ),
         migrations.AddField(
@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='submitformpage',
             name='thank_you_text',
-            field=wagtail.wagtailcore.fields.RichTextField(help_text=b'Set the message users will see after submitting the form.', blank=True),
+            field=wagtail.core.fields.RichTextField(help_text=b'Set the message users will see after submitting the form.', blank=True),
             preserve_default=True,
         ),
         migrations.AddField(

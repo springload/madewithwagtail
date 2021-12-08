@@ -38,7 +38,7 @@ INTERNAL_IPS = (
 )
 
 INSTALLED_APPS += (
-    'wagtail.contrib.wagtailstyleguide',
+    'wagtail.contrib.styleguide',
 )
 
 LOGGING = DEV_LOGGING.copy()
@@ -48,8 +48,8 @@ ALLOWED_HOSTS = ["*"]
 CACHE_MIDDLEWARE_SECONDS = 0
 # Change these if you want to enable recaptcha on submissions form
 # https://github.com/springload/wagtail-django-recaptcha
-RECAPTCHA_PUBLIC_KEY = False
-RECAPTCHA_PRIVATE_KEY = False
+RECAPTCHA_PUBLIC_KEY = ""
+RECAPTCHA_PRIVATE_KEY = ""
 NOCAPTCHA = False
 
 

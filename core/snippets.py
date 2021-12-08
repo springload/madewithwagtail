@@ -3,10 +3,10 @@ from django.utils.encoding import python_2_unicode_compatible
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
-from wagtail.wagtailcore.models import Orderable
-from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
+from wagtail.core.models import Orderable
+from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.snippets.models import register_snippet
 
 
 class LinkFields(models.Model):

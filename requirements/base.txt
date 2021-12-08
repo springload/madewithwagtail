@@ -1,11 +1,11 @@
 -c constraints.txt
-Django>=1.11.27,<1.12
-wagtail>=1.13,<1.14
+Django>=2,<2.1
+wagtail>=2.1,<2.2
 boto3>=1.9.249,<1.10
 psycopg2==2.7.5
 
 wagtail-django-recaptcha==1.0
-wagtailgmaps>=0.4,<0.5
+wagtailgmaps==1.0.1
 slackweb>=1.0.5,<1.0.6
 django-storages>=1.7.2,<1.8.0
 sentry-sdk>=0.13.3,<0.14

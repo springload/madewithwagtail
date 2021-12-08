@@ -26,24 +26,24 @@ INSTALLED_APPS = (
     'wagtailgmaps',
     'rest_framework',
     'wagtail.contrib.postgres_search',
-    'wagtail.contrib.wagtailsitemaps',
-    'wagtail.contrib.wagtailroutablepage',
-    'wagtail.wagtailcore',
-    'wagtail.wagtailadmin',
-    'wagtail.wagtaildocs',
-    'wagtail.wagtailsnippets',
-    'wagtail.wagtailusers',
-    'wagtail.wagtailsites',
-    'wagtail.wagtailimages',
-    'wagtail.wagtailembeds',
-    'wagtail.wagtailsearch',
-    'wagtail.wagtailredirects',
-    'wagtail.wagtailforms',
+    'wagtail.contrib.sitemaps',
+    'wagtail.contrib.routable_page',
+    'wagtail.core',
+    'wagtail.admin',
+    'wagtail.documents',
+    'wagtail.snippets',
+    'wagtail.users',
+    'wagtail.sites',
+    'wagtail.images',
+    'wagtail.embeds',
+    'wagtail.search',
+    'wagtail.contrib.redirects',
+    'wagtail.contrib.forms',
 )
 
 
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     "django.middleware.security.SecurityMiddleware",
     "django.middleware.cache.UpdateCacheMiddleware",
     "django.middleware.http.ConditionalGetMiddleware",
@@ -54,8 +54,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django.middleware.cache.FetchFromCacheMiddleware",
-    'wagtail.wagtailcore.middleware.SiteMiddleware',
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    'wagtail.core.middleware.SiteMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 )
 
 # Name and email addresses of recipients

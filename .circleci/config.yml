@@ -3,24 +3,30 @@ version: 2.1
 orbs:
   buildkit: springload/buildkit@0.0.6
 
+jobs:
+  static_analysis:
+    docker:
+      - image: ghcr.io/springload/python-static-analysis:latest
+    steps:
+      - checkout
+      - run: black --check --diff .
 workflows:
+  static_analysis:
+    jobs:
+      - static_analysis
   build_test_and_push_image:
     jobs:
       - buildkit/builder:
           cache_version: v3
           builds:
-            - buildkit/build: # call the build command multiple times to build multiple images
-                target: app # build this stage
-                tag: app # no tag no docker image
+            - buildkit/build:
+                target: app
+                tag: app
                 path: docker/application
             - buildkit/build:
                 target: app-test
                 tag: app-test
                 path: docker/application
-            # - buildkit/build:
-            #     target: tasks
-            #     tag: tasks
-            #     path: docker/application
             - buildkit/build:
                   tag: httpd
                   context: docker/httpd
@@ -55,7 +61,7 @@ workflows:
                           export REPOSITORY=$(ecs-tool ecr-endpoint)
                           eval $(ecs-tool ecr-login)
                           pids=""
-                          for image in app httpd; do #tasks
+                          for image in app httpd; do
                              for tag in circle-${ENVIRONMENT}-${VERSION} circle-${ENVIRONMENT}-latest; do
                                   docker tag ${image} ${REPOSITORY}/${PROJECT}-${image}:${tag}
                                   docker push ${REPOSITORY}/${PROJECT}-${image}:${tag} &
@@ -68,6 +74,5 @@ workflows:
                       done
 
                       ecs-tool -e "${ENVIRONMENT}" run --image_tag "circle-${ENVIRONMENT}-${VERSION}" -- /madewithwagtail/deploy.sh
-                      # deploy new services in parallel
                       ecs-tool -e "${ENVIRONMENT}" deploy --image_tag "circle-${ENVIRONMENT}-${VERSION}"
                       fi

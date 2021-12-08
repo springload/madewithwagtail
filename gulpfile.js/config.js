@@ -1,23 +1,24 @@
-var path = require("path");
-var rootPath = path.join("./core");
-var appPath = path.join(rootPath, "frontend");
+const path = require('path');
 
-var prod = process.env.NODE_ENV === 'production';
+const rootPath = path.join('./core');
+const appPath = path.join(rootPath, 'frontend');
+
+const prod = process.env.NODE_ENV === 'production';
 
 module.exports = {
-    prod: prod,
+    prod,
 
     paths: {
         root: rootPath,
-        sass: path.join(appPath, "sass"),
-        js: path.join(appPath, "js"),
-        svg: path.join(appPath, "svg"),
+        sass: path.join(appPath, 'sass'),
+        js: path.join(appPath, 'js'),
+        svg: path.join(appPath, 'svg'),
         appName: 'wagtailsites.js',
-        build: path.join(rootPath, "build"),
-        content: path.join(rootPath, "content"),
-        templates: path.join(rootPath, "templates"),
-        //webroot: path.join(rootPath, "www"),
-        assets: path.join(rootPath, "static")
+        build: path.join(rootPath, 'build'),
+        content: path.join(rootPath, 'content'),
+        templates: path.join(rootPath, 'templates'),
+        // webroot: path.join(rootPath, "www"),
+        assets: path.join(rootPath, 'static'),
     },
 
     PleeeaseOptions: {
@@ -32,5 +33,4 @@ module.exports = {
             browsers: ['> 1%'],
         },
     },
-
 };

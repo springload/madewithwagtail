@@ -1,33 +1,24 @@
 # Frontend assets
-FROM node:8-alpine as frontend
+FROM node:erbium-alpine as frontend
 
 ENV APPLICATION madewithwagtail
 
-COPY package.json package-lock.json /madewithwagtail/
+COPY package.json yarn.lock /madewithwagtail/
 
 WORKDIR /madewithwagtail
 
-RUN apk add --no-cache \
-    --repository http://dl-cdn.alpinelinux.org/alpine/v3.10/community \
-    libsass-dev
-
-RUN apk update && apk add --virtual npm-reqs \
-    make \
+RUN apk update && apk add --virtual make \
     gcc \
     g++ \
     musl-dev \
-    python \
-    && npm install \
-    && apk del npm-reqs
-
+    python3 \
+    && yarn install --frozen-lockfile --production=true \
+    && apk del gcc g++ musl-dev python3
 
 COPY . /madewithwagtail/
-RUN npm run dist
+RUN yarn dist
 
-RUN rm -rf /madewithwagtail/node_modules
-
-ENTRYPOINT ["tini", "--" ]
-CMD ["npm", "start", "--prefix", "/madewithwagtail"]
+CMD ["yarn", "start", "--prefix", "/madewithwagtail"]
 
 # Base backend
 FROM python:3.6-alpine as base

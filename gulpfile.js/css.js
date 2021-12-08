@@ -1,14 +1,14 @@
-var gulp = require("gulp");
-var config = require("./config");
-var fs = require("fs");
-var path = require("path");
+const { series, src, dest } = require('gulp');
+const path = require('path');
 
-var sass = require("gulp-sass");
-var plz = require("gulp-pleeease");
-var gutil = require('gulp-util');
-var size = require('gulp-size');
-var bs = require('browser-sync').get('main');
-var sourcemaps = require('gulp-sourcemaps');
+const sass = require('gulp-sass')(require('sass'));
+const plz = require('gulp-pleeease');
+const gutil = require('gulp-util');
+const size = require('gulp-size');
+const bs = require('browser-sync').create('css');
+const sourcemaps = require('gulp-sourcemaps');
+
+const config = require('./config');
 
 /*
  ---------------------------------------------------------------------------
@@ -16,8 +16,8 @@ var sourcemaps = require('gulp-sourcemaps');
  ---------------------------------------------------------------------------
  */
 
-gulp.task('css', function() {
-    return gulp.src(path.join(config.paths.sass, "**", "*.scss"))
+function css() {
+    return src(path.join(config.paths.sass, '**', '*.scss'))
         .pipe(config.prod ? gutil.noop() : sourcemaps.init())
         .pipe(sass())
         .on('error', function handleError(err) {
@@ -27,7 +27,15 @@ gulp.task('css', function() {
         })
         .pipe(plz(config.PleeeaseOptions))
         .pipe(config.prod ? gutil.noop() : sourcemaps.write())
-        .pipe(size({ title: config.prod ? 'CSS' : 'CSS (unminified)', showFiles: true, gzip: config.prod }))
-        .pipe(gulp.dest( path.join(config.paths.assets, "css") ))
+        .pipe(
+            size({
+                title: config.prod ? 'CSS' : 'CSS (unminified)',
+                showFiles: true,
+                gzip: config.prod,
+            }),
+        )
+        .pipe(dest(path.join(config.paths.assets, 'css')))
         .pipe(bs.stream());
-});
+}
+
+exports.css = series(css);

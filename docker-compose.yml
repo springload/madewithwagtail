@@ -36,7 +36,7 @@ services:
 
     database:
         restart: on-failure
-        image: postgres:9.3-alpine
+        image: postgres:13.3-alpine
         ports:
             - "${PORT_PREFIX:-520}32:5432" # default 32
         volumes:
@@ -46,7 +46,7 @@ services:
             WAGTAIL_SITE_PORT: "443"
             POSTGRES_DB: "madewithwagtail"
             POSTGRES_USER: "postgres"
-            POSTGRES_PASSWORD: ""
+            POSTGRES_PASSWORD: "postgres"
 
 networks:
   nginx-proxy:

@@ -1,9 +1,7 @@
-require("./watch");
-require("./js");
-require("./css");
-require("./svg");
+const { series } = require('gulp');
+const { js } = require('./js');
+const { css } = require('./css');
+const { svg } = require('./svg');
 
-var gulp = require("gulp");
-
-gulp.task('build', ['js', 'css', 'svg']);
-gulp.task('default', ['build']);
+exports.build = series(js, css, svg);
+exports.default = series(js, css, svg);

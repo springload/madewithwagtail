@@ -17,7 +17,6 @@ module.exports = {
         build: path.join(rootPath, 'build'),
         content: path.join(rootPath, 'content'),
         templates: path.join(rootPath, 'templates'),
-        // webroot: path.join(rootPath, "www"),
         assets: path.join(rootPath, 'static'),
     },
 

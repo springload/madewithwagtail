@@ -1,4 +1,4 @@
-{% load wagtailcore_tags core_tags %}
+{% load wagtailcore_tags %}
 
 <meta property="og:url" content="{{ BASE_URL }}{% if self %}{% pageurl self %}{% endif %}" />
 <meta property="og:title" content="{% if self.seo_title %}{{ self.seo_title }}{% elif self.title %}{{ self.title }}{% else %}Springload{% endif %}" />

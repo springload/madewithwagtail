@@ -9,14 +9,14 @@
     </li>
     {% endfor %}
 
-    <li class='nav__item'>
-        <a href="{% url 'wagtailsearch_search' %}" class="nav__link{% if request.path == '/search/' %} is-active{% endif %}">
-            <span class="u-hide--small">Search</span>
-            {% if not request.path == '/search/' %}
-                {% set color = "teal" %}
-            {% endif %}
-            {% include "core/includes/icon.html" with icon="search" class="i--small u-middle i--hover" %}
-        </a>
-    </li>
+{#    <li class='nav__item'>#}
+{#        <a href="{% url 'wagtailsearch_search' %}" class="nav__link{% if request.path == '/search/' %} is-active{% endif %}">#}
+{#            <span class="u-hide--small">Search</span>#}
+{#            {% if not request.path == '/search/' %}#}
+{#                {% set color = "teal" %}#}
+{#            {% endif %}#}
+{#            {% include "core/includes/icon.html" with icon="search" class="i--small u-middle i--hover" %}#}
+{#        </a>#}
+{#    </li>#}
 
 </ul>

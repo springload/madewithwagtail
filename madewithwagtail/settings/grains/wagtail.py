@@ -27,3 +27,7 @@ LOGIN_REDIRECT_URL = "wagtailadmin_home"
 WAGTAIL_ADDRESS_MAP_CENTER = "Wellington, New Zealand"
 WAGTAIL_ADDRESS_MAP_ZOOM = 8
 WAGTAIL_ADDRESS_MAP_KEY = GOOGLE_MAPS_API_KEY
+
+# Responsive HTML for embeds
+# according to https://docs.wagtail.org/en/v2.16.1/releases/2.8.html#responsive-html-for-embeds-no-longer-added-by-default
+WAGTAILEMBEDS_RESPONSIVE_HTML = True

@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
@@ -86,7 +85,6 @@ class LinkFields(models.Model):
         abstract = True
 
 
-@python_2_unicode_compatible
 class MenuElement(LinkFields):
     explicit_name = models.CharField(
         max_length=64,
@@ -160,7 +158,6 @@ class NavigationMenuManager(models.Manager):
 
 
 @register_snippet
-@python_2_unicode_compatible
 class NavigationMenu(ClusterableModel):
 
     objects = NavigationMenuManager()

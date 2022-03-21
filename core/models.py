@@ -6,7 +6,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.db.models import Case, Count, Q, Value, When
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import mark_safe
 from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
@@ -421,7 +420,6 @@ class WagtailCompanyPage(WagtailPage):
     settings_panels = panels.WAGTAIL_COMPANY_PAGE_SETTINGS_PANELS
 
 
-@python_2_unicode_compatible
 class WagtailSitePage(WagtailPage):
     """
     Site page

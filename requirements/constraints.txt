@@ -1,4 +1,5 @@
 anyascii==0.3.0
+asgiref==3.4.1
 backcall==0.2.0
 beautifulsoup4==4.8.2
 boto3==1.9.253
@@ -8,7 +9,7 @@ chardet==4.0.0
 charset-normalizer==2.0.12
 decorator==5.1.1
 dj-database-url==0.5.0
-Django==2.2.27
+Django==3.0.14
 django-amazon-ses==2.1.1
 django-cache-url==2.0.0
 django-debug-toolbar==3.2.4
@@ -67,7 +68,7 @@ typed-environment-configuration==0.1.4
 typepy==0.2.5
 typing_extensions==4.1.1
 urllib3==1.25.11
-wagtail==2.13.5
+wagtail==2.14.2
 wagtail-django-recaptcha==1.0
 wagtailgmaps==1.0.1
 wcwidth==0.2.5

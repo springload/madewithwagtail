@@ -31,7 +31,6 @@ html5lib==1.1
 idna==3.3
 importlib-metadata==4.2.0
 ipdb==0.13.9
-ipython==7.16.3
 ipython-genutils==0.2.0
 isort==5.10.1
 jedi==0.17.2
@@ -45,7 +44,6 @@ pexpect==4.8.0
 pickleshare==0.7.5
 Pillow==6.2.2
 prompt-toolkit==3.0.28
-psycopg2==2.7.5
 ptyprocess==0.7.0
 pycodestyle==2.8.0
 pyflakes==2.4.0

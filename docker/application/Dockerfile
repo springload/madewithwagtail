@@ -21,7 +21,7 @@ RUN yarn dist
 CMD ["yarn", "start", "--prefix", "/madewithwagtail"]
 
 # Base backend
-FROM python:3.6-alpine as base
+FROM python:3.10-alpine as base
 ARG REQUIREMENTS=production.txt
 
 ENV PYCURL_SSL_LIBRARY openssl

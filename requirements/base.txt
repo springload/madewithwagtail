@@ -2,7 +2,7 @@
 Django>=3.2,<3.3
 wagtail>=2.15,<2.16
 boto3>=1.9.249,<1.10
-psycopg2==2.7.5
+psycopg2>=2.7
 
 wagtail-django-recaptcha==1.0
 wagtailgmaps==1.0.1

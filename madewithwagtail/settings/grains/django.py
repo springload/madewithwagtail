@@ -25,7 +25,6 @@ INSTALLED_APPS = (
     "api",
     "wagtailgmaps",
     "rest_framework",
-    "wagtail.contrib.postgres_search",
     "wagtail.contrib.sitemaps",
     "wagtail.contrib.routable_page",
     "wagtail.core",

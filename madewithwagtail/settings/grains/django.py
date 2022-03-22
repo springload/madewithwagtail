@@ -68,3 +68,6 @@ if not DEBUG:
     CSRF_COOKIE_HTTPONLY = True
     CSRF_COOKIE_SECURE = True
     CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
+
+# Auto-created primary keys
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"

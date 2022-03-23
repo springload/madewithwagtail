@@ -1,2 +1,2 @@
 # WebServer
-gunicorn>=19.9.0,<20.0
+gunicorn>=19.7.1,<21

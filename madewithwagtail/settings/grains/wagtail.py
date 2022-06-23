@@ -12,7 +12,7 @@ WAGTAIL_SITE_NAME = "Made with Wagtail"
 WAGTAILSEARCH_RESULTS_TEMPLATE = "core/search_results.html"
 
 # Limit image upload size due to RAM constraints on containers
-WAGTAILIMAGES_MAX_IMAGE_PIXELS = 30 * 1000**2  # 30MP size limit
+WAGTAILIMAGES_MAX_IMAGE_PIXELS = 30 * 1000 ** 2  # 30MP size limit
 
 # BASE_URL is only used in emails from the wagtailadmin that
 # are sent in a non-request-context, fixes moderation emails

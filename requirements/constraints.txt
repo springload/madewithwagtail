@@ -43,7 +43,7 @@ openpyxl==3.0.9
 parso==0.7.1
 pexpect==4.8.0
 pickleshare==0.7.5
-Pillow==6.2.2
+Pillow==9.1.1
 prompt-toolkit==3.0.28
 psycopg2==2.9.3
 ptyprocess==0.7.0

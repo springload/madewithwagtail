@@ -3,5 +3,6 @@ django-debug-toolbar
 ipdb
 ipython
 flake8
+black~=22.8
 isort
 django-extensions

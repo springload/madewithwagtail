@@ -1,8 +1,8 @@
 from .base import *
-from .grains.logging import LOGGING
 from .grains.aws import *
-from .grains.sentry import *
 from .grains.cache import *
+from .grains.logging import LOGGING
+from .grains.sentry import *
 
 # Google Analytics settings
 GOOGLE_TAG_MANAGER = False
@@ -11,12 +11,12 @@ DEBUG = False
 
 STATICFILES_DIRS = ()
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     (
         "django.middleware.common.BrokenLinkEmailsMiddleware",
         "django.middleware.cache.UpdateCacheMiddleware",
     )
-    + MIDDLEWARE_CLASSES
+    + MIDDLEWARE
     + ("django.middleware.cache.FetchFromCacheMiddleware",)
 )
 

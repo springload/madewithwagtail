@@ -1,6 +1,7 @@
-from madewithwagtail.settings.grains.django import ALLOWED_HOSTS
-from madewithwagtail.settings import *
 from typed_environment_configuration import *
+
+from madewithwagtail.settings import *
+from madewithwagtail.settings.grains.django import ALLOWED_HOSTS
 
 _ENVVARS = [
     StringVariable("GOOGLE_MAPS_API_KEY", default=""),  # e.g. postgres URL
@@ -31,3 +32,5 @@ WAGTAIL_ADDRESS_MAP_KEY = GOOGLE_MAPS_API_KEY
 # Responsive HTML for embeds
 # according to https://docs.wagtail.org/en/v2.16.1/releases/2.8.html#responsive-html-for-embeds-no-longer-added-by-default
 WAGTAILEMBEDS_RESPONSIVE_HTML = True
+
+WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS = True

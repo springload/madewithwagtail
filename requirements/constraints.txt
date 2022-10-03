@@ -18,7 +18,7 @@ django-filter==2.4.0
 django-modelcluster==5.3
 django-recaptcha==3.0.0
 django-redis-cache==1.7.1
-django-storages==1.7.2
+django-storages==1.13.1
 django-taggit==2.1.0
 django-treebeard==4.5.1
 djangorestframework==3.13.1

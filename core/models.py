@@ -32,12 +32,12 @@ class IndexPage(models.Model):
 
     def children(self):
         raise NotImplementedError(
-            "Class %s doesn't implement aMethod()" % (self.__class__.__name__)
+            "Class %s doesn't implement children()" % (self.__class__.__name__)
         )
 
     def get_context(self, request, *args, **kwargs):
         raise NotImplementedError(
-            "Class %s doesn't implement aMethod()" % (self.__class__.__name__)
+            "Class %s doesn't implement get_context()" % (self.__class__.__name__)
         )
 
     class Meta:

@@ -2,7 +2,7 @@
 django-debug-toolbar
 ipdb
 ipython
-flake8
+flakeheaven
 black~=22.8
 isort
 django-extensions

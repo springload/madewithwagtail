@@ -1,0 +1,81 @@
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | migrations
+  | _build
+  | buck-out
+  | build
+  | dist
+  | node_modules
+  | notebooks
+
+  # The following are specific to Black, you probably don't want those.
+  | blib2to3
+  | tests/data
+)/
+'''
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore:'(wagtail|taggit|debug_toolbar):django.utils.deprecation.RemovedInDjango41Warning",
+    "ignore:django.utils.translation.ugettext_lazy():django.utils.deprecation.RemovedInDjango40Warning",
+]
+# Skip the occupations/search tests while we have this disabled
+addopts = ' --ignore-glob "**/test_occupations/**" --ignore-glob "**/test_search/**"'
+
+[tool.flake8]
+max-line-length = 88
+max-complexity = 7
+doctests = true
+
+[tool.flakeheaven]
+exclude = ["migrations", "setup.py", "README.md"]
+max_line_length = 88
+show_source = true
+
+[tool.flakeheaven.plugins]
+flake8-commas = ["+*"]
+flake8-docstrings = ["-D100", "-D101", "-D102", "-D103", "-D107"]
+flake8-print = ["+*"]
+flake8-quotes = ["+*"]
+# flake8-spellcheck-targets="comments"
+mccabe = ["+*"]
+pycodestyle = ["+*", "-W503", "-W504", "-E203", "-E501"]
+pyflakes = [
+    "+*",
+    "-F403",
+    "-F401", # TODO re-enable this - unable to detect undefined names
+]
+pylint = ["+*", "-W504"]
+
+[tool.flakeheaven.exceptions."tasks.py"]
+flake8-print = ["-*"]
+
+[tool.flakeheaven.exceptions."api/app/settings/"]
+pyflakes = ["-F405"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 50
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+known_django = "django"
+known_wagtail = "wagtail"
+sections = [
+    "FUTURE",
+    "STDLIB",
+    "THIRDPARTY",
+    "DJANGO",
+    "WAGTAIL",
+    "FIRSTPARTY",
+    "LOCALFOLDER",
+]

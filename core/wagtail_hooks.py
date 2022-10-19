@@ -1,9 +1,7 @@
 from django.conf import settings
 from django.utils.html import format_html_join
 
-from wagtail.admin.rich_text import HalloPlugin
 from wagtail.core import hooks
-from wagtail.core.whitelist import attribute_rule, check_url
 
 
 @hooks.register("insert_editor_css")
@@ -22,46 +20,3 @@ def editor_css():
     )
 
     return css_includes
-
-
-@hooks.register("register_rich_text_features")
-def register_cleanhtml_feature(features):
-    features.register_editor_plugin(
-        "hallo",
-        "cleanhtml",
-        HalloPlugin(
-            name="hallocleanhtml",
-            js=[
-                "wagtailadmin/js/vendor/jquery.htmlClean.min.js",
-                "wagtailadmin/js/vendor/rangy-selectionsaverestore.js",
-            ],
-            options={
-                "format": False,
-                "allowedTags": [
-                    "p",
-                    "em",
-                    "strong",
-                    "div",
-                    "ol",
-                    "ul",
-                    "li",
-                    "a",
-                    "figure",
-                    "blockquote",
-                    "cite",
-                    "img",
-                ],
-                "allowedAttributes": ["style"],
-            },
-        ),
-    )
-
-
-@hooks.register("construct_whitelister_element_rules")
-def whitelister_element_rules():
-    """
-    Whitelist custom elements to the hallo.js editor
-    """
-    return {
-        "a": attribute_rule({"href": check_url, "class": True}),
-    }

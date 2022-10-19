@@ -62,9 +62,7 @@ class HomePage(Page, IndexPage):
     )
     search_fields = []
 
-    body = RichTextField(
-        blank=True, features=["bold", "italic", "ol", "ul", "link", "cleanhtml"]
-    )
+    body = RichTextField(blank=True, features=["bold", "italic", "ol", "ul", "link"])
 
     @property
     def og_image(self):
@@ -137,7 +135,7 @@ class CompanyIndex(Page, IndexPage):
     body = RichTextField(
         null=True,
         blank=True,
-        features=["bold", "italic", "ol", "ul", "link", "cleanhtml"],
+        features=["bold", "italic", "ol", "ul", "link"],
     )
     show_map = models.BooleanField(
         default=False, help_text="Show map of companies around the world."
@@ -206,7 +204,7 @@ class WagtailPage(Page):
         related_name="+",
     )
     body = RichTextField(
-        blank=True, features=["bold", "italic", "ol", "ul", "link", "cleanhtml"]
+        blank=True, features=["bold", "italic", "ol", "ul", "link"]
     )
     tags = ClusterTaggableManager(through=PageTag, blank=True)
     search_fields = []

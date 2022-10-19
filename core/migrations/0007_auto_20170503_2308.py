@@ -2,8 +2,9 @@
 
 
 import django.db.models.deletion
-import wagtail.core.fields
 from django.db import migrations, models
+
+import wagtail.core.fields
 
 
 class Migration(migrations.Migration):

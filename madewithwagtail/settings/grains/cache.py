@@ -1,6 +1,6 @@
 import django_cache_url
 
-from madewithwagtail.settings import PROJECT, ENVIRONMENT  # , CACHE_URL
+from madewithwagtail.settings import ENVIRONMENT, PROJECT  # , CACHE_URL
 
 __all__ = [
     "CACHES",

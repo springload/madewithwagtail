@@ -5,8 +5,9 @@ import urllib.request
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
 
-from core.snippets import NavigationMenu
 from wagtail.core.models import Page
+
+from core.snippets import NavigationMenu
 
 register = template.Library()
 

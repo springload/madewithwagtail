@@ -1,7 +1,7 @@
 from .base import *
-from .grains.logging import DEV_LOGGING
 from .grains.cache import *
 from .grains.cache import DEV_CACHES
+from .grains.logging import DEV_LOGGING
 
 # Tests can't use manage.py createcachetable due to temporary database, so use dummy
 CACHES = DEV_CACHES.copy()

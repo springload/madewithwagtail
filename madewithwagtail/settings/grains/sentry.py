@@ -4,8 +4,9 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
 
+from madewithwagtail.settings import APPLICATION_VERSION, ENVIRONMENT, PROJECT
+
 from .. import *
-from madewithwagtail.settings import APPLICATION_VERSION, PROJECT, ENVIRONMENT
 
 SENTRY_RELEASE = APPLICATION_VERSION
 SENTRY_ENVIRONMENT = ENVIRONMENT

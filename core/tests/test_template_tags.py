@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+
 from django.template import Context, Template
 
 from core.models import HomePage

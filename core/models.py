@@ -2,23 +2,25 @@ import os
 import re
 
 from bs4 import BeautifulSoup
+from modelcluster.fields import ParentalKey
+from modelcluster.tags import ClusterTaggableManager
+from taggit.models import Tag, TaggedItemBase
+from wagtailcaptcha.models import WagtailCaptchaEmailForm
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.db.models import Case, Count, Q, Value, When
 from django.utils.html import mark_safe
-from modelcluster.fields import ParentalKey
-from modelcluster.tags import ClusterTaggableManager
-from taggit.models import Tag, TaggedItemBase
+
+from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Page
+from wagtail.search import index
 
 from core import panels
 from core.forms import SubmitFormBuilder
 from core.utilities import has_recaptcha, validate_only_one_instance
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
-from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
-from wagtail.search import index
-from wagtailcaptcha.models import WagtailCaptchaEmailForm
 
 
 class IndexPage(models.Model):
@@ -203,9 +205,7 @@ class WagtailPage(Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    body = RichTextField(
-        blank=True, features=["bold", "italic", "ol", "ul", "link"]
-    )
+    body = RichTextField(blank=True, features=["bold", "italic", "ol", "ul", "link"])
     tags = ClusterTaggableManager(through=PageTag, blank=True)
     search_fields = []
 

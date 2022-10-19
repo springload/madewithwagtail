@@ -1,7 +1,8 @@
+from wagtailgmaps.edit_handlers import MapFieldPanel
+
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtailgmaps.edit_handlers import MapFieldPanel
 
 HOME_PAGE_CONTENT_PANELS = [
     FieldPanel("title", classname="full title"),

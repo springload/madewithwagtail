@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 
+from django.db import migrations, models
+
 import wagtail.core.fields
-from django.db import models, migrations
 
 
 class Migration(migrations.Migration):

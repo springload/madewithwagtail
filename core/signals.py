@@ -3,17 +3,19 @@ import re
 from datetime import timedelta
 from urllib.error import HTTPError
 
+from slackweb import Slack
+
 from django.conf import settings
 from django.core.cache import cache
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.utils.encoding import force_text
 
-from core.models import WagtailPage, WagtailSitePage
-from core.utilities import replace_tags
-from slackweb import Slack
 from wagtail.core.models import PageRevision
 from wagtail.core.signals import page_published
+
+from core.models import WagtailPage, WagtailSitePage
+from core.utilities import replace_tags
 
 logger = logging.getLogger("core")
 

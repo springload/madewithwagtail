@@ -1,4 +1,5 @@
 from madewithwagtail.settings import *
+
 from .paths import *
 
 # Site name:

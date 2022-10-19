@@ -1,4 +1,5 @@
-from os.path import normpath, join
+from os.path import join, normpath
+
 from .paths import *
 
 # Template configuration

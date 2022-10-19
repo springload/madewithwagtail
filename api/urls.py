@@ -1,7 +1,7 @@
 from rest_framework import routers
 
 from django.conf import settings
-from django.urls import include, path, re_path
+from django.urls import include, path
 
 from api.views import CompanyViewSet
 

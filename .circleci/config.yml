@@ -35,15 +35,18 @@ workflows:
             - run:
                 name: run tests
                 command: |-
+                  DATABASE_PASSWORD="$( head -c 24 /dev/urandom | xxd -p | tr -d '\n ')"
                   docker run --name=database --expose 5432 \
-                      -ePOSTGRES_DB=${PROJECT}_test \
+                      -e POSTGRES_DB=${PROJECT}_test \
+                      -e POSTGRES_USER=postgres \
+                      -e POSTGRES_PASSWORD=$DATABASE_PASSWORD \
                       -d postgres:13.3-alpine
                   docker run \
                       -it --name app-test --rm \
                       --link=database \
                       --env-file=dev.env \
-                      -eDATABASE_URL="postgres://postgres@database/${PROJECT}_test" \
-                      -eENVIRONMENT=test \
+                      -e DATABASE_URL="postgres://postgres:$DATABASE_PASSWORD@database/${PROJECT}_test" \
+                      -e ENVIRONMENT=test \
                       app-test
             - run:
                 name: tag, push and deploy images

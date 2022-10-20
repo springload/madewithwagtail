@@ -9,6 +9,7 @@ from wagtailcaptcha.models import WagtailCaptchaEmailForm
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import Case, Count, Q, Value, When
 from django.utils.html import mark_safe
@@ -295,7 +296,12 @@ class WagtailCompanyPage(WagtailPage):
     show_map = models.BooleanField(
         default=True, help_text="Show company in the map of companies around the world."
     )
-    coords = models.CharField(max_length=255, blank=True, null=True)
+    coords = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        validators=[RegexValidator(r"-?[0-9\.]+,\s?-?[0-9\.]+")],
+    )
 
     logo = models.ForeignKey(
         "wagtailimages.Image",

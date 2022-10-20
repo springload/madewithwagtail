@@ -12,11 +12,11 @@ _ENVVARS = [
     StringVariable("AWS_STORAGE_BUCKET_NAME", default=""),  # S3 Bucket Name
     StringVariable("AWS_S3_CUSTOM_DOMAIN", default=""),  # S3 Domain
     StringVariable("DATABASE_URL"),  # e.g. postgres URL
-    StringVariable("WAGTAILCMS_TWIW_SLACK_HOOK", default=""),  # e.g. postgres URL
-    StringVariable("RECAPTCHA_PUBLIC_KEY", default=""),  # e.g. postgres URL
-    StringVariable("RECAPTCHA_PRIVATE_KEY", default=""),  # e.g. postgres URL
-    StringVariable("GOOGLE_MAPS_API_KEY", default=""),  # e.g. postgres URL
-    StringVariable("GOOGLE_ANALYTICS_KEY", default=""),  # e.g. postgres URL
+    StringVariable("WAGTAILCMS_TWIW_SLACK_HOOK", default=""),
+    StringVariable("RECAPTCHA_PUBLIC_KEY", default=""),
+    StringVariable("RECAPTCHA_PRIVATE_KEY", default=""),
+    StringVariable("GOOGLE_MAPS_API_KEY", default=""),
+    StringVariable("GOOGLE_ANALYTICS_KEY", default=""),
 ]
 
 _APP_ENVVARS = [StringVariable("APP_SECRET_KEY")]

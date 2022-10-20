@@ -42,7 +42,7 @@ WAGTAIL_COMPANY_PAGE_CONTENT_PANELS = HOME_PAGE_CONTENT_PANELS + [
     MultiFieldPanel(
         [
             FieldPanel("show_map"),
-            MapFieldPanel("coords", classname="gmap gmap--latlng"),
+            MapFieldPanel("coords", latlng=True),
         ],
         heading="Coordinates",
     ),

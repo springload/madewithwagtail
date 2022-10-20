@@ -319,18 +319,18 @@ class WagtailCompanyPage(WagtailPage):
     ]
 
     @property
+    def latlong(self):
+        if self.coords and "," in self.coords:
+            return self.coords.split(",")
+        return None
+
+    @property
     def lat(self):
-        if self.coords:
-            return self.coords.split(",")[0].strip()
-        else:
-            return None
+        return self.latlong and self.latlong[0]
 
     @property
     def lon(self):
-        if self.coords:
-            return self.coords.split(",")[1].strip()
-        else:
-            return None
+        return self.latlong and self.latlong[1]
 
     @property
     def twitter_handler(self):

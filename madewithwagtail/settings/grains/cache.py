@@ -1,22 +1,26 @@
 import django_cache_url
 
-from madewithwagtail.settings import PROJECT, ENVIRONMENT #, CACHE_URL
+from madewithwagtail.settings import ENVIRONMENT, PROJECT  # , CACHE_URL
 
-__all__ = ["CACHES", "CACHALOT_TIMEOUT", "WAGTAILFRONTENDCACHE"]  # don't import DEV_CACHES by default
+__all__ = [
+    "CACHES",
+    "CACHALOT_TIMEOUT",
+    "WAGTAILFRONTENDCACHE",
+]  # don't import DEV_CACHES by default
 
-#Dont use redis because we don't need it
-#CACHES = {"default": django_cache_url.parse(CACHE_URL)}
+# Dont use redis because we don't need it
+# CACHES = {"default": django_cache_url.parse(CACHE_URL)}
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'cache_table',
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "cache_table",
     }
 }
 
-#Tests can't use manage.py createcachetable due to temporary database, so use dummy
+# Tests can't use manage.py createcachetable due to temporary database, so use dummy
 DEV_CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    "default": {
+        "BACKEND": "django.core.cache.backends.dummy.DummyCache",
     }
 }
 
@@ -31,7 +35,7 @@ WAGTAILFRONTENDCACHE = {
     "cloudfront": {
         "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudfrontBackend",
         "DISTRIBUTION_ID": {
-            #TODO change this when do the DNS changeover to madewithwagtail.org
+            # TODO change this when do the DNS changeover to madewithwagtail.org
             "madewithwagtail-preview-media.s3-website-ap-southeast-2.amazonaws.com": "E19LUSH371PZQA",
         },
     }

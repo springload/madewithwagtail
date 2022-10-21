@@ -5,13 +5,14 @@ import urllib.request
 from django import template
 from django.core.exceptions import ObjectDoesNotExist
 
+from wagtail.core.models import Page
+
 from core.snippets import NavigationMenu
-from wagtail.wagtailcore.models import Page
 
 register = template.Library()
 
 
-@register.inclusion_tag('core/includes/menu.html', takes_context=True)
+@register.inclusion_tag("core/includes/menu.html", takes_context=True)
 def menu(context, name=None, current_page=None):
     """
     Retrieves the MenuElement(s) under the NavigationMenu with given menu_name
@@ -29,12 +30,12 @@ def menu(context, name=None, current_page=None):
         return None
 
     return {
-        'links': menu_items,
-        'request': context['request'],
+        "links": menu_items,
+        "request": context["request"],
     }
 
 
-@register.inclusion_tag('core/includes/footer_menu.html', takes_context=True)
+@register.inclusion_tag("core/includes/footer_menu.html", takes_context=True)
 def footer_menu(context, name=None, current_page=None):
     """
     Retrieves the MenuElement(s) under the NavigationMenu with given menu_name
@@ -48,8 +49,8 @@ def footer_menu(context, name=None, current_page=None):
         return None
 
     return {
-        'links': menu_items,
-        'request': context['request'],
+        "links": menu_items,
+        "request": context["request"],
     }
 
 
@@ -64,7 +65,6 @@ def content_type(model):
 
 
 class SetVarNode(template.Node):
-
     def __init__(self, var_name, var_value):
         self.var_name = var_name
         self.var_value = var_value
@@ -78,29 +78,30 @@ class SetVarNode(template.Node):
         return ""
 
 
-@register.tag(name='set')
+@register.tag(name="set")
 def set_var(parser, token):
     """
     {% set <var_name>  = <var_value> %}
     """
     parts = token.split_contents()
     if len(parts) < 4:
-        raise template.TemplateSyntaxError("'set' tag must be of the form:  {% set <var_name>  = <var_value> %}")
+        raise template.TemplateSyntaxError(
+            "'set' tag must be of the form:  {% set <var_name>  = <var_value> %}"
+        )
     return SetVarNode(parts[1], parts[3])
 
 
-@register.inclusion_tag('core/includes/breadcrumbs.html', takes_context=True)
+@register.inclusion_tag("core/includes/breadcrumbs.html", takes_context=True)
 def breadcrumbs(context):
-    self = context.get('self')
+    self = context.get("self")
     if self is None or self.depth <= 2:
         # When on the home page, displaying breadcrumbs is irrelevant.
         ancestors = ()
     else:
-        ancestors = Page.objects.ancestor_of(
-            self, inclusive=True).filter(depth__gt=2)
+        ancestors = Page.objects.ancestor_of(self, inclusive=True).filter(depth__gt=2)
     return {
-        'ancestors': ancestors,
-        'request': context['request'],
+        "ancestors": ancestors,
+        "request": context["request"],
     }
 
 
@@ -119,9 +120,9 @@ def subtract(value, arg):
 def build_qsa(page_number, tag, query_string):
     qsa = {}
     if page_number:
-        qsa['page'] = page_number
+        qsa["page"] = page_number
     if tag:
-        qsa['tag'] = tag
+        qsa["tag"] = tag
     if query_string:
-        qsa['q'] = query_string
+        qsa["q"] = query_string
     return "?" + urllib.parse.urlencode(qsa)

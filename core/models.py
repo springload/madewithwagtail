@@ -2,24 +2,25 @@ import os
 import re
 
 from bs4 import BeautifulSoup
+from modelcluster.fields import ParentalKey
+from modelcluster.tags import ClusterTaggableManager
+from taggit.models import Tag, TaggedItemBase
+from wagtailcaptcha.models import WagtailCaptchaEmailForm
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.db.models import Case, Count, Q, Value, When
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.html import mark_safe
-from modelcluster.fields import ParentalKey
-from modelcluster.tags import ClusterTaggableManager
-from taggit.models import Tag, TaggedItemBase
+
+from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Page
+from wagtail.search import index
 
 from core import panels
 from core.forms import SubmitFormBuilder
 from core.utilities import has_recaptcha, validate_only_one_instance
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
-from wagtail.wagtailsearch import index
-from wagtailcaptcha.models import WagtailCaptchaEmailForm
 
 
 class IndexPage(models.Model):
@@ -32,10 +33,14 @@ class IndexPage(models.Model):
         validate_only_one_instance(self)
 
     def children(self):
-        raise NotImplementedError("Class %s doesn't implement aMethod()" % (self.__class__.__name__))
+        raise NotImplementedError(
+            "Class %s doesn't implement children()" % (self.__class__.__name__)
+        )
 
     def get_context(self, request, *args, **kwargs):
-        raise NotImplementedError("Class %s doesn't implement aMethod()" % (self.__class__.__name__))
+        raise NotImplementedError(
+            "Class %s doesn't implement get_context()" % (self.__class__.__name__)
+        )
 
     class Meta:
         abstract = True
@@ -47,28 +52,28 @@ class HomePage(Page, IndexPage):
     """
 
     subpage_types = [
-        'core.CompanyIndex',
-        'core.SubmitFormPage',
+        "core.CompanyIndex",
+        "core.SubmitFormPage",
     ]
     feed_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name="+",
     )
     search_fields = []
 
-    body = RichTextField(blank=True, features=['bold', 'italic', 'ol', 'ul', 'link', 'cleanhtml'])
+    body = RichTextField(blank=True, features=["bold", "italic", "ol", "ul", "link"])
 
     @property
     def og_image(self):
         # Returns image and image type of feed_image, if exists
-        image = {'image': None, 'type': None}
+        image = {"image": None, "type": None}
         if self.feed_image:
-            image['image'] = self.feed_image
-        name, extension = os.path.splitext(image['image'].file.url)
-        image['type'] = extension[1:]
+            image["image"] = self.feed_image
+        name, extension = os.path.splitext(image["image"].file.url)
+        image["type"] = extension[1:]
         return image
 
     def children(self):
@@ -76,18 +81,19 @@ class HomePage(Page, IndexPage):
 
     def get_context(self, request, *args, **kwargs):
         # Get pages
-        pages = WagtailSitePage.objects\
-            .live()\
-            .descendant_of(self)\
-            .order_by('-is_featured', '-latest_revision_created_at')
+        pages = (
+            WagtailSitePage.objects.live()
+            .descendant_of(self)
+            .order_by("-is_featured", "-latest_revision_created_at")
+        )
 
         # Filter by tag
-        tag = request.GET.get('tag')
+        tag = request.GET.get("tag")
         if tag:
             pages = pages.filter(tags__slug__iexact=tag)
 
         # Pagination
-        page = request.GET.get('page')
+        page = request.GET.get("page")
         paginator = Paginator(pages, 12)  # Show 12 pages per page
         try:
             pages = paginator.page(page)
@@ -98,13 +104,18 @@ class HomePage(Page, IndexPage):
 
         # Update template context
         context = super(HomePage, self).get_context(request, *args, **kwargs)
-        context['pages'] = pages
-        context['tag'] = tag
+        context["pages"] = pages
+        context["tag"] = tag
         # Only tags used by live pages
-        context['tags'] = Tag.objects.filter(
-            core_pagetag_items__isnull=False,
-            core_pagetag_items__content_object__live=True
-        ).annotate(count=Count('core_pagetag_items')).distinct().order_by('-count', 'name')
+        context["tags"] = (
+            Tag.objects.filter(
+                core_pagetag_items__isnull=False,
+                core_pagetag_items__content_object__live=True,
+            )
+            .annotate(count=Count("core_pagetag_items"))
+            .distinct()
+            .order_by("-count", "name")
+        )
 
         return context
 
@@ -120,11 +131,17 @@ class CompanyIndex(Page, IndexPage):
     HomePage class, inheriting from wagtailcore.Page straight away
     """
 
-    parent_types = ['core.HomePage']
-    subpage_types = ['core.WagtailCompanyPage']
+    parent_types = ["core.HomePage"]
+    subpage_types = ["core.WagtailCompanyPage"]
     search_fields = []
-    body = RichTextField(null=True, blank=True, features=['bold', 'italic', 'ol', 'ul', 'link', 'cleanhtml'])
-    show_map = models.BooleanField(default=False, help_text='Show map of companies around the world.')
+    body = RichTextField(
+        null=True,
+        blank=True,
+        features=["bold", "italic", "ol", "ul", "link"],
+    )
+    show_map = models.BooleanField(
+        default=False, help_text="Show map of companies around the world."
+    )
 
     def children(self):
         return self.get_children().live()
@@ -132,19 +149,20 @@ class CompanyIndex(Page, IndexPage):
     def get_context(self, request, *args, **kwargs):
         # Get pages.
         # Note: `numchild` includes draft/unpublished pages but does not create additional queries.
-        pages = WagtailCompanyPage.objects\
-            .live()\
-            .descendant_of(self)\
-            .distinct()\
-            .order_by('-numchild', '-latest_revision_created_at')
+        pages = (
+            WagtailCompanyPage.objects.live()
+            .descendant_of(self)
+            .distinct()
+            .order_by("-numchild", "-latest_revision_created_at")
+        )
 
         # Filter by tag
-        tag = request.GET.get('tag')
+        tag = request.GET.get("tag")
         if tag:
             pages = pages.filter(tags__name__iexact=tag)
 
         # Pagination
-        page = request.GET.get('page')
+        page = request.GET.get("page")
         paginator = Paginator(pages, 12)
         try:
             pages = paginator.page(page)
@@ -155,8 +173,8 @@ class CompanyIndex(Page, IndexPage):
 
         # Update template context
         context = super(CompanyIndex, self).get_context(request, *args, **kwargs)
-        context['pages'] = pages
-        context['tag'] = tag
+        context["pages"] = pages
+        context["tag"] = tag
         return context
 
     class Meta:
@@ -166,7 +184,7 @@ class CompanyIndex(Page, IndexPage):
 
 
 class PageTag(TaggedItemBase):
-    content_object = ParentalKey('core.WagtailPage', related_name='tagged_items')
+    content_object = ParentalKey("core.WagtailPage", related_name="tagged_items")
 
 
 # Main core Page model. All main content pages inherit from this class.
@@ -175,19 +193,19 @@ class WagtailPage(Page):
     Our main custom Page class. All content pages should inherit from this one.
     """
 
-    parent_types = ['core.HomePage']
-    subpage_types = ['core.WagtailPage']
+    parent_types = ["core.HomePage"]
+    subpage_types = ["core.WagtailPage"]
 
     is_creatable = False
 
     feed_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name="+",
     )
-    body = RichTextField(blank=True, features=['bold', 'italic', 'ol', 'ul', 'link', 'cleanhtml'])
+    body = RichTextField(blank=True, features=["bold", "italic", "ol", "ul", "link"])
     tags = ClusterTaggableManager(through=PageTag, blank=True)
     search_fields = []
 
@@ -217,16 +235,16 @@ class WagtailPage(Page):
         """
         Return body text replacing end of lines (. ? ! chars) with a blank space
         """
-        return re.sub(r'([\.?!])([a-zA-Z])', r'\1 \2', self.body_text)
+        return re.sub(r"([\.?!])([a-zA-Z])", r"\1 \2", self.body_text)
 
     @property
     def og_image(self):
         # Returns image and image type of feed_image or image as fallback, if exists
-        image = {'image': None, 'type': None}
+        image = {"image": None, "type": None}
         if self.feed_image:
-            image['image'] = self.feed_image
-        name, extension = os.path.splitext(image['image'].file.url)
-        image['type'] = extension[1:]
+            image["image"] = self.feed_image
+        name, extension = os.path.splitext(image["image"].file.url)
+        image["type"] = extension[1:]
         return image
 
     class Meta:
@@ -241,29 +259,29 @@ class WagtailCompanyPage(WagtailPage):
     Company page listing a bunch of site pages
     """
 
-    parent_types = ['core.HomePage']
-    subpage_types = ['core.WagtailSitePage']
+    parent_types = ["core.HomePage"]
+    subpage_types = ["core.WagtailSitePage"]
 
-    SITES_ORDERING_ALPHABETICAL = 'alphabetical'
-    SITES_ORDERING_CREATED = 'created'
-    SITES_ORDERING_PATH = 'path'
+    SITES_ORDERING_ALPHABETICAL = "alphabetical"
+    SITES_ORDERING_CREATED = "created"
+    SITES_ORDERING_PATH = "path"
     SITES_ORDERING = {
         SITES_ORDERING_PATH: {
-            'name': 'Path (i.e. manual)',
-            'ordering': ['-path'],
+            "name": "Path (i.e. manual)",
+            "ordering": ["-path"],
         },
         SITES_ORDERING_ALPHABETICAL: {
-            'name': 'Alphabetical',
-            'ordering': ['title'],
+            "name": "Alphabetical",
+            "ordering": ["title"],
         },
         SITES_ORDERING_CREATED: {
-            'name': 'Created',
-            'ordering': ['-first_published_at'],
+            "name": "Created",
+            "ordering": ["-first_published_at"],
         },
     }
     SITES_ORDERING_CHOICES = [
-        (key, opts['name'])
-        for key, opts in sorted(SITES_ORDERING.items(), key=lambda k: k[1]['name'])
+        (key, opts["name"])
+        for key, opts in sorted(SITES_ORDERING.items(), key=lambda k: k[1]["name"])
     ]
 
     company_url = models.URLField(
@@ -274,15 +292,17 @@ class WagtailCompanyPage(WagtailPage):
     github_url = models.URLField(null=True, blank=True)
     twitter_url = models.URLField(null=True, blank=True)
     location = models.CharField(max_length=128, blank=True, null=True)
-    show_map = models.BooleanField(default=True, help_text='Show company in the map of companies around the world.')
+    show_map = models.BooleanField(
+        default=True, help_text="Show company in the map of companies around the world."
+    )
     coords = models.CharField(max_length=255, blank=True, null=True)
 
     logo = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name="+",
     )
 
     sites_ordering = models.CharField(
@@ -290,12 +310,12 @@ class WagtailCompanyPage(WagtailPage):
         blank=False,
         choices=SITES_ORDERING_CHOICES,
         default=SITES_ORDERING_CREATED,
-        help_text='The order the sites will be listed on the page',
+        help_text="The order the sites will be listed on the page",
     )
 
     search_fields = Page.search_fields + [
-        index.SearchField('company_url', boost=1),
-        index.SearchField('body_text', boost=1)
+        index.SearchField("company_url", boost=1),
+        index.SearchField("body_text", boost=1),
     ]
 
     @property
@@ -315,14 +335,14 @@ class WagtailCompanyPage(WagtailPage):
     @property
     def twitter_handler(self):
         if self.twitter_url:
-            return "@%s" % self.twitter_url.strip('/ ').split("/")[-1]
+            return "@%s" % self.twitter_url.strip("/ ").split("/")[-1]
         else:
             return None
 
     @property
     def github_user(self):
         if self.github_url:
-            return self.github_url.strip('/ ').split("/")[-1]
+            return self.github_url.strip("/ ").split("/")[-1]
         else:
             return None
 
@@ -333,18 +353,20 @@ class WagtailCompanyPage(WagtailPage):
     @property
     def og_image(self):
         # Returns image and image type of logo or feed_image as fallback, if exists
-        image = {'image': None, 'type': None}
+        image = {"image": None, "type": None}
         if self.logo:
-            image['image'] = self.logo
+            image["image"] = self.logo
         elif self.feed_image:
-            image['image'] = self.feed_image
-        name, extension = os.path.splitext(image['image'].file.url)
-        image['type'] = extension[1:]
+            image["image"] = self.feed_image
+        name, extension = os.path.splitext(image["image"].file.url)
+        image["type"] = extension[1:]
         return image
 
     def children(self):
-        user_ordering = self.SITES_ORDERING[self.sites_ordering]['ordering']
-        pages = WagtailSitePage.objects.live().filter(Q(path__startswith=self.path) | Q(in_cooperation_with=self))
+        user_ordering = self.SITES_ORDERING[self.sites_ordering]["ordering"]
+        pages = WagtailSitePage.objects.live().filter(
+            Q(path__startswith=self.path) | Q(in_cooperation_with=self)
+        )
 
         # When ordering by `path`, the collaborations would either all be listed first or last
         # depending on whether the collaborator(s) page(s) was created before or after this page.
@@ -356,7 +378,7 @@ class WagtailCompanyPage(WagtailPage):
                     default_value=Value(False),
                     output_field=models.BooleanField(),
                 )
-            ).order_by('is_own', *user_ordering)
+            ).order_by("is_own", *user_ordering)
 
         # When ordering alphabetically or by creation date,
         # own sites and collaboration sites will be sorted together.
@@ -370,7 +392,7 @@ class WagtailCompanyPage(WagtailPage):
         pages = self.children()
 
         # Pagination
-        page = request.GET.get('page')
+        page = request.GET.get("page")
         paginator = Paginator(pages, 12)  # Show 12 pages per page
         try:
             pages = paginator.page(page)
@@ -381,7 +403,7 @@ class WagtailCompanyPage(WagtailPage):
 
         # Update template context
         context = super(WagtailCompanyPage, self).get_context(request, *args, **kwargs)
-        context['pages'] = pages
+        context["pages"] = pages
         return context
 
     @property
@@ -396,29 +418,29 @@ class WagtailCompanyPage(WagtailPage):
     settings_panels = panels.WAGTAIL_COMPANY_PAGE_SETTINGS_PANELS
 
 
-@python_2_unicode_compatible
 class WagtailSitePage(WagtailPage):
     """
     Site page
     """
-    parent_types = ['core.WagtailCompanyPage']
+
+    parent_types = ["core.WagtailCompanyPage"]
     subpage_types = []
     is_featured = models.BooleanField(
         "Featured",
         default=False,
         blank=False,
-        help_text='If enabled, this site will appear on top of the sites list of the homepage.'
+        help_text="If enabled, this site will appear on top of the sites list of the homepage.",
     )
     site_screenshot = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name="+",
         help_text=mark_safe(
-            'Use a <b>ratio</b> of <i>16:13.28</i> '
-            'and a <b>size</b> of at least <i>1200x996 pixels</i> '
-            'for an optimal display.'
+            "Use a <b>ratio</b> of <i>16:13.28</i> "
+            "and a <b>size</b> of at least <i>1200x996 pixels</i> "
+            "for an optimal display."
         ),
     )
     site_url = models.URLField(
@@ -428,33 +450,33 @@ class WagtailSitePage(WagtailPage):
     )
 
     in_cooperation_with = models.ForeignKey(
-        'core.WagtailCompanyPage',
+        "core.WagtailCompanyPage",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name="+",
     )
 
     search_fields = Page.search_fields + [
-        index.SearchField('site_url'),
-        index.SearchField('body_text')
+        index.SearchField("site_url"),
+        index.SearchField("body_text"),
     ]
 
     @property
     def og_image(self):
         # Returns image and image type of feed_image, if exists
-        image = {'image': None, 'type': None}
+        image = {"image": None, "type": None}
         if self.feed_image:
-            image['image'] = self.feed_image
+            image["image"] = self.feed_image
         elif self.site_screenshot:
-            image['image'] = self.site_screenshot
-        name, extension = os.path.splitext(image['image'].file.url)
-        image['type'] = extension[1:]
+            image["image"] = self.site_screenshot
+        name, extension = os.path.splitext(image["image"].file.url)
+        image["type"] = extension[1:]
         return image
 
     def __str__(self):
         if self.site_url:
-            return '%s - %s' % (self.title, self.site_url)
+            return "%s - %s" % (self.title, self.site_url)
         return self.title
 
     class Meta:
@@ -465,7 +487,7 @@ class WagtailSitePage(WagtailPage):
 
 
 class SubmitFormField(AbstractFormField):
-    page = ParentalKey('SubmitFormPage', related_name='form_fields')
+    page = ParentalKey("SubmitFormPage", related_name="form_fields")
 
 
 class SubmitFormPage(WagtailCaptchaEmailForm if has_recaptcha() else AbstractEmailForm):
@@ -480,12 +502,17 @@ class SubmitFormPage(WagtailCaptchaEmailForm if has_recaptcha() else AbstractEma
         # See https://github.com/springload/wagtail-django-recaptcha/issues/7 for more info.
         self.form_builder = SubmitFormBuilder
 
-    parent_types = ['core.HomePage']
+    parent_types = ["core.HomePage"]
     subpage_types = []
 
     search_fields = []
-    body = RichTextField(blank=True, help_text='Edit the content you want to see before the form.')
-    thank_you_text = RichTextField(blank=True, help_text='Set the message users will see after submitting the form.')
+    body = RichTextField(
+        blank=True, help_text="Edit the content you want to see before the form."
+    )
+    thank_you_text = RichTextField(
+        blank=True,
+        help_text="Set the message users will see after submitting the form.",
+    )
 
     class Meta:
         verbose_name = "Form Page"

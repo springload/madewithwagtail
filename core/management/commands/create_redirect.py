@@ -2,8 +2,8 @@
 
 from django.core.management import BaseCommand
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailredirects.models import Redirect
+from wagtail.contrib.redirects.models import Redirect
+from wagtail.core.models import Page
 
 
 class Command(BaseCommand):

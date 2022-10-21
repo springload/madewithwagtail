@@ -1,4 +1,1 @@
-
-WAGTAILSEARCH_BACKENDS = {
-    "default": {"BACKEND": "wagtail.contrib.postgres_search.backend"}
-}
+WAGTAILSEARCH_BACKENDS = {"default": {"BACKEND": "wagtail.search.backends.database"}}

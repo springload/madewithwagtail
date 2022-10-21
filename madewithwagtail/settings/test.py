@@ -1,5 +1,6 @@
-from .dev import *
 import os
+
+from .dev import *
 
 os.environ["REUSE_DB"] = "1"
 

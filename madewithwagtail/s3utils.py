@@ -8,5 +8,6 @@ mimetypes.add_type("application/font-woff", "woff2", strict=True)
 
 
 StaticRootStorage = lambda: S3Boto3Storage(  # noqa: E731
-    location=('static/%s' % setting('APPLICATION_VERSION', '')).strip("/"))
+    location=("static/%s" % setting("APPLICATION_VERSION", "")).strip("/")
+)
 MediaRootStorage = lambda: S3Boto3Storage(location="media")  # noqa: E731

@@ -8,7 +8,8 @@ const config = require('./config');
 function svg() {
     return src(path.join(config.paths.svg, '**', '*.svg'))
         .pipe(rename({ prefix: 'i-' }))
-        .pipe(svgmin())
+        .pipe(svgmin({ configFile: 'svgo.config.js' }))
+        .pipe(dest(path.join(process.cwd(), 'temp')))
         .pipe(svgstore({ inlineSvg: true }))
         .pipe(rename('svg.html'))
         .pipe(dest(path.join(config.paths.templates, 'core', 'includes')));

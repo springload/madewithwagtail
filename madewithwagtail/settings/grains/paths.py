@@ -1,4 +1,4 @@
-from os.path import dirname, abspath, basename, join
+from os.path import abspath, basename, dirname, join
 from sys import path
 
 # Absolute filesystem path to the Django project directory:
@@ -16,14 +16,14 @@ path.append(DJANGO_ROOT)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_ROOT = join(DJANGO_ROOT, "var", "static")
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
 STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
 
 STATICFILES_DIRS = ()
 
-MEDIA_ROOT = join(PROJECT_ROOT, 'media')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = join(PROJECT_ROOT, "media")
+MEDIA_URL = "/media/"

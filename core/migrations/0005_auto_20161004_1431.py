@@ -21,9 +21,15 @@ def cleanup_tags(apps, schema_editor):
 
                     for page_tag in PageTag.objects.filter(tag=duplicated_tag):
                         pt_objects = PageTag.objects
-                        if not pt_objects.filter(tag=first_tag, content_object=page_tag.content_object).exists():
-                            PageTag.objects.create(tag=first_tag, content_object=page_tag.content_object)
-                        pt_objects.filter(tag=duplicated_tag, content_object=page_tag.content_object).delete()
+                        if not pt_objects.filter(
+                            tag=first_tag, content_object=page_tag.content_object
+                        ).exists():
+                            PageTag.objects.create(
+                                tag=first_tag, content_object=page_tag.content_object
+                            )
+                        pt_objects.filter(
+                            tag=duplicated_tag, content_object=page_tag.content_object
+                        ).delete()
                     duplicated_tags_id.append(duplicated_tag.id)
     Tag.objects.filter(id__in=duplicated_tags_id).delete()
 
@@ -31,7 +37,7 @@ def cleanup_tags(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0004_auto_20160511_1652'),
+        ("core", "0004_auto_20160511_1652"),
     ]
 
     operations = [

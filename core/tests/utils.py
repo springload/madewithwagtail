@@ -3,15 +3,16 @@ import sys
 from django.core.management import call_command
 from django.test import Client, TestCase
 
-FIXTURES_FILE = 'core/fixtures/initial_data.json'
+FIXTURES_FILE = "core/fixtures/initial_data.json"
 
 
 class WagtailTest(TestCase):
     """
     TestCase that loads a number fo fixtures before each execution.
     """
+
     def setUp(self):
-        call_command('loaddata', FIXTURES_FILE, verbosity=1)
+        call_command("loaddata", FIXTURES_FILE, verbosity=1)
         self.client = Client()
 
 

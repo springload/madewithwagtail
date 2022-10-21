@@ -10,7 +10,7 @@
     {% endfor %}
 
     <li class='nav__item'>
-        <a href="{% url 'wagtailsearch_search' %}" class="nav__link{% if request.path == '/search/' %} is-active{% endif %}">
+        <a href="{% url 'core_search' %}" class="nav__link{% if request.path == '/search/' %} is-active{% endif %}">
             <span class="u-hide--small">Search</span>
             {% if not request.path == '/search/' %}
                 {% set color = "teal" %}

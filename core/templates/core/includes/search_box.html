@@ -1,4 +1,4 @@
-<form action="{% url 'wagtailsearch_search' %}" method="get" class="grid form search-form">
+<form action="{% url 'core_search' %}" method="get" class="grid form search-form">
     <div class="two-thirds " data-validate="required">
         <input type="search" name="q"{% if query_string %} value="{{ query_string }}"{% endif %} autofocus>
     </div>

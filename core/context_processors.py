@@ -26,9 +26,6 @@ def api_companies_endpoint(request):
     """
     Return a URL to get the JSON of the existing companies
     """
-    if settings.DEBUG:
-        url = "/api/data.json"
-    else:
-        url = "/api/companies/?format=json"
+    url = "/api/companies/?format=json"
 
     return {"API_COMPANIES_ENDPOINT": url}

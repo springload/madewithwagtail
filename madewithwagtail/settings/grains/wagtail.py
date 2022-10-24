@@ -3,9 +3,7 @@ from typed_environment_configuration import *
 from madewithwagtail.settings import *
 from madewithwagtail.settings.grains.django import ALLOWED_HOSTS
 
-_ENVVARS = [
-    StringVariable("GOOGLE_MAPS_API_KEY", default=""),  # e.g. postgres URL
-]
+GOOGLE_MAPS_API_KEY = StringVariable("GOOGLE_MAPS_API_KEY", default="").getenv()
 
 WAGTAIL_SITE_NAME = "Made with Wagtail"
 

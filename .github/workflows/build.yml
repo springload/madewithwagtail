@@ -19,7 +19,7 @@ env:
 jobs:
   static-analysis:
     container: ghcr.io/springload/python-static-analysis:latest
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -53,7 +53,7 @@ jobs:
     outputs:
       skip_build: ${{ steps.retag.outputs.skip_build }}
     container: docker:stable-git
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Login to Amazon ECR
         id: login-ecr
@@ -92,7 +92,7 @@ jobs:
     if: ${{ !failure() && (needs.retag-images.outputs.skip_build!='true')}}
     needs: [retag-images, static-analysis]
     container: docker:stable-git
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     services:
       registry:
         image: registry:2.7.1
@@ -178,7 +178,7 @@ jobs:
     needs: [build-and-test, retag-images]
     if: startsWith(github.ref, 'refs/heads/deploy/') && !failure()
     container: docker:stable-git
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -206,7 +206,7 @@ jobs:
       BASIC_AUTH: ${{ secrets.BASIC_AUTH }}
     needs: deploy
     container: owasp/zap2docker-weekly
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Test the website with zap
         run: |

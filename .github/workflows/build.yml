@@ -213,7 +213,7 @@ jobs:
           set -e
           ENVIRONMENT=`basename "${GITHUB_REF}"`
           if [ "${ENVIRONMENT}" = "production" ]; then
-            endpoint=https://www.${PROJECT}.co.nz
+            endpoint=https://madewithwagtail.org/
           else
             endpoint=https://${PROJECT}-${ENVIRONMENT}.springload.nz
           fi

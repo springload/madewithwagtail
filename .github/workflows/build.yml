@@ -141,7 +141,6 @@ jobs:
             -ePOSTGRES_PASSWORD=$DATABASE_PASSWORD \
             -d postgres:13-alpine | cut -c -12)
           CACHE=$(docker run --rm -d redis:3.2-alpine | cut -c -12)
-          SEARCH=$(docker run --rm --expose 9200 -d elasticsearch:5.6-alpine)
 
           docker run --rm -i \
               --link=$DB --link=$CACHE \
@@ -150,11 +149,9 @@ jobs:
               -eDJANGO_SETTINGS_MODULE=app.settings.test \
               -eCACHE_URL=redis://$CACHE:6379/0 \
               -eTASK_QUEUE_URL=redis://$CACHE:6379/1 \
-              -eSEARCH_URL=elasticsearch5+http://elasticsearch:9200/circle \
               ${{ env.PROJECT }}/app-test:${{ env.VERSION }}
           docker stop $DB
           docker stop $CACHE
-          docker stop $SEARCH
 
       - name: Login to Amazon ECR
         if: startsWith(github.ref, 'refs/heads/deploy/')

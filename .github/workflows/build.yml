@@ -71,9 +71,9 @@ jobs:
           ENVIRONMENT=$(basename $GITHUB_REF)
           # even with "set -e" it won't fail
           # as it's handled in if
-          if printf "app\ntasks\nhttpd" | xargs -I{} skopeo inspect docker://${{ steps.login-ecr.outputs.registry }}/${{ env.PROJECT }}-{}:common-${SHORT_COMMIT}; then
+          if printf "app\nhttpd" | xargs -I{} skopeo inspect docker://${{ steps.login-ecr.outputs.registry }}/${{ env.PROJECT }}-{}:common-${SHORT_COMMIT}; then
             # retag the image by "copying" it
-            printf "app\ntasks\nhttpd" | xargs -I{} skopeo copy \
+            printf "app\nhttpd" | xargs -I{} skopeo copy \
                     docker://${{ steps.login-ecr.outputs.registry }}/${{ env.PROJECT }}-{}:common-${SHORT_COMMIT} \
                     docker://${{ steps.login-ecr.outputs.registry }}/${{ env.PROJECT }}-{}:${ENVIRONMENT}-${SHORT_COMMIT}
             echo "::set-output name=skip_build::true"

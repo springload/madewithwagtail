@@ -38,8 +38,8 @@ jobs:
         run: black --check --diff .
       - name: Python code style checks
         run: flakeheaven lint
-      - name: Python bandit check #.bandit files are broken on bandit currently, use --exclude
-        run: bandit -r . --exclude "node_modules/*,core/tests/*,app/settings/dev.py,app/settings/test.py"
+      - name: Python bandit check
+        run: bandit -r . -c pyproject.toml
       - name: Python safety check
         run: safety check -r requirements/constraints.txt
 

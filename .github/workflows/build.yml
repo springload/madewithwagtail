@@ -8,7 +8,7 @@ on:
   pull_request:
 
 concurrency:
-  group: ${{ github.ref }}
+  group: ${{ github.ref }}-x
   cancel-in-progress: true
 
 env:

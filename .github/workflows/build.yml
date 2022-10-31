@@ -29,8 +29,9 @@ jobs:
       - name: check ssm.ejson encrypted
         run: |
           wget -O- https://github.com/Shopify/ejson/releases/download/v1.3.3/ejson_1.3.3_linux_amd64.tar.gz| tar xzv -C /usr/bin/ -f - ejson
+          cp infra/ssm.ejson /tmp/original-ssm.ejson
           ejson encrypt infra/ssm.ejson
-          git diff --exit-code
+          diff infra/ssm.ejson /tmp/original-ssm.ejson
       # Python code checks
       - name: Check python imports formatted
         run: isort . --check-only --diff --quiet

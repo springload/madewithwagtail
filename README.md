@@ -5,76 +5,106 @@
 
 *Check out [Awesome Wagtail](https://github.com/springload/awesome-wagtail) for more awesome packages and resources from the Wagtail community.*
 
-## Installation
+## Back End Setup
 
-Install [Vagrant](http://www.vagrantup.com/downloads.html) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads), then from the command-line:
+Development on this project can be done using docker. If you have not yet
+installed docker, consult the instructions for your operating system.
+
+[Docker](https://docs.docker.com/)
+
+It's a good idea to set up the nginx proxy if you have not done so already,
+instructions can be found on the github repo.
+
+Vagrant is no longer in this project, and any material relating to vagrant
+can be ignored.
+
+## Clone the repo
 
 ```sh
+cd [my-dev-environment]
 git clone git@github.com:springload/madewithwagtail.git
 cd madewithwagtail
-.githooks/deploy
-vagrant up
-# [.. wait until everything gets installed]
-vagrant ssh
-# [.. from your vagrant machine]
-djrun
 ```
-
-The demo site will now be accessible at [http://localhost:8111/](http://localhost:8111/) and the Wagtail admin interface at [http://localhost:8111/admin/](http://localhost:8111/admin/) . Log into the admin with the credentials ``admin / changeme``.
-
-### Front-end installation
-
-> Install [Node](https://nodejs.org). This project also uses [nvm](https://github.com/creationix/nvm).
-
-To install our dependencies:
+### Setup your environment variables
 
 ```sh
-nvm install
-# Then, install all project dependencies.
-npm install
+cp dev.env.example dev.env
 ```
 
-## Working on the project
+And then edit `dev.env` to suit your local setup. Any API keys etc should be in Bitwarden.
 
-> Everything mentioned in the installation process should already be done.
+### Database setup
 
-### Starting the server
+First, download the database dump you want from our [Google Cloud storage](<https://console.cloud.google.com/storage/browser/springload-backups/madewithwagtail?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&project=springload-backups&prefix=&forceOnObjectsSortingFiltering=false>).
+
+Next decrypt the dump using gpg.
+
+Finally, place the decrypted .sql file into [my-dev-environment]/madewithwagtail/docker/database - it will be automatically loaded when you build your database container in the next section.
 
 ```sh
-vagrant up
-vagrant ssh
-djrun
+cp /SOMEWHERE/DECRYPTED_DB_DUMP.sql ./docker/database
 ```
 
-### Front-end commands
+### Build your containers
+
+```sh
+docker-compose up
+# In another terminal tab run:
+docker-compose exec application ./manage.py migrate
+```
+
+### Change cms-superadmin password
+
+When you load the DB dump, the wagtail cms-superadmin login will have the
+password assigned to the environment from which the DB dump came.
+
+To set it to something else use this command:
+
+```sh
+docker-compose exec application ./manage.py changepassword cms-superadmin
+```
+
+### Default site
+
+You may need to delete and re-create your site object via the CMS to avoid weird errors in docker.
+
+### Browsing locally
+
+**https://madewithwagtail.dev.springload.nz/**
+
+## Front End
+
+This project uses [nvm](https://github.com/creationix/nvm) and [Yarn](https://yarnpkg.com/lang/en/)
 
 ```sh
 # Make sure you use the right node version.
 nvm use
+
+# Setup
+yarn install
+
 # Start the server and the development tools.
-npm run start
+yarn run start
+
 # Builds frontend assets.
-npm run build
+yarn run build
+
+# Builds frontend production assets.
+yarn run dist
+
 # Runs linting.
-npm run lint:versions
+yarn run lint
+
 # Runs tests.
-npm run test
+yarn run test
+
 # View other available commands with:
-npm run
+yarn run
 ```
-
-## Deploying a new version
-
-### To production
-
-```sh
-npm run deploy
-```
-
-From your local machine, it's a good idea to push to the master before
-pushing to the deploy branch. That way you know that both are up to date.
 
 ## Documentation
+
+Check out the [`docs/`](docs/) in their own folder.
 
 ### Browser support
 

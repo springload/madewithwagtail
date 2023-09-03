@@ -41,10 +41,6 @@ Next decrypt the dump using gpg.
 
 Finally, place the decrypted .sql file into [my-dev-environment]/madewithwagtail/docker/database - it will be automatically loaded when you build your database container in the next section.
 
-```sh
-cp /SOMEWHERE/DECRYPTED_DB_DUMP.sql ./docker/database
-```
-
 ### Build your containers
 
 ```sh

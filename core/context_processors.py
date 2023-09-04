@@ -2,7 +2,6 @@ from django.conf import settings
 
 
 def google_credentials(request):
-
     return {
         "GOOGLE_ANALYTICS_KEY": getattr(settings, "GOOGLE_ANALYTICS_KEY", False),
         "GOOGLE_TAG_MANAGER": getattr(settings, "GOOGLE_TAG_MANAGER", False),

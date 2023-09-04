@@ -20,7 +20,6 @@ def _setup_macros_dict(parser):
 
 class DefineMacroNode(template.Node):
     def __init__(self, name, nodelist, args):
-
         self.name = name
         self.nodelist = nodelist
         self.args = []

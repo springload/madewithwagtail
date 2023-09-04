@@ -49,21 +49,6 @@ docker-compose up
 docker-compose exec application ./manage.py migrate
 ```
 
-### Change cms-superadmin password
-
-When you load the DB dump, the wagtail cms-superadmin login will have the
-password assigned to the environment from which the DB dump came.
-
-To set it to something else use this command:
-
-```sh
-docker-compose exec application ./manage.py changepassword cms-superadmin
-```
-
-### Default site
-
-You may need to delete and re-create your site object via the CMS to avoid weird errors in docker.
-
 ### Browsing locally
 
 **https://madewithwagtail.dev.springload.nz/**

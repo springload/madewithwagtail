@@ -111,7 +111,7 @@ Check out the [`docs/`](docs/) in their own folder.
 | Mobile Safari | iOS Phone | latest |
 | Mobile Safari | iOS Tablet | latest |
 | Chrome | Android | latest |
-| IE | Desktop | 11 |
+| Edge | Desktop | latest |
 | Chrome | Desktop | latest |
 | Firefox | Desktop | latest |
 | Safari | OSX | latest |

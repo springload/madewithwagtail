@@ -44,7 +44,7 @@ workflows:
                   docker run \
                       -it --name app-test --rm \
                       --link=database \
-                      --env-file=dev.env \
+                      --env-file=dev.env.example \
                       -e DATABASE_URL="postgres://postgres:$DATABASE_PASSWORD@database/${PROJECT}_test" \
                       -e ENVIRONMENT=test \
                       app-test

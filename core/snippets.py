@@ -160,7 +160,6 @@ class NavigationMenuManager(models.Manager):
 
 @register_snippet
 class NavigationMenu(ClusterableModel):
-
     objects = NavigationMenuManager()
     menu_name = models.CharField(max_length=255, null=False, blank=False)
 

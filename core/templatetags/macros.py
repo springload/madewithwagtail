@@ -20,7 +20,6 @@ def _setup_macros_dict(parser):
 
 class DefineMacroNode(template.Node):
     def __init__(self, name, nodelist, args):
-
         self.name = name
         self.nodelist = nodelist
         self.args = []
@@ -93,7 +92,6 @@ class UseMacroNode(template.Node):
         self.context_only = context_only
 
     def render(self, context):
-
         for i, arg in enumerate(self.macro.args):
             try:
                 fe = self.fe_args[i]

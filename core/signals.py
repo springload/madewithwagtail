@@ -100,7 +100,7 @@ def pre_page_revision_save(sender, instance, **kwargs):
                     #  Replace content field
                     setattr(mirror_page, field.name, clean_field)
                     #  To json again
-                    instance.content_json = mirror_page.to_json()
+                    instance.content = mirror_page.to_json()
 
 
 @receiver(post_save)

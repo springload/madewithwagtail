@@ -1,6 +1,6 @@
 -c constraints.txt
 Django>=3.2,<3.3
-wagtail>=2.16,<2.17
+wagtail~=3.0.3
 boto3>=1.24.15,<1.25
 psycopg2>=2.7
 

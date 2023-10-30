@@ -3,13 +3,7 @@ from modelcluster.models import ClusterableModel
 
 from django.db import models
 
-from wagtail.admin.panels import (
-    FieldPanel,
-    InlinePanel,
-    MultiFieldPanel,
-    PageChooserPanel,
-)
-from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.models import Orderable
 from wagtail.snippets.models import register_snippet
 
@@ -72,9 +66,9 @@ class LinkFields(models.Model):
     panels = [
         MultiFieldPanel(
             [
-                PageChooserPanel("link_page"),
+                FieldPanel("link_page"),
                 FieldPanel("link_external"),
-                DocumentChooserPanel("link_document"),
+                FieldPanel("link_document"),
                 FieldPanel("link_email"),
                 FieldPanel("link_phone"),
             ],

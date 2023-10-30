@@ -1,8 +1,7 @@
 from wagtailgmaps.edit_handlers import MapFieldPanel
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.core.models import Page
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.models import Page
 
 HOME_PAGE_CONTENT_PANELS = [
     FieldPanel("title", classname="full title"),
@@ -15,7 +14,7 @@ WAGTAIL_PAGE_CONTENT_PANELS = HOME_PAGE_CONTENT_PANELS + [
 
 WAGTAIL_PAGE_PROMOTE_PANELS = [
     MultiFieldPanel(Page.promote_panels, "SEO and metadata fields"),
-    ImageChooserPanel("feed_image"),
+    FieldPanel("feed_image"),
 ]
 
 WAGTAIL_SITE_PAGE_PROMOTE_PANELS = [
@@ -26,7 +25,7 @@ WAGTAIL_SITE_PAGE_PROMOTE_PANELS = [
 WAGTAIL_SITE_PAGE_CONTENT_PANELS = [
     FieldPanel("title", classname="full title"),
     FieldPanel("site_url"),
-    ImageChooserPanel("site_screenshot"),
+    FieldPanel("site_screenshot"),
     FieldPanel("body", classname="full"),
     FieldPanel("tags"),
     FieldPanel("in_cooperation_with"),
@@ -37,7 +36,7 @@ WAGTAIL_COMPANY_PAGE_CONTENT_PANELS = HOME_PAGE_CONTENT_PANELS + [
     FieldPanel("company_url"),
     FieldPanel("github_url"),
     FieldPanel("twitter_url"),
-    ImageChooserPanel("logo"),
+    FieldPanel("logo"),
     FieldPanel("tags"),
     MultiFieldPanel(
         [

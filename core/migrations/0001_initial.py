@@ -7,7 +7,7 @@ import modelcluster.fields
 import django.db.models.deletion
 from django.db import migrations, models
 
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                         to="wagtailcore.Page",
                     ),
                 ),
-                ("body", wagtail.core.fields.RichTextField(null=True, blank=True)),
+                ("body", wagtail.fields.RichTextField(null=True, blank=True)),
             ],
             options={
                 "verbose_name": "Companies Index Page",
@@ -54,7 +54,7 @@ class Migration(migrations.Migration):
                         to="wagtailcore.Page",
                     ),
                 ),
-                ("body", wagtail.core.fields.RichTextField(blank=True)),
+                ("body", wagtail.fields.RichTextField(blank=True)),
                 (
                     "feed_image",
                     models.ForeignKey(
@@ -322,7 +322,7 @@ class Migration(migrations.Migration):
                         to="wagtailcore.Page",
                     ),
                 ),
-                ("body", wagtail.core.fields.RichTextField(blank=True)),
+                ("body", wagtail.fields.RichTextField(blank=True)),
             ],
             options={
                 "abstract": False,

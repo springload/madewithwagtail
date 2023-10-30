@@ -11,8 +11,8 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.utils.encoding import force_text
 
-from wagtail.core.models import PageRevision
-from wagtail.core.signals import page_published
+from wagtail.models import PageRevision
+from wagtail.signals import page_published
 
 from core.models import WagtailPage, WagtailSitePage
 from core.utilities import replace_tags
@@ -100,7 +100,7 @@ def pre_page_revision_save(sender, instance, **kwargs):
                     #  Replace content field
                     setattr(mirror_page, field.name, clean_field)
                     #  To json again
-                    instance.content_json = mirror_page.to_json()
+                    instance.content = mirror_page.to_json()
 
 
 @receiver(post_save)

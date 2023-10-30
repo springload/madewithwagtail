@@ -4,7 +4,7 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -120,7 +120,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="submitformpage",
             name="body",
-            field=wagtail.core.fields.RichTextField(
+            field=wagtail.fields.RichTextField(
                 blank=True,
                 help_text="Edit the content you want to see before the form.",
             ),
@@ -128,7 +128,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="submitformpage",
             name="thank_you_text",
-            field=wagtail.core.fields.RichTextField(
+            field=wagtail.fields.RichTextField(
                 blank=True,
                 help_text="Set the message users will see after submitting the form.",
             ),

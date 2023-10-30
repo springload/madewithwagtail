@@ -3,7 +3,7 @@
 from django.core.management import BaseCommand
 
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 class Command(BaseCommand):

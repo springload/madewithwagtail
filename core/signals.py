@@ -11,8 +11,8 @@ from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.utils.encoding import force_text
 
-from wagtail.core.models import PageRevision
-from wagtail.core.signals import page_published
+from wagtail.models import PageRevision
+from wagtail.signals import page_published
 
 from core.models import WagtailPage, WagtailSitePage
 from core.utilities import replace_tags

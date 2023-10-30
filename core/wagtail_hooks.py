@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.utils.html import format_html_join
 
-from wagtail.core import hooks
+from wagtail import hooks
 
 
 @hooks.register("insert_editor_css")

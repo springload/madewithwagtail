@@ -29,7 +29,7 @@ INSTALLED_APPS = (
     "rest_framework",
     "wagtail.contrib.sitemaps",
     "wagtail.contrib.routable_page",
-    "wagtail.core",
+    "wagtail",
     "wagtail.admin",
     "wagtail.documents",
     "wagtail.snippets",

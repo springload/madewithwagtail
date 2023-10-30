@@ -3,14 +3,14 @@ from modelcluster.models import ClusterableModel
 
 from django.db import models
 
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
     PageChooserPanel,
 )
-from wagtail.core.models import Orderable
 from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.models import Orderable
 from wagtail.snippets.models import register_snippet
 
 

@@ -15,8 +15,8 @@ from django.db.models import Case, Count, Q, Value, When
 from django.utils.html import mark_safe
 
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
+from wagtail.fields import RichTextField
+from wagtail.models import Page
 from wagtail.search import index
 
 from core import panels

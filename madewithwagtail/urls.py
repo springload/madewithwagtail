@@ -31,11 +31,27 @@ urlpatterns = [
     path("api/", include(api_urls)),
     path("search/", search, name="core_search"),
     path("sitemap.xml", sitemap),
-    path(
-        "robots.txt",
-        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
-    ),
 ]
+
+if settings.ENVIRONMENT == "production":
+    urlpatterns.append(
+        re_path(
+            r"^robots\.txt",
+            TemplateView.as_view(
+                template_name="robots_prod.txt", content_type="text/plain"
+            ),
+        )
+    )
+else:
+    urlpatterns.append(
+        re_path(
+            r"^robots\.txt",
+            TemplateView.as_view(
+                template_name="robots_dev.txt", content_type="text/plain"
+            ),
+        )
+    )
+
 
 if settings.DEBUG:
     import debug_toolbar

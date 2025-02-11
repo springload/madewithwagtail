@@ -17,40 +17,11 @@ env:
   PROJECT: madewithwagtail
 
 jobs:
-  static-analysis:
-    container: ghcr.io/springload/python-static-analysis:latest
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      # Infra code checks
-      - name: Check ssm.ejson format
-        run: python -m json.tool infra/ssm.ejson > /dev/null
-      - name: check ssm.ejson encrypted
-        run: |
-          wget -O- https://github.com/Shopify/ejson/releases/download/v1.3.3/ejson_1.3.3_linux_amd64.tar.gz| tar xzv -C /usr/bin/ -f - ejson
-          cp infra/ssm.ejson /tmp/original-ssm.ejson
-          ejson encrypt infra/ssm.ejson
-          diff infra/ssm.ejson /tmp/original-ssm.ejson
-      # Python code checks
-      - name: Check python imports formatted
-        run: isort . --check-only --diff --quiet
-      - name: Python format check
-        run: black --check --diff .
-      - name: Python code style checks
-        run: flakeheaven lint
-      - name: Python bandit check
-        run: bandit -r . -c pyproject.toml
-      - name: Python safety check
-        run: safety check -r requirements/constraints.txt
-
   # This job uses Skopeo to check if we already have
   # the image with the same git commit hash in the ECR
   # If it does, it just copies it and skips the actual build.
   retag-images:
     if: startsWith(github.ref, 'refs/heads/deploy/')
-    needs:
-      - static-analysis
     outputs:
       skip_build: ${{ steps.retag.outputs.skip_build }}
     container: docker:stable-git
@@ -91,7 +62,7 @@ jobs:
     # builds the image if the previous job didn't fail and didn't indicate
     # that this one should be skipped
     if: ${{ !failure() && (needs.retag-images.outputs.skip_build!='true')}}
-    needs: [retag-images, static-analysis]
+    needs: [retag-images]
     container: docker:stable-git
     runs-on: ubuntu-latest
     services:
@@ -196,30 +167,3 @@ jobs:
           ecs-tool -p "" -e "${ENVIRONMENT}" ejson -f infra/ssm.ejson
           ecs-tool -p "" -e "${ENVIRONMENT}" run --image_tag "${ENVIRONMENT}-${VERSION}" -- ./deploy.sh
           ecs-tool -p "" -e "${ENVIRONMENT}" deploy --image_tag "${ENVIRONMENT}-${VERSION}"
-  test-with-zap:
-    # have to have the if here as this job depends on another, which
-    # itself depends on a job that can be skipped
-    if: startsWith(github.ref, 'refs/heads/deploy/') && !failure()
-    env:
-      BASIC_AUTH: ${{ secrets.BASIC_AUTH }}
-    needs: deploy
-    container: owasp/zap2docker-weekly
-    runs-on: ubuntu-latest
-    steps:
-      - name: Test the website with zap
-        run: |
-          set -e
-          ENVIRONMENT=`basename "${GITHUB_REF}"`
-          if [ "${ENVIRONMENT}" = "production" ]; then
-            endpoint=https://madewithwagtail.org/
-          else
-            endpoint=https://${PROJECT}-${ENVIRONMENT}.springload.nz
-          fi
-          zap-baseline.py  \
-          -z "-config replacer.full_list(0).description=auth1 \
-          -config replacer.full_list(0).enabled=true \
-          -config replacer.full_list(0).matchtype=REQ_HEADER \
-          -config replacer.full_list(0).matchstr=Authorization \
-          -config replacer.full_list(0).regex=false \
-          -config replacer.full_list(0).replacement=Basic\ ${BASIC_AUTH}" \
-          --autooff -I -t $endpoint

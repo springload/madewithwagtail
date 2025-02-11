@@ -8,7 +8,7 @@ variable "VERSION" { default = "latest" }
 
 // targets in groups are built in parallel
 group "default" {
-  targets = ["tasks", "app", "httpd"]
+  targets = ["app", "httpd"]
 }
 
 target "base" {

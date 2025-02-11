@@ -93,12 +93,12 @@ jobs:
           echo "DATABASE_PASSWORD=$( head -c 24 /dev/urandom | xxd -p | tr -d '\n ')" >> $GITHUB_ENV
           echo "ENVIRONMENT=$(basename $GITHUB_REF)" >> $GITHUB_ENV
       - name: Warm up buildx cache by building base
-        uses: docker/bake-action@master
+        uses: docker/bake-action@v5.11.0
         with:
           files: ./docker-bake.hcl
           targets: base
       - name: Build app-test
-        uses: docker/bake-action@master
+        uses: docker/bake-action@v5.11.0
         with:
           files: docker-bake.hcl
           targets: app-test
@@ -136,7 +136,7 @@ jobs:
         if: startsWith(github.ref, 'refs/heads/deploy/')
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        uses: docker/bake-action@master
+        uses: docker/bake-action@v5.11.0
         with:
           files: docker-bake.hcl
           targets: default

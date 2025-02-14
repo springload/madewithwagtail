@@ -1,5 +1,5 @@
 # Frontend assets
-FROM node:erbium-alpine as frontend
+FROM node:erbium-alpine AS frontend
 
 ENV APPLICATION madewithwagtail
 
@@ -21,7 +21,7 @@ RUN yarn dist
 CMD ["yarn", "start", "--prefix", "/madewithwagtail"]
 
 # Base backend
-FROM python:3.10-alpine as base
+FROM python:3.10-alpine AS base
 ARG REQUIREMENTS=production.txt
 
 ENV PYCURL_SSL_LIBRARY openssl
@@ -34,20 +34,20 @@ COPY requirements /madewithwagtail/requirements
 COPY docker/requirements.txt /madewithwagtail/docker/requirements.txt
 
 RUN apk update && apk add --virtual build-deps make gcc g++ musl-dev && \
-  apk add --virtual build-headers postgresql-dev \
-  jpeg-dev \
-  zlib-dev \
-  freetype-dev \
-  lcms2-dev \
-  openjpeg-dev \
-  tiff-dev \
-  tk-dev \
-  tcl-dev \
-  harfbuzz-dev \
-  fribidi-dev \
-  libevent-dev \
-  curl-dev && \
-  cd /madewithwagtail && \
+    apk add --virtual build-headers postgresql-dev \
+    jpeg-dev \
+    zlib-dev \
+    freetype-dev \
+    lcms2-dev \
+    openjpeg-dev \
+    tiff-dev \
+    tk-dev \
+    tcl-dev \
+    harfbuzz-dev \
+    fribidi-dev \
+    libevent-dev \
+    curl-dev && \
+    cd /madewithwagtail && \
     pip3 install -r docker/requirements.txt && \
     pip3 install -r requirements/${REQUIREMENTS} && \
     apk del build-deps build-headers

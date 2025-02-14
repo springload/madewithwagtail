@@ -77,7 +77,7 @@ FROM base AS app-dev
 ARG REQUIREMENTS=dev.txt
 ENV DJANGO_SETTINGS_MODULE madewithwagtail.settings.dev
 
-ADD https://raw.githubusercontent.com/mrako/wait-for/d9699cb9fe8a4622f05c4ee32adf2fd93239d005/wait-for /usr/local/bin/
+ADD --chmod=755 https://github.com/mrako/wait-for/releases/download/v1.0.0/wait-for /usr/local/bin/
 RUN chmod +rx /usr/local/bin/wait-for
 
 RUN apk add --virtual build-deps make g++ musl-dev && \

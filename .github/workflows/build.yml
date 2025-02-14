@@ -110,6 +110,7 @@ jobs:
               -eCACHE_URL=redis://$CACHE:6379/0 \
               -eTASK_QUEUE_URL=redis://$CACHE:6379/1 \
               ${{ env.PROJECT }}/app-test:${{ env.VERSION }}
+
           docker stop $DB
           docker stop $CACHE
       - name: Test for missing or conflicting migrations

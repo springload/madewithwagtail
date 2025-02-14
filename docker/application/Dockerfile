@@ -63,11 +63,8 @@ ENV VERSION=${VERSION}
 ENV ENVIRONMENT unknown
 ENV PROJECT madewithwagtail
 
-# base app stage
-FROM base as base-app
-
 # production stage
-FROM base-app as app
+FROM base AS app
 ADD https://github.com/springload/ssm-parent/releases/download/v1.1.2/ssm-parent_1.1.2_linux_amd64.tar.gz /tmp/ssm-parent.tar.gz
 RUN tar xvf /tmp/ssm-parent.tar.gz && mv ssm-parent /sbin/ssm-parent && rm /tmp/ssm-parent.tar.gz
 
@@ -76,7 +73,7 @@ ENTRYPOINT ["/sbin/ssm-parent", "run", "-e", "-p", "/$PROJECT/common/", "-p", "/
 CMD ["/usr/local/bin/gunicorn", "--config", "/madewithwagtail/docker/gunicorn.py", "madewithwagtail.wsgi" ]
 
 # development stage
-FROM base-app as app-dev
+FROM base AS app-dev
 ARG REQUIREMENTS=dev.txt
 ENV DJANGO_SETTINGS_MODULE madewithwagtail.settings.dev
 
@@ -91,7 +88,7 @@ RUN apk add --virtual build-deps make g++ musl-dev && \
 ENTRYPOINT ["/usr/local/bin/wait-for", "database:5432", "--"]
 CMD ["/usr/local/bin/gunicorn", "--config", "/madewithwagtail/docker/gunicorn.py", "--reload", "madewithwagtail.wsgi" ]
 
-FROM app-dev as app-test
+FROM base AS app-test
 ARG REQUIREMENTS=test.txt
 ENV DJANGO_SETTINGS_MODULE madewithwagtail.settings.test
 RUN cd /madewithwagtail &&\

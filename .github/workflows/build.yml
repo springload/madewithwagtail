@@ -120,7 +120,7 @@ jobs:
           docker run --rm -i \
               --env-file=dev.env.example \
               -eENVIRONMENT=test \
-              -eDJANGO_SETTINGS_MODULE=app.settings.test \
+              -eDJANGO_SETTINGS_MODULE=madewithwagtail.settings.test \
               ${{ env.PROJECT }}/app-test:${{ env.VERSION }} \
               ./manage.py makemigrations --check --dry-run
 

@@ -106,7 +106,7 @@ jobs:
               --link=$DB --link=$CACHE \
               -eDATABASE_URL=postgres://postgres:$DATABASE_PASSWORD@$DB/${{ env.PROJECT }}_test \
               -eENVIRONMENT=test \
-              -eDJANGO_SETTINGS_MODULE=app.settings.test \
+              -eDJANGO_SETTINGS_MODULE=madewithwagtail.settings.test \
               -eCACHE_URL=redis://$CACHE:6379/0 \
               -eTASK_QUEUE_URL=redis://$CACHE:6379/1 \
               ${{ env.PROJECT }}/app-test:${{ env.VERSION }}

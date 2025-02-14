@@ -52,7 +52,9 @@ RUN apk update && apk add --virtual build-deps make gcc g++ musl-dev && \
     pip3 install -r requirements/${REQUIREMENTS} && \
     apk del build-deps build-headers
 
-COPY --from=frontend /madewithwagtail/ /madewithwagtail/
+COPY ./ ./
+COPY --from=frontend --link --chown=1000:65534 /madewithwagtail/core/static/ ./core/static/
+COPY --from=frontend --link --chown=1000:65534 /madewithwagtail/core/templates/ ./core/templates/
 
 RUN adduser -S www -u 1000 && chown -R www /madewithwagtail
 

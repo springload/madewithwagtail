@@ -6,3 +6,8 @@ log_group = "ecs-tool"
 
 [deploy]
 services = ["app"]
+
+[ejson]
+pick_keys = ["common", "production"]
+kms_key = "alias/madewithwagtail-production"
+name = "/madewithwagtail/production/ssm"

@@ -11,3 +11,8 @@ shell = "sh"
 
 [deploy]
 services = ["app"]
+
+[ejson]
+pick_keys = ["common", "preview"]
+kms_key = "alias/madewithwagtail-preview"
+name = "/madewithwagtail/preview/ssm"

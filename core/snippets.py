@@ -9,7 +9,6 @@ from wagtail.snippets.models import register_snippet
 
 
 class LinkFields(models.Model):
-
     """
     Represents a link to an external page, a document or a fellow page
     """

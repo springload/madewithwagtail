@@ -8,20 +8,20 @@ from modelcluster.tags import ClusterTaggableManager
 from taggit.models import Tag, TaggedItemBase
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
 
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.validators import RegexValidator
-from django.urls import reverse
 from django.db import models
-from django.conf import settings
 from django.db.models import Case, Count, Q, Value, When
+from django.urls import reverse
 from django.utils.html import mark_safe
 
 from wagtail.admin.mail import send_mail
 from wagtail.contrib.forms.models import (
     AbstractEmailForm,
-    AbstractFormField,
     AbstractForm,
+    AbstractFormField,
 )
 from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.fields import RichTextField

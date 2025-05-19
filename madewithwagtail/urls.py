@@ -65,6 +65,19 @@ if settings.DEBUG:
         settings.MEDIA_URL + "images/",
         document_root=os.path.join(settings.MEDIA_ROOT, "images"),
     )
+
+    urlpatterns.append(
+        path(
+            "500/",
+            TemplateView.as_view(template_name="500.html"),
+        )
+    )
+    urlpatterns.append(
+        path(
+            "404/",
+            TemplateView.as_view(template_name="404.html"),
+        )
+    )
 else:
     from django.views.static import serve
 

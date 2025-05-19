@@ -31,7 +31,7 @@ def menu(context, name=None, current_page=None):
 
     return {
         "links": menu_items,
-        "request": context["request"],
+        "request": context.get("request", None),
     }
 
 
@@ -50,7 +50,7 @@ def footer_menu(context, name=None, current_page=None):
 
     return {
         "links": menu_items,
-        "request": context["request"],
+        "request": context.get("request", None),
     }
 
 

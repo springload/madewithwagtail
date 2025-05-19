@@ -1,11 +1,8 @@
 from madewithwagtail.settings import ENVIRONMENT, PROJECT  # , CACHE_URL
-from typed_environment_configuration import StringVariable
 
-AWS_CONTENT_DISTRIBUTION_ID = StringVariable("AWS_CONTENT_DISTRIBUTION_ID").getenv()
 
 __all__ = [
     "CACHES",
-    "WAGTAILFRONTENDCACHE",
 ]  # don't import DEV_CACHES by default
 
 # Dont use redis because we don't need it
@@ -26,11 +23,3 @@ DEV_CACHES = {
 
 # Add a prefix to distinguish huey entries and app entries
 CACHES.get("default").update({"PREFIX": "-".join([PROJECT, ENVIRONMENT])})
-
-# For frontend cache module
-WAGTAILFRONTENDCACHE = {
-    "cloudfront": {
-        "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudfrontBackend",
-        "DISTRIBUTION_ID": AWS_CONTENT_DISTRIBUTION_ID,
-    }
-}

@@ -4,6 +4,12 @@ from .grains.cache import *
 from .grains.logging import LOGGING
 from .grains.sentry import *
 
+from typed_environment_configuration import StringVariable
+
+AWS_CONTENT_DISTRIBUTION_ID = StringVariable(
+    "AWS_CONTENT_DISTRIBUTION_ID", default=""
+).getenv()
+
 # Google Analytics settings
 GOOGLE_TAG_MANAGER = False
 
@@ -39,3 +45,11 @@ CACHE_TEMPLATE_FRAGMENTS_SECONDS = 600
 CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
 
 SECURE_HSTS_SECONDS = 31536000
+
+# For frontend cache module
+WAGTAILFRONTENDCACHE = {
+    "cloudfront": {
+        "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudfrontBackend",
+        "DISTRIBUTION_ID": AWS_CONTENT_DISTRIBUTION_ID,
+    }
+}

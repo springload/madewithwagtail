@@ -573,7 +573,7 @@ class SubmitFormPage(WagtailCaptchaEmailForm if has_recaptcha() else AbstractEma
             url = self.get_site().root_url + path
             body += textwrap.dedent(
                 f"""
-                <a href="{url}?pk={submission.id}">Submission {submission.id}</a>
+                Submission: {url}?pk={submission.id}
                 """
             )
         return body

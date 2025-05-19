@@ -5,7 +5,6 @@ AWS_CONTENT_DISTRIBUTION_ID = StringVariable("AWS_CONTENT_DISTRIBUTION_ID").gete
 
 __all__ = [
     "CACHES",
-    "CACHALOT_TIMEOUT",
     "WAGTAILFRONTENDCACHE",
 ]  # don't import DEV_CACHES by default
 
@@ -27,9 +26,6 @@ DEV_CACHES = {
 
 # Add a prefix to distinguish huey entries and app entries
 CACHES.get("default").update({"PREFIX": "-".join([PROJECT, ENVIRONMENT])})
-
-# When this isn't set, it will eventually fill up redis
-CACHALOT_TIMEOUT = 300
 
 # For frontend cache module
 WAGTAILFRONTENDCACHE = {

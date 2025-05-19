@@ -1,6 +1,7 @@
-import django_cache_url
-
 from madewithwagtail.settings import ENVIRONMENT, PROJECT  # , CACHE_URL
+from typed_environment_configuration import StringVariable
+
+AWS_CONTENT_DISTRIBUTION_ID = StringVariable("AWS_CONTENT_DISTRIBUTION_ID").getenv()
 
 __all__ = [
     "CACHES",
@@ -34,9 +35,6 @@ CACHALOT_TIMEOUT = 300
 WAGTAILFRONTENDCACHE = {
     "cloudfront": {
         "BACKEND": "wagtail.contrib.frontend_cache.backends.CloudfrontBackend",
-        "DISTRIBUTION_ID": {
-            # TODO change this when do the DNS changeover to madewithwagtail.org
-            "madewithwagtail-preview-media.s3-website-ap-southeast-2.amazonaws.com": "E19LUSH371PZQA",
-        },
+        "DISTRIBUTION_ID": AWS_CONTENT_DISTRIBUTION_ID,
     }
 }

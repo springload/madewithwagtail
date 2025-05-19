@@ -7,6 +7,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
 from taggit.models import Tag, TaggedItemBase
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
+from wagtailcaptcha.forms import remove_captcha_field
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
@@ -549,6 +550,9 @@ class SubmitFormPage(WagtailCaptchaEmailForm if has_recaptcha() else AbstractEma
     def process_form_submission(self, form):
         # Reproduce EmailFormMixin, but passing the submission to send_mail
         submission = AbstractForm.process_form_submission(self, form)
+        # this is part of the recaptcha field, but we skip
+        # it cos of using AbstractForm directly
+        remove_captcha_field(form)
         if self.to_address:
             self.send_mail(form, submission=submission)
         return submission

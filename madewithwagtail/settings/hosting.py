@@ -31,8 +31,8 @@ TASKS_MAX_RETRIES = 12 * TASKS_MAX_HOURS_RETRY  # Keep trying in the next 72 hou
 TASKS_RETRY_DELAY = 5 * 60  # 5 minutes delay
 
 
-CACHE_MIDDLEWARE_SECONDS = 86400  # 24 hours
-CACHE_TEMPLATE_FRAGMENTS_SECONDS = 86400  # 24 hours
+CACHE_MIDDLEWARE_SECONDS = 600
+CACHE_TEMPLATE_FRAGMENTS_SECONDS = 600
 
 # Make sure we include the needed Middleware apps
 # Excluding logged in (admin) requests

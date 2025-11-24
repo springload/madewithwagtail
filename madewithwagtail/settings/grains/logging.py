@@ -1,8 +1,5 @@
 import sys
-from os.path import join
 
-from .django import SITE_NAME
-from .paths import DJANGO_ROOT
 
 __all__ = ["LOGGING"]  # don't import DEV_LOGGING by default
 

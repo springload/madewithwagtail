@@ -165,5 +165,5 @@ jobs:
           VERSION=$(echo $GITHUB_SHA | cut -c -8)
           echo "updating the ssm parameter with ejson configuration"
           ecs-tool -p "" -e "${ENVIRONMENT}" ejson -f infra/ssm.ejson
-          ecs-tool -p "" -e "${ENVIRONMENT}" run --image_tag "${ENVIRONMENT}-${VERSION}" -- ./deploy.sh
+          ecs-tool -p "" -e "${ENVIRONMENT}" runFargate --image_tag "${ENVIRONMENT}-${VERSION}" -- ./deploy.sh
           ecs-tool -p "" -e "${ENVIRONMENT}" deploy --image_tag "${ENVIRONMENT}-${VERSION}"

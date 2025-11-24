@@ -1,7 +1,6 @@
 from .base import *
 from .grains.aws import *
 from .grains.cache import *
-from .grains.logging import LOGGING
 from .grains.sentry import *
 
 from typed_environment_configuration import StringVariable

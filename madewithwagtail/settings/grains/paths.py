@@ -1,4 +1,4 @@
-from os.path import abspath, basename, dirname, join
+from os.path import abspath, dirname, join
 from sys import path
 
 # Absolute filesystem path to the Django project directory:

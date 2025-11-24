@@ -1,4 +1,3 @@
-from .. import PROJECT
 from .django import SITE_NAME
 
 EMAIL_BACKEND = "django_amazon_ses.EmailBackend"

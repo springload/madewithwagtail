@@ -9,6 +9,7 @@ from taggit.models import Tag, TaggedItemBase
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
 from wagtailcaptcha.forms import remove_captcha_field
 
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.core.validators import RegexValidator

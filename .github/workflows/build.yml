@@ -153,7 +153,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Download ecs-tool
         run: |
-          wget -O ecs-tool.tar.gz https://github.com/springload/ecs-tool/releases/download/1.9.0/ecs-tool_1.9.0_linux_amd64.tar.gz && tar -C /usr/bin -xvf ecs-tool.tar.gz ecs-tool
+              wget -O ecs-tool.tar.gz https://github.com/springload/ecs-tool/releases/download/v1.9.9-beta/ecs-tool_1.9.9-beta_linux_amd64.tar.gz  && tar -C /usr/bin -xvf ecs-tool.tar.gz ecs-tool
+
       - name: Deploy app
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -165,5 +166,5 @@ jobs:
           VERSION=$(echo $GITHUB_SHA | cut -c -8)
           echo "updating the ssm parameter with ejson configuration"
           ecs-tool -p "" -e "${ENVIRONMENT}" ejson -f infra/ssm.ejson
-          ecs-tool -p "" -e "${ENVIRONMENT}" run --image_tag "${ENVIRONMENT}-${VERSION}" -- ./deploy.sh
+          ecs-tool -p "" -e "${ENVIRONMENT}" runFargate --image_tag "${ENVIRONMENT}-${VERSION}" -- ./deploy.sh
           ecs-tool -p "" -e "${ENVIRONMENT}" deploy --image_tag "${ENVIRONMENT}-${VERSION}"

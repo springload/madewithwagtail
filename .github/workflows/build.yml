@@ -83,12 +83,14 @@ jobs:
         with:
           version: v0.6.3
           driver-opts: image=moby/buildkit:v0.11.5
-      # Configure S3 cache role for Docker layer caching
-      - name: Configure AWS credentials for S3 cache
+      - name: configure AWS for s3 Docker cache
+        id: s3creds
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.REGISTRY_IAM_ROLE }}
+          role-session-name: s3
           aws-region: ${{ env.AWS_REGION }}
+          output-credentials: true
       - name: Set dynamic env vars
         run: |
           docker version
@@ -96,14 +98,11 @@ jobs:
           echo "VERSION=${SHORT_COMMIT}" >> $GITHUB_ENV
           echo "DATABASE_PASSWORD=$( head -c 24 /dev/urandom | xxd -p | tr -d '\n ')" >> $GITHUB_ENV
           echo "ENVIRONMENT=$(basename $GITHUB_REF)" >> $GITHUB_ENV
+          echo "CACHE=type=s3,region=${{ env.AWS_REGION }},bucket=${{ secrets.REGISTRY_BUCKET_NAME }},access_key_id=${{ steps.s3creds.outputs.aws-access-key-id }},secret_access_key=${{ steps.s3creds.outputs.aws-secret-access-key }},session_token=${{ steps.s3creds.outputs.aws-session-token }}" >> $GITHUB_ENV
       - name: Build test containers
         uses: docker/bake-action@v5.11.0
         env:
-          CACHE: type=s3,region=${{ env.AWS_REGION }},bucket=${{ secrets.REGISTRY_BUCKET_NAME }}
-          # Pass OIDC-provided temporary credentials to BuildKit
-          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
-          AWS_SESSION_TOKEN: ${{ env.AWS_SESSION_TOKEN }}
+          CACHE: ${{ env.CACHE }}
         with:
           files: docker-bake.hcl
           targets: app-test
@@ -153,21 +152,24 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
       # Reconfigure S3 cache role for Docker build (ECR push uses token from login step)
-      - name: Configure AWS credentials for S3 cache
+      - name: configure AWS for s3 Docker cache
         if: startsWith(github.ref, 'refs/heads/deploy/')
+        id: s3creds-deploy
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.REGISTRY_IAM_ROLE }}
+          role-session-name: s3
           aws-region: ${{ env.AWS_REGION }}
+          output-credentials: true
+      - name: Update CACHE env var for deploy build
+        if: startsWith(github.ref, 'refs/heads/deploy/')
+        run: |
+          echo "CACHE=type=s3,region=${{ env.AWS_REGION }},bucket=${{ secrets.REGISTRY_BUCKET_NAME }},access_key_id=${{ steps.s3creds-deploy.outputs.aws-access-key-id }},secret_access_key=${{ steps.s3creds-deploy.outputs.aws-secret-access-key }},session_token=${{ steps.s3creds-deploy.outputs.aws-session-token }}" >> $GITHUB_ENV
       - name: Build all other app parts and push to ECR
         if: startsWith(github.ref, 'refs/heads/deploy/')
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          CACHE: type=s3,region=${{ env.AWS_REGION }},bucket=${{ secrets.REGISTRY_BUCKET_NAME }}
-          # Pass OIDC-provided temporary credentials to BuildKit
-          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
-          AWS_SESSION_TOKEN: ${{ env.AWS_SESSION_TOKEN }}
+          CACHE: ${{ env.CACHE }}
         uses: docker/bake-action@v5.11.0
         with:
           files: docker-bake.hcl

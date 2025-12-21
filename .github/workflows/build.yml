@@ -100,6 +100,10 @@ jobs:
         uses: docker/bake-action@v5.11.0
         env:
           CACHE: type=s3,region=${{ env.AWS_REGION }},bucket=${{ secrets.REGISTRY_BUCKET_NAME }}
+          # Pass OIDC-provided temporary credentials to BuildKit
+          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN: ${{ env.AWS_SESSION_TOKEN }}
         with:
           files: docker-bake.hcl
           targets: app-test
@@ -160,6 +164,10 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           CACHE: type=s3,region=${{ env.AWS_REGION }},bucket=${{ secrets.REGISTRY_BUCKET_NAME }}
+          # Pass OIDC-provided temporary credentials to BuildKit
+          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN: ${{ env.AWS_SESSION_TOKEN }}
         uses: docker/bake-action@v5.11.0
         with:
           files: docker-bake.hcl

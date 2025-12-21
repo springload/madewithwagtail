@@ -36,7 +36,7 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/amazon-ecr-login@v2
       - name: Retag images with Skopeo
         id: retag
         run: |
@@ -147,7 +147,7 @@ jobs:
       - name: Login to Amazon ECR
         if: startsWith(github.ref, 'refs/heads/deploy/')
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/amazon-ecr-login@v2
       # Reconfigure S3 cache role for Docker build (ECR push uses token from login step)
       - name: Configure AWS credentials for S3 cache
         if: startsWith(github.ref, 'refs/heads/deploy/')

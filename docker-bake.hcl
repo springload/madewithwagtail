@@ -1,5 +1,7 @@
 // this is registry used for caching purposes only
 variable "CACHE_REGISTRY" { default = "" }
+// this is cache definition used for caching purposes only
+variable "CACHE" { default = "" }
 // this is remote registry to push to
 variable "REGISTRY" { default = "" }
 variable "ENVIRONMENT" { default = "preview" }
@@ -14,15 +16,15 @@ group "default" {
 target "base" {
   dockerfile = "docker/application/Dockerfile"
   target     = "base"
-  cache-from = notequal("", CACHE_REGISTRY) ? ["type=registry,ref=${CACHE_REGISTRY}/base:${VERSION}", "type=registry,ref=${CACHE_REGISTRY}/base:cache"] : []
-  cache-to   = notequal("", CACHE_REGISTRY) ? ["type=registry,ref=${CACHE_REGISTRY}/base:cache,mode=max"] : []
+  cache-from = notequal("", CACHE) ? ["${CACHE},name=base"] : []
+  cache-to   = notequal("", CACHE) ? ["${CACHE},mode=max,name=base"] : []
 }
 
 target "app" {
   dockerfile = "docker/application/Dockerfile"
   target     = "app"
-  cache-from = notequal("", CACHE_REGISTRY) ? ["type=registry,ref=${CACHE_REGISTRY}/app:${VERSION}", "type=registry,ref=${CACHE_REGISTRY}/app:cache"] : []
-  cache-to   = notequal("", CACHE_REGISTRY) ? ["type=registry,ref=${CACHE_REGISTRY}/app:cache,mode=max"] : []
+  cache-from = notequal("", CACHE) ? ["${CACHE},name=app"] : []
+  cache-to   = notequal("", CACHE) ? ["${CACHE},mode=max,name=app"] : []
 
   args = {
     VERSION : VERSION,
@@ -38,8 +40,8 @@ target "app" {
 target "app-test" {
   dockerfile = "docker/application/Dockerfile"
   target     = "app-test"
-  cache-from = notequal("", CACHE_REGISTRY) ? ["type=registry,ref=${CACHE_REGISTRY}/app-test:${VERSION}", "type=registry,ref=${CACHE_REGISTRY}/app-test:cache"] : []
-  cache-to   = notequal("", CACHE_REGISTRY) ? ["type=registry,ref=${CACHE_REGISTRY}/app-test:cache,mode=max"] : []
+  cache-from = notequal("", CACHE) ? ["${CACHE},name=app-test", "${CACHE},name=base"] : []
+  cache-to   = notequal("", CACHE) ? ["${CACHE},mode=max,name=app-test"] : []
 
   args = {
     VERSION : VERSION,
@@ -52,8 +54,8 @@ target "app-test" {
 target "tasks" {
   dockerfile = "docker/application/Dockerfile"
   target     = "tasks"
-  cache-from = notequal("", CACHE_REGISTRY) ? ["type=registry,ref=${CACHE_REGISTRY}/tasks:${VERSION}", "type=registry,ref=${CACHE_REGISTRY}/tasks:cache"] : []
-  cache-to   = notequal("", CACHE_REGISTRY) ? ["type=registry,ref=${CACHE_REGISTRY}/tasks:cache,mode=max"] : []
+  cache-from = notequal("", CACHE) ? ["${CACHE},name=tasks"] : []
+  cache-to   = notequal("", CACHE) ? ["${CACHE},mode=max,name=tasks"] : []
 
   args = {
     VERSION : VERSION,
@@ -69,8 +71,8 @@ target "tasks" {
 target "httpd" {
   context = "docker/httpd"
 
-  cache-from = notequal("", CACHE_REGISTRY) ? ["type=registry,ref=${CACHE_REGISTRY}/httpd:${ENVIRONMENT}-${VERSION}", "type=registry,ref=${CACHE_REGISTRY}/httpd:cache"] : []
-  cache-to   = notequal("", CACHE_REGISTRY) ? ["type=registry,ref=${CACHE_REGISTRY}/httpd:cache,mode=max"] : []
+  cache-from = notequal("", CACHE) ? ["${CACHE},name=httpd"] : []
+  cache-to   = notequal("", CACHE) ? ["${CACHE},mode=max,name=httpd"] : []
 
   args = {
     VERSION : VERSION,

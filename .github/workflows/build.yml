@@ -81,7 +81,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
-          driver-opts: image=moby/buildkit:v0.11.5
+          driver-opts: image=moby/buildkit:v0.13.0
       - name: configure AWS for s3 Docker cache
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -104,6 +104,7 @@ jobs:
           files: docker-bake.hcl
           targets: app-test
           load: true
+          provenance: false
       - name: Test app
         run: |
           # there's some limitation on the hostname length
@@ -171,6 +172,7 @@ jobs:
           targets: default
           # makes it push to the registry
           push: true
+          provenance: false
 
   deploy:
     needs: [build-and-test, retag-images]

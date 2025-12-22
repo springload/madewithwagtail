@@ -27,7 +27,7 @@ jobs:
       id-token: write
       contents: read
     container: docker:stable-git
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Configure AWS credentials for ECR
         uses: aws-actions/configure-aws-credentials@v4
@@ -74,7 +74,7 @@ jobs:
       id-token: write
       contents: read
     container: docker:stable-git
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -184,7 +184,7 @@ jobs:
       id-token: write
       contents: read
     container: docker:stable-git
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3

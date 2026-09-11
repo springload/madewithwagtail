@@ -1,4 +1,4 @@
-FROM nginx:stable-alpine as base
+FROM nginx:stable-alpine AS base
 
 RUN apk update && apk add --no-cache ca-certificates
 

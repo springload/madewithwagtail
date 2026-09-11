@@ -1,7 +1,7 @@
 # Frontend assets
 FROM node:erbium-alpine AS frontend
 
-ENV APPLICATION madewithwagtail
+ENV APPLICATION=madewithwagtail
 
 COPY package.json yarn.lock /madewithwagtail/
 
@@ -24,7 +24,7 @@ CMD ["yarn", "start", "--prefix", "/madewithwagtail"]
 FROM python:3.10-alpine AS base
 ARG REQUIREMENTS=production.txt
 
-ENV PYCURL_SSL_LIBRARY openssl
+ENV PYCURL_SSL_LIBRARY=openssl
 
 RUN apk update && apk add postgresql-libs libevent libjpeg openjpeg tiff zlib freetype tk libcurl su-exec git
 
@@ -60,10 +60,10 @@ RUN adduser -S www -u 1000 && chown -R www /madewithwagtail
 
 ARG VERSION=dev
 ENV APPLICATION_VERSION=${VERSION}
-ENV DJANGO_SETTINGS_MODULE madewithwagtail.settings.hosting
+ENV DJANGO_SETTINGS_MODULE=madewithwagtail.settings.hosting
 ENV VERSION=${VERSION}
-ENV ENVIRONMENT unknown
-ENV PROJECT madewithwagtail
+ENV ENVIRONMENT=unknown
+ENV PROJECT=madewithwagtail
 
 # production stage
 FROM base AS app
@@ -92,7 +92,7 @@ CMD ["/usr/local/bin/gunicorn", "--config", "/madewithwagtail/docker/gunicorn.py
 
 FROM base AS app-test
 ARG REQUIREMENTS=test.txt
-ENV DJANGO_SETTINGS_MODULE madewithwagtail.settings.test
+ENV DJANGO_SETTINGS_MODULE=madewithwagtail.settings.test
 RUN cd /madewithwagtail &&\
     pip install -r requirements/${REQUIREMENTS}
 CMD ["/bin/sh", "/madewithwagtail/test.sh"]
